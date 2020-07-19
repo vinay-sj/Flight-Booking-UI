@@ -1,0 +1,16 @@
+$baseColor: red;
+$testColor: blue;
+$backgroundColor: rgb(166, 216, 245);
+
+body {
+  background-color: $backgroundColor;
+}
+div {
+  color: $baseColor;
+}
+
+.test {
+  .test2 {
+    color: $testColor;
+  }
+}
