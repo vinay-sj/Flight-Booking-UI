@@ -1,21 +1,22 @@
 import React from 'react';
-import './App.scss';
+import { BrowserRouter ,Switch, Route, Redirect } from 'react-router-dom';
+import Header from './Header';
+import Homepage from './HomePage';
+import PassengerDetails from './PassengerDetails';
 
-function App() {
-  return (
-    <div className="container-fluid">
-      <div className="row test">
-        <div className="col-4 test2">test</div>
-        <div className="col-4 test2">asdasd</div>
-        <div className="w-100"></div>
-        <div className="col col-lg-2">React</div>
+const App = () => (
+  <div>
+      <Header />
+      <div className="container main">
+        <BrowserRouter>
+          <Switch>
+                <Route path="/homepage" component={Homepage} />
+                <Route path="/passengerdetails" component={PassengerDetails} />
+                <Redirect from="/" to="/homepage" />
+            </Switch> 
+        </BrowserRouter>         
       </div>
-      <div className="row">
-        <div className="col-6">Hiiiii</div>
-        <div className="col">asdasf dsfd</div>
-      </div>
-    </div>
-  );
-}
+  </div>
+)
 
 export default App;
