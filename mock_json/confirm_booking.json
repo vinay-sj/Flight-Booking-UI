@@ -1,0 +1,16 @@
+{
+  "_id": "5f1c7dc4c5fa8797804d782a",
+  "flightNo": "123",
+  "airlineName": "ABC Airlines",
+  "passengerDetails": [
+    {
+      "name": "Ram",
+      "gender": "M",
+      "_id": "5f1c7dc4c5fa8797804d782a",
+      "birthDay": "2020-07-25T18:45:58.276Z"
+    }
+  ],
+  "bookingDate": "2020-07-25T18:45:58.276Z",
+  "journeyDate": "2020-07-25T18:45:58.276Z",
+  "__v": 0
+}
