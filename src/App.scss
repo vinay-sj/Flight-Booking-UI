@@ -1,5 +1,4 @@
-$baseColor: red;
-$testColor: blue;
+$baseColor: rgb(0, 0, 0);
 $backgroundColor: rgb(166, 216, 245);
 
 body {
@@ -7,10 +6,5 @@ body {
 }
 div {
   color: $baseColor;
-}
-
-.test {
-  .test2 {
-    color: $testColor;
-  }
+  font-weight: 600;
 }

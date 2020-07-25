@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-// import PassengerDetails from './PassengerDetails';
+import PassengerDetails from './components/PassengerDetails';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <div className="container">
+    <React.StrictMode>
+      <PassengerDetails />
+    </React.StrictMode>
+  </div>,
   document.getElementById('root')
 );
-
