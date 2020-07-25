@@ -11,7 +11,7 @@ class PassengerDetails extends React.Component {
         </FormGroup>
         <FormGroup>
           <Label for="gender">Gender</Label>
-          <div className="input-group">
+          <div>
             <CustomInput id="male" type="radio" name="gender" label="Male" inline />
             <CustomInput id="female" type="radio" name="gender" label="Female" inline />
           </div>
