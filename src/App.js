@@ -13,7 +13,7 @@ const App = () => (
         <Switch>
           <Route path="/homepage" component={Homepage} />
           <Route path="/passengerdetails" component={PassengerDetails} />
-          <Route path="/previousbookings" component={Bookings} />
+          <Route path="/bookings" component={Bookings} />
           <Redirect from="/" to="/homepage" />
         </Switch>
       </BrowserRouter>
