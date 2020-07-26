@@ -4,7 +4,7 @@ import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const HomePage = (props) =>{
     
-    const [rselected, setRselected] = useState(null);
+    const [rselected, setRselected] = useState(1);
 
     return(
     <>
@@ -61,8 +61,6 @@ const HomePage = (props) =>{
     );
 }
         
-
-//const toggleClass = (value) => "nav-link" + (value ? " active" : "");
 
 
 export default HomePage;
