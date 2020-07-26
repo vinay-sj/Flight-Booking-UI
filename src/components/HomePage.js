@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TripTypeButton from './TripTypeButton';
-import { Col, Row, Button,ButtonGroup, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const HomePage = (props) =>{
+    
+    const [rselected, setRselected] = useState(null);
+
     return(
-    <div>
+    <>
         <div>
             <h2> Search for flights</h2>
         </div>
@@ -12,7 +15,7 @@ const HomePage = (props) =>{
             <Form>
                 <Row form>
                     <FormGroup>
-                        <TripTypeButton />
+                        <TripTypeButton handleSelectedTripType={setRselected} rSelected={rselected}/>
                     </FormGroup>
                 </Row>
                 <Row form>
@@ -36,12 +39,12 @@ const HomePage = (props) =>{
                       <Input type="date" id="departure" name="departure"/>
                     </FormGroup>
                   </Col>
-                  <Col md={3}>
-                    <FormGroup>
+                  <Col md={3}> 
+                  {rselected!==2 && <FormGroup>
                       <Label for="exampleState">Return</Label>
                       <Input type="date" name="return" id="return"/>
-                    </FormGroup>
-                  </Col>
+                    </FormGroup>}                    
+                  </Col>                  
                   <Col md={1}>
                     <FormGroup>
                       <Label>Passengers</Label>
@@ -52,14 +55,14 @@ const HomePage = (props) =>{
                 <Button>Search</Button>
             </Form>
         </div>    
-    </div>
+    </>
 
 
     );
 }
         
 
-const toggleClass = (value) => "nav-link" + (value ? " active" : "");
+//const toggleClass = (value) => "nav-link" + (value ? " active" : "");
 
 
 export default HomePage;
