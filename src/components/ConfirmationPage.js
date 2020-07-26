@@ -1,7 +1,8 @@
 import React from 'react';
-import {Container, Row, Col, Table } from 'reactstrap';
+import {Container, Row, Col, Table, Button } from 'reactstrap';
 
 class ConfirmationPage extends React.Component {
+ 
   render () {
     return (
       <Container>
@@ -12,7 +13,7 @@ class ConfirmationPage extends React.Component {
           <pre>Your booking went through Succesfully!</pre>
         </Row>
         <Row className="text-center">
-          <pre>Your confirmation number is {id}.</pre>
+          <pre>Your confirmation number is {this.props.id}.</pre>
         </Row>
         <Row>
           <Table striped bordered>
@@ -26,18 +27,18 @@ class ConfirmationPage extends React.Component {
             </thead>
             <tbody>
               <tr>
-                <td>{name}</td>
-                <td>{meal}</td>
-                <td>{specialRequests}</td>
-                <td>{seatNumber}</td>
+                <td>{this.props.name}</td>
+                <td>{this.props.meal}</td>
+                <td>{this.props.specialRequests}</td>
+                <td>{this.props.seatNumber}</td>
               </tr>
             </tbody>
           </Table>
         </Row>
         <Row>
-          <Col>Booked on {bookingDate}</Col>
-          <Col>Email: {email}</Col>
-          <Col>Phone: {number}</Col>
+          <Col>Booked on {this.props.bookingDate}</Col>
+          <Col>Email: {this.props.email}</Col>
+          <Col>Phone: {this.props.number}</Col>
         </Row>
         <Row>
           <Table bordered>
@@ -52,11 +53,11 @@ class ConfirmationPage extends React.Component {
             </thead>
             <tbody>
               <tr>
-                <td>{airlineName}</td>
-                <td>{flightNo}</td>
-                <td>Your flight departs from {departureLocation} at {departureTime}.</td>
-                <td>Your flight will arrive at {arrivalLocation} at {arrivalTime}.</td>
-                <td>Your flight will be {flightLength} hours/time long.</td>
+                <td>{this.props.airlineName}</td>
+                <td>{this.props.flightNo}</td>
+                <td>Your flight departs from {this.props.departureLocation} at {this.props.departureTime}.</td>
+                <td>Your flight will arrive at {this.props.arrivalLocation} at {this.props.arrivalTime}.</td>
+                <td>Your flight will be {this.props.flightLength} hours/time long.</td>
               </tr>
             </tbody>
           </Table>
