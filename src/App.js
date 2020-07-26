@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import Header from './Header';
-import Homepage from './HomePage';
+import Header from './components/Header';
+import Homepage from './components/HomePage';
 import PassengerDetails from './components/PassengerDetails';
 
 const App = () => (
