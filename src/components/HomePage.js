@@ -1,6 +1,31 @@
 import React, { useState } from 'react';
 import TripTypeButton from './TripTypeButton';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import Select from 'react-select';
+import * as places from '../connect_api/places';
+
+//let options = places.getPlaces('Stockholm');
+//console.log(options);
+
+// for testing
+let options1 = [ { label: 'Stockholm', value: 'STOC-sky' },
+{ label: 'Stockholm Arlanda', value: 'ARN-sky' },
+{ label: 'Stockholm Skavsta', value: 'NYO-sky' },
+{ label: 'Stockholm Bromma', value: 'BMA-sky' },
+{ label: 'Stockholm Vasteras', value: 'VST-sky' } ];
+
+let options2 = [ { value: 'NCL-sky', label: 'Newcastle' },
+{ value: 'DEL-sky', label: 'New Delhi' },
+{ value: 'NQY-sky', label: 'Newquay' },
+{ value: 'NYCA-sky', label: 'New York' },
+{ value: 'JFK-sky', label: 'New York John F. Kennedy' },
+{ value: 'EWR-sky', label: 'New York Newark' },
+{ value: 'LGA-sky', label: 'New York LaGuardia' },
+{ value: 'SWF-sky', label: 'Stewart International' },
+{ value: 'NZ-sky', label: 'New Zealand' },
+{ value: 'MSYA-sky', label: 'New Orleans' } ];
+
+
 
 const HomePage = (props) =>{
     
@@ -22,13 +47,13 @@ const HomePage = (props) =>{
                   <Col md={6}>
                     <FormGroup>
                       <Label >From</Label>
-                      <Input type="text" id="deptAirport" name="deptAirport" placeholder="Departure Airport" />
+                      <Select options = {options1}  id="deptAirport" name="deptAirport" placeholder="Departure Airport" />
                     </FormGroup>
                   </Col>
                   <Col md={6}>
                     <FormGroup>
                       <Label>To</Label>
-                      <Input type="text" id="arrAirport" name="arrAirport" placeholder="Arrival Airport" />
+                      <Select options = {options2} id="arrAirport" name="arrAirport" placeholder="Arrival Airport" />
                     </FormGroup>
                   </Col>
                 </Row>
