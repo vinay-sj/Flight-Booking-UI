@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input, CustomInput } from 'reactstrap';
-import axios from 'axios';
+import ConfirmBookingCall from "../connect_api/confirm_booking"
 
 class PassengerDetails extends React.Component {
   constructor(props) {
@@ -21,6 +21,7 @@ class PassengerDetails extends React.Component {
 
   confirmBooking = () => {
     console.log(this.state);
+    ConfirmBookingCall(this.state)
   };
 
   render() {
