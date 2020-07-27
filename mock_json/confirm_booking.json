@@ -1,16 +1,19 @@
 {
-  "_id": "5f1c7dc4c5fa8797804d782a",
-  "flightNo": "123",
+  "flightNo": 11231,
   "airlineName": "ABC Airlines",
+  "_id": "5f1f0ce1490065362c0f20da",
   "passengerDetails": [
     {
-      "name": "Ram",
+      "_id": "5f1f0ce1490065362c0f20db",
+      "name": "asdasda",
       "gender": "M",
-      "_id": "5f1c7dc4c5fa8797804d782a",
-      "birthDay": "2020-07-25T18:45:58.276Z"
+      "birthDate": "0231-12-31T00:00:00.000Z",
+      "emailId": "asdasd",
+      "contactNo": 123123,
+      "passPortNo": "sdfsdfsa"
     }
   ],
-  "bookingDate": "2020-07-25T18:45:58.276Z",
-  "journeyDate": "2020-07-25T18:45:58.276Z",
+  "bookingDate": "2020-07-27T17:20:33.007Z",
+  "journeyDate": "2020-07-27T17:20:33.007Z",
   "__v": 0
 }
