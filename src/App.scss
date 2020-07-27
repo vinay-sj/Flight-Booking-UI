@@ -1,5 +1,6 @@
 $baseColor: rgb(0, 0, 0);
 $backgroundColor: rgb(166, 216, 245);
+$navBackgroundColor: rgb(10, 10, 110);
 
 body {
   background-color: $backgroundColor;
@@ -7,4 +8,14 @@ body {
 div {
   color: $baseColor;
   font-weight: 600;
+}
+nav {
+  background-color: $navBackgroundColor;
+  margin-bottom: 1rem;
+  a {
+    color: $backgroundColor;
+  }
+}
+h2 {
+  margin-bottom: 1rem;
 }
