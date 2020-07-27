@@ -1,6 +1,7 @@
 $baseColor: rgb(0, 0, 0);
-$backgroundColor: rgb(166, 216, 245);
+$backgroundColor: rgb(195, 226, 245);
 $navBackgroundColor: rgb(10, 10, 110);
+$applicationTheme: rgb(121, 206, 255);
 
 body {
   background-color: $backgroundColor;
@@ -18,4 +19,8 @@ nav {
 }
 h2 {
   margin-bottom: 1rem;
+}
+.main {
+  background-color: $applicationTheme;
+  padding: 0.5rem 1rem;
 }
