@@ -1,11 +1,10 @@
 import React from 'react';
-import {Container, Row, Col, Table, Button } from 'reactstrap';
+import { Container, Row, Col, Table, Button } from 'reactstrap';
 import { components } from 'react-select';
 
 class ConfirmationPage extends React.Component {
-  
-  render () {
-    console.log(this.props.bookingDetails)
+  render() {
+    console.log(this.props.bookingDetails);
     return (
       <Container>
         <Row className="text-center">
@@ -38,7 +37,7 @@ class ConfirmationPage extends React.Component {
           </Table>
         </Row>
         <Row>
-          <Col>Booked on {Date(this.props.bookingDetails.bookingDate).toString().split("GMT")[0]}</Col>
+          <Col>Booked on {Date(this.props.bookingDetails.bookingDate).toString().split('GMT')[0]}</Col>
           <Col>Email: {this.props.bookingDetails.passengerDetails[0].emailId}</Col>
           <Col>Phone: {this.props.bookingDetails.passengerDetails[0].contactNo}</Col>
         </Row>
@@ -56,7 +55,7 @@ class ConfirmationPage extends React.Component {
               <tr>
                 <td>{this.props.bookingDetails.airlineName}</td>
                 <td>{this.props.bookingDetails.flightNo}</td>
-                <td>{Date(this.props.bookingDetails.journeyDate).toString().split("GMT")[0]}</td>
+                <td>{Date(this.props.bookingDetails.journeyDate).toString().split('GMT')[0]}</td>
                 {/* <td>Your flight will arrive at {this.props.bookingDetails.arrivalLocation} at {this.props.bookingDetails.arrivalTime}.</td>
                 <td>Your flight will be {this.props.bookingDetails.flightLength} hours/time long.</td> */}
               </tr>
