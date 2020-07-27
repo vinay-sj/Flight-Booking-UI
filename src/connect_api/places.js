@@ -1,8 +1,8 @@
 const axios = require('axios');
 
-const searchString = 'New';
+//const searchString = 'New';
 
-async function getPlaces(searchString){
+export async function getPlaces(searchString){
 
   let data = await axios({
     method: 'GET',
@@ -40,5 +40,5 @@ async function getPlaces(searchString){
   //return places
 }
 
-getPlaces(searchString);
+//getPlaces(searchString);
 

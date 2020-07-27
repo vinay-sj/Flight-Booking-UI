@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button, ButtonGroup } from 'reactstrap';
 
-const TripTypeButton = ({ handleSelectedTripType, rSelected }) => {
+const TripTypeButton = ({ rSelected }) => {
       
     return (
       <div>
         <ButtonGroup>
-          <Button color="primary" onClick={() => handleSelectedTripType(1)} active={rSelected === 1}>Round Trip</Button>
-          <Button color="secondary" onClick={() => handleSelectedTripType(2)} active={rSelected === 2}>One Way</Button>
+          <Button color="primary"  >Round Trip</Button>
+          <Button color="secondary" >One Way</Button>
         </ButtonGroup>
       </div>
     );
