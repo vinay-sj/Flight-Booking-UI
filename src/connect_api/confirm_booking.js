@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const ConfirmBookingCall = (reqBody) => {
-  axios({
+  return axios({
     method: 'POST',
     url: 'http://localhost:5000/api/bookings/confirmBooking',
     headers: {
@@ -10,11 +10,6 @@ const ConfirmBookingCall = (reqBody) => {
     },
     data: { passengerDetails: [reqBody] },
   })
-    .then(
-      (res) => console.log(res),
-      (reject) => console.log(reject)
-    )
-    .catch((err) => console.log(err));
 };
 
 export default ConfirmBookingCall;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input, CustomInput } from 'reactstrap';
-import ConfirmBookingCall from "../connect_api/confirm_booking"
+import ConfirmBookingCall from '../connect_api/confirm_booking';
 
 class PassengerDetails extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class PassengerDetails extends React.Component {
       emailId: '',
       contactNo: '',
       passPortNo: '',
-    };
+    }
   }
 
   genderSelect = (event) => {
@@ -20,8 +20,10 @@ class PassengerDetails extends React.Component {
   };
 
   confirmBooking = () => {
-    console.log(this.state);
-    ConfirmBookingCall(this.state)
+    ConfirmBookingCall(this.state).then((res) => {
+      console.log(res);
+      this.props.updateBookingDetails(res);
+    });
   };
 
   render() {
