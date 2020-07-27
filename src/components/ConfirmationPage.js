@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, Row, Col, Table, Button } from 'reactstrap';
-import { components } from 'react-select';
 
 class ConfirmationPage extends React.Component {
   goToHomepage = () => window.location.replace('/');
