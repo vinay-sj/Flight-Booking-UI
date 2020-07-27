@@ -18,10 +18,12 @@ class App extends React.Component {
   render() {
     if (this.state.bookingDetails) {
       return (
-        <BrowserRouter>
-          <Route path="/bookingConfirmation" render={() => <ConfirmationPage bookingDetails={this.state.bookingDetails} />} />
-          <Redirect to="/bookingConfirmation" />
-        </BrowserRouter>
+        <div className="container main">
+          <BrowserRouter>
+            <Route path="/bookingConfirmation" render={() => <ConfirmationPage bookingDetails={this.state.bookingDetails} />} />
+            <Redirect to="/bookingConfirmation" />
+          </BrowserRouter>
+        </div>
       );
     }
     return (
