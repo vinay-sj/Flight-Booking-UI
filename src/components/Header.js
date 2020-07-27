@@ -8,7 +8,7 @@ const Example = (props) => {
   
   return (
     <div>
-      <Navbar color="light" light expand="md">
+      <Navbar expand="md">
         <NavbarBrand href="/">Home</NavbarBrand>
 
       </Navbar>
