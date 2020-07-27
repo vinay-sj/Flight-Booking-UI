@@ -3,6 +3,8 @@ import { Container, Row, Col, Table, Button } from 'reactstrap';
 import { components } from 'react-select';
 
 class ConfirmationPage extends React.Component {
+  goToHomepage = () => window.location.replace('/');
+
   render() {
     return (
       <Container>
@@ -66,7 +68,9 @@ class ConfirmationPage extends React.Component {
             <Button color="secondary">Print</Button>{' '}
           </Col>
           <Col sm={{ size: 'auto', offset: 1 }}>
-            <Button color="primary">Close</Button>{' '}
+            <Button onClick={this.goToHomepage} color="primary">
+              Go To Homepage
+            </Button>{' '}
           </Col>
         </Row>
       </Container>
