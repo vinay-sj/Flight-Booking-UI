@@ -75,4 +75,5 @@ const Bookings = (props) => {
     </>
   );
 }
+
 export default Bookings;
