@@ -4,7 +4,6 @@ import { components } from 'react-select';
 
 class ConfirmationPage extends React.Component {
   render() {
-    console.log(this.props.bookingDetails);
     return (
       <Container>
         <Row className="text-center">
