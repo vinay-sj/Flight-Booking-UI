@@ -11,7 +11,8 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rselected: 1
+      rselected: 1,
+      startDate: new Date()
     }
 
     this.loadOptions = this.loadOptions.bind(this);
@@ -56,7 +57,7 @@ class HomePage extends React.Component {
                     <Col md={3}>
                       <FormGroup>
                         <Label>Departure</Label>
-                        <Input type="date" id="departure" name="departure"/>
+                        <Input type="date" id="departure" name="departure" />
                       </FormGroup>
                     </Col>
                     <Col md={3}> 
