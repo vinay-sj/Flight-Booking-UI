@@ -25,7 +25,7 @@ class Search extends React.Component {
         <td>{flight.duration.split('T')[1]}</td>
         <td>{flight.price}</td>
         <td>
-          <LinkContainer to={`/bookings/${flight.id}`}>
+          <LinkContainer to={`/passengerdetails/${flight.id}`}>
           <Button>Book</Button>
           </LinkContainer>
         </td>
