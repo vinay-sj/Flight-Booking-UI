@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Table, Button, Collapse} from 'reactstrap';
+import {Table, Button} from 'reactstrap';
 
 const json = require('../mock_json/retrieve_booking.json');
 const bookingsNew = JSON.parse(JSON.stringify(json));

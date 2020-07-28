@@ -1,9 +1,10 @@
 import React from 'react';
-import {Container, Row, Col, Table, Button } from 'reactstrap';
+import { Container, Row, Col, Table, Button } from 'reactstrap';
 
 class ConfirmationPage extends React.Component {
- 
-  render () {
+  goToHomepage = () => window.location.replace('/');
+
+  render() {
     return (
       <Container>
         <Row className="text-center">
@@ -13,32 +14,32 @@ class ConfirmationPage extends React.Component {
           <pre>Your booking went through Succesfully!</pre>
         </Row>
         <Row className="text-center">
-          <pre>Your confirmation number is {this.props.id}.</pre>
+          <pre>Your confirmation number is {this.props.bookingDetails._id}.</pre>
         </Row>
         <Row>
           <Table striped bordered>
             <thead>
               <tr>
                 <th>Traveller Name</th>
-                <th>Meal Prefenece</th>
+                {/* <th>Meal Prefenece</th>
                 <th>Special Request</th>
-                <th>Seat Number</th>
+                <th>Seat Number</th> */}
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>{this.props.name}</td>
-                <td>{this.props.meal}</td>
-                <td>{this.props.specialRequests}</td>
-                <td>{this.props.seatNumber}</td>
+                <td>{this.props.bookingDetails.passengerDetails[0].name}</td>
+                {/* <td>{this.props.bookingDetails.meal}</td>
+                <td>{this.props.bookingDetails.specialRequests}</td>
+                <td>{this.props.bookingDetails.seatNumber}</td> */}
               </tr>
             </tbody>
           </Table>
         </Row>
         <Row>
-          <Col>Booked on {this.props.bookingDate}</Col>
-          <Col>Email: {this.props.email}</Col>
-          <Col>Phone: {this.props.number}</Col>
+          <Col>Booked on {Date(this.props.bookingDetails.bookingDate).toString().split('GMT')[0]}</Col>
+          <Col>Email: {this.props.bookingDetails.passengerDetails[0].emailId}</Col>
+          <Col>Phone: {this.props.bookingDetails.passengerDetails[0].contactNo}</Col>
         </Row>
         <Row>
           <Table bordered>
@@ -46,18 +47,17 @@ class ConfirmationPage extends React.Component {
               <tr>
                 <th>Flight Name</th>
                 <th>Flight Number</th>
-                <th>Departure Details</th>
-                <th>Arrival Details</th>
-                <th>Travel Summary</th>
+                <th>Journey Details</th>
+                {/* <th>Travel Summary</th>  */}
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>{this.props.airlineName}</td>
-                <td>{this.props.flightNo}</td>
-                <td>Your flight departs from {this.props.departureLocation} at {this.props.departureTime}.</td>
-                <td>Your flight will arrive at {this.props.arrivalLocation} at {this.props.arrivalTime}.</td>
-                <td>Your flight will be {this.props.flightLength} hours/time long.</td>
+                <td>{this.props.bookingDetails.airlineName}</td>
+                <td>{this.props.bookingDetails.flightNo}</td>
+                <td>{Date(this.props.bookingDetails.journeyDate).toString().split('GMT')[0]}</td>
+                {/* <td>Your flight will arrive at {this.props.bookingDetails.arrivalLocation} at {this.props.bookingDetails.arrivalTime}.</td>
+                <td>Your flight will be {this.props.bookingDetails.flightLength} hours/time long.</td> */}
               </tr>
             </tbody>
           </Table>
@@ -67,7 +67,9 @@ class ConfirmationPage extends React.Component {
             <Button color="secondary">Print</Button>{' '}
           </Col>
           <Col sm={{ size: 'auto', offset: 1 }}>
-            <Button color="primary">Close</Button>{' '}
+            <Button onClick={this.goToHomepage} color="primary">
+              Go To Homepage
+            </Button>{' '}
           </Col>
         </Row>
       </Container>
