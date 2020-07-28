@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Form, FormGroup, Label, Input, Row, Col, Button, Jumbotron, Table} from "reactstrap";
-
+import { LinkContainer } from 'react-router-bootstrap';
 const json = require('../mock_json/flight.json');
 const flights = JSON.parse(JSON.stringify(json));
 
@@ -18,12 +18,16 @@ class Search extends React.Component {
   flightRows = flights.map((flight,index) => {
     return(
       <tr className='text-center'>
-        <td>{flight.airlineName}</td>
-        <td>{flight.departureTime}</td>
-        <td>{flight.arrivalTime}</td>
+        <td>{flight.carrierCode}</td>
+        <td>{new Date(flight.departure.at).toLocaleString()}</td>
+        <td>{new Date(flight.arrival.at).toLocaleString()}</td>
+        <td>{flight.numberOfStops}</td>
+        <td>{flight.duration.split('T')[1]}</td>
         <td>{flight.price}</td>
         <td>
+          <LinkContainer to={`/bookings/${flight.id}`}>
           <Button>Book</Button>
+          </LinkContainer>
         </td>
       </tr>
     );
@@ -58,7 +62,8 @@ class Search extends React.Component {
                   type='time'
                   name='departure'
                   id='departure'
-                  placeholder='Departure'onChange={(event) => this.setState({ departure: event.target.value })}
+                  placeholder='Departure'
+                  onChange={(event) => this.setState({ departure: event.target.value })}
                 />
               </FormGroup>
             </Col>
@@ -74,6 +79,7 @@ class Search extends React.Component {
               </FormGroup>
             </Col>
             <Col className='text-center'>
+              <br/>
               <Button>Filter</Button>
             </Col>
           </Row>
@@ -86,8 +92,10 @@ class Search extends React.Component {
             <th>Flight Name</th>
             <th>Departure time</th>
             <th>Arrival time</th>
+            <th>Stops</th>
+            <th>Travel duration</th>
             <th>Price</th>
-            <th>{ '  ' }</th>
+            <th>{ ' ' }</th>
           </tr>
           </thead>
           <tbody>
