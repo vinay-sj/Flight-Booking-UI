@@ -1,15 +1,74 @@
 [
   {
-    "_id": "5f1c7dc4c5fa8797804d782a",
-  "airlineName": "ABC Airlines",
-  "departureTime": "2020-07-25T18:45:58.276Z",
-  "arrivalTime": "2020-07-25T18:45:58.276Z",
-  "price": 500
-},{
-  "_id": "5f1c7dc4c5fsfsdfa8797804d782a",
-  "airlineName": "ABCD Airlines",
-  "departureTime": "2021-07-25T18:45:58.276Z",
-  "arrivalTime": "2022-07-25T18:45:58.276Z",
-  "price": 600
-}
+    "departure": {
+      "iataCode": "SYD",
+      "terminal": "1",
+      "at": "2020-08-01T20:55:00"
+    },
+    "arrival": {
+      "iataCode": "HND",
+      "at": "2020-08-02T05:30:00"
+    },
+    "carrierCode": "NH",
+    "number": "880",
+    "aircraft": {
+      "code": "789"
+    },
+    "operating": {
+      "carrierCode": "NH"
+    },
+    "duration": "PT9H35M",
+    "id": "68",
+    "numberOfStops": 1,
+    "blacklistedInEU": false,
+    "price": 350
+  },
+  {
+    "departure": {
+      "iataCode": "SYD",
+      "terminal": "1",
+      "at": "2020-08-01T20:55:00"
+    },
+    "arrival": {
+      "iataCode": "HND",
+      "at": "2020-08-02T05:30:00"
+    },
+    "carrierCode": "NH",
+    "number": "880",
+    "aircraft": {
+      "code": "789"
+    },
+    "operating": {
+      "carrierCode": "NH"
+    },
+    "duration": "PT9H35M",
+    "id": "78",
+    "numberOfStops": 0,
+    "blacklistedInEU": false,
+    "price": 750
+  },
+  {
+    "departure": {
+      "iataCode": "SYD",
+      "terminal": "1",
+      "at": "2020-08-01T20:55:00"
+    },
+    "arrival": {
+      "iataCode": "HND",
+      "at": "2020-08-02T05:30:00"
+    },
+    "carrierCode": "NH",
+    "number": "880",
+    "aircraft": {
+      "code": "789"
+    },
+    "operating": {
+      "carrierCode": "NH"
+    },
+    "duration": "PT9H35M",
+    "id": "98",
+    "numberOfStops": 0,
+    "blacklistedInEU": false,
+    "price": 850
+  }
 ]
