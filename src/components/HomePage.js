@@ -1,6 +1,7 @@
 import React from 'react';
 import TripTypeButton from './TripTypeButton';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import SelectAsync from 'react-select/lib/Async';
 import * as places from '../connect_api/places';
 
@@ -9,15 +10,49 @@ class HomePage extends React.Component {
     super(props);
     this.state = {
       rselected: 1,
+      departureDate: '',
+      returnDate: '',
+      deptAirport:'',
+      arrAirport:'',
+      numPassengers: ''
     };
 
     this.loadOptions = this.loadOptions.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleDepartureDateChange = (event) => {
+    this.setState({
+      departureDate: event.target.value
+    })
+  }
+
+  handleReturnDateChange = (event) => {
+    this.setState({
+      returnDate: event.target.value
+    })
+  }
+
+  handleDeptAirportChange = ({value,label}) => {
+    this.setState({
+      deptAirport: value.split('-')[0]
+    })
+    
+  }
+  handleArrAirportChange = ({value,label}) => {
+    this.setState({
+      arrAirport: value.split('-')[0]
+    })
   }
 
   async loadOptions(term) {
     if (term.length < 3) return [];
     const options = await places.getPlaces(term);
     return options;
+  }
+
+  async handleSubmit(e) {
+    e.prevenDefault();
   }
 
   render() {
@@ -27,7 +62,7 @@ class HomePage extends React.Component {
           <h2> Search for flights</h2>
         </div>
         <div>
-          <Form>
+          <Form onSubmit={this.handleSubmit}>
             <Row form>
               <FormGroup>
                 <TripTypeButton handleSelectedTripType={this.setRselected} rSelected={this.state.rselected} />
@@ -42,6 +77,9 @@ class HomePage extends React.Component {
                     filterOption={() => true}
                     placeholder="Departure Airport"
                     components={{ DropdownIndicator: null }}
+                    name="deptAirport"
+                    //value={this.state.deptAirport}
+                    onChange={this.handleDeptAirportChange}
                   />
                 </FormGroup>
               </Col>
@@ -53,6 +91,9 @@ class HomePage extends React.Component {
                     filterOption={() => true}
                     placeholder="Arrival Airport"
                     components={{ DropdownIndicator: null }}
+                    name="arrAirport"
+                    //value={this.state.arrAirport}
+                    onChange={this.handleArrAirportChange}
                   />
                 </FormGroup>
               </Col>
@@ -61,14 +102,14 @@ class HomePage extends React.Component {
               <Col md={3}>
                 <FormGroup>
                   <Label>Departure</Label>
-                  <Input type="date" id="departure" name="departure" />
+                  <Input type="date" id="departureDate" name="departureDate" value={this.state.departureDate} onChange={this.handleDepartureDateChange} />
                 </FormGroup>
               </Col>
               <Col md={3}>
                 {this.state.rselected !== 2 && (
                   <FormGroup>
                     <Label for="exampleState">Return</Label>
-                    <Input type="date" name="return" id="return" />
+                    <Input type="date" name="returnDate" id="returnDate" value={this.state.returnDate} onChange={this.handleReturnDateChange}/>
                   </FormGroup>
                 )}
               </Col>
@@ -79,7 +120,9 @@ class HomePage extends React.Component {
                 </FormGroup>
               </Col>
             </Row>
-            <Button>Search</Button>
+            <LinkContainer to={`/search`}>
+              <Button>Search</Button>
+            </LinkContainer>
           </Form>
         </div>
       </>
