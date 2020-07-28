@@ -1,74 +1,18 @@
-[
-  {
-    "departure": {
-      "iataCode": "SYD",
-      "terminal": "1",
-      "at": "2020-08-01T20:55:00"
-    },
-    "arrival": {
-      "iataCode": "HND",
-      "at": "2020-08-02T05:30:00"
-    },
-    "carrierCode": "NH",
-    "number": "880",
-    "aircraft": {
-      "code": "789"
-    },
-    "operating": {
-      "carrierCode": "NH"
-    },
-    "duration": "PT9H35M",
-    "id": "68",
-    "numberOfStops": 1,
-    "blacklistedInEU": false,
-    "price": 350
-  },
-  {
-    "departure": {
-      "iataCode": "SYD",
-      "terminal": "1",
-      "at": "2020-08-01T20:55:00"
-    },
-    "arrival": {
-      "iataCode": "HND",
-      "at": "2020-08-02T05:30:00"
-    },
-    "carrierCode": "NH",
-    "number": "880",
-    "aircraft": {
-      "code": "789"
-    },
-    "operating": {
-      "carrierCode": "NH"
-    },
-    "duration": "PT9H35M",
-    "id": "78",
-    "numberOfStops": 0,
-    "blacklistedInEU": false,
-    "price": 750
-  },
-  {
-    "departure": {
-      "iataCode": "SYD",
-      "terminal": "1",
-      "at": "2020-08-01T20:55:00"
-    },
-    "arrival": {
-      "iataCode": "HND",
-      "at": "2020-08-02T05:30:00"
-    },
-    "carrierCode": "NH",
-    "number": "880",
-    "aircraft": {
-      "code": "789"
-    },
-    "operating": {
-      "carrierCode": "NH"
-    },
-    "duration": "PT9H35M",
-    "id": "98",
-    "numberOfStops": 0,
-    "blacklistedInEU": false,
-    "price": 850
-  }
-]
+[{ "id": 52,
+  "price": 11441.48,
+  "departure":
+  { "iataCode": "SYD", "terminal": 1, "at": "2020-08-01T20:55:00" },
+  "arrival": { "iataCode": "HND", "at": "2020-08-02T05:30:00" },
+  "duration": "9H35M",
+  "carrierCode": "NH",
+  "aircraft": 789,
+  "numberOfStops": 0 },
+{ "id": 53,
+"price": 11539.20,
+  "departure":
+  { "iataCode": "SYD", "terminal": 1, "at": "2020-08-01T20:55:00" },
+  "arrival": { "iataCode": "HND", "at": "2020-08-02T05:30:00" },
+"duration": "9H35M",
+"carrierCode": "NH",
+"aircraft": 789,
+  "numberOfStops": 0 } ]

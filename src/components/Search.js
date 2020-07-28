@@ -4,7 +4,6 @@ import { LinkContainer } from 'react-router-bootstrap';
 const json = require('../mock_json/flight.json');
 const flights = JSON.parse(JSON.stringify(json));
 
-
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -15,15 +14,25 @@ class Search extends React.Component {
     };
   }
 
-  flightRows = flights.map((flight,index) => {
+ flightRows = flights.map((flight,index) => {
     return(
-      <tr className='text-center'>
+      <tr
+        className='text-center'
+        key={flight.id}
+      >
+        <td>{index+1}</td>
         <td>{flight.carrierCode}</td>
-        <td>{new Date(flight.departure.at).toLocaleString()}</td>
-        <td>{new Date(flight.arrival.at).toLocaleString()}</td>
+        <td>
+          <div>{flight.departure.iataCode}</div>
+          <div>{new Date(flight.departure.at).toLocaleString()}</div>
+        </td>
+        <td>
+          <div>{flight.arrival.iataCode}</div>
+          <div>{new Date(flight.arrival.at).toLocaleString()}</div>
+        </td>
         <td>{flight.numberOfStops}</td>
-        <td>{flight.duration.split('T')[1]}</td>
-        <td>{flight.price}</td>
+        <td>{flight.duration}</td>
+        <td>{'$'+flight.price}</td>
         <td>
           <LinkContainer to={`/passengerdetails/${flight.id}`}>
           <Button>Book</Button>
@@ -89,9 +98,10 @@ class Search extends React.Component {
         <Table responsive hover striped>
           <thead>
           <tr className='text-center'>
+            <th>#</th>
             <th>Flight Name</th>
-            <th>Departure time</th>
-            <th>Arrival time</th>
+            <th>Departure</th>
+            <th>Arrival</th>
             <th>Stops</th>
             <th>Travel duration</th>
             <th>Price</th>
