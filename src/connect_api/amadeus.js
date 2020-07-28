@@ -27,13 +27,12 @@ async function getitenaries(origin,destination,onwardDate, adults){
         let flight = {
             id: key,
             price: obj.price.grandTotal,
-            departureDate : obj.itineraries[0].segments[0].departure.at.substring(0, 10),
-            departureTime : obj.itineraries[0].segments[0].departure.at.substring(11, 19),
-            arrivalDate : obj.itineraries[0].segments[0].arrival.at.substring(0, 10),
-            arrivalTime : obj.itineraries[0].segments[0].arrival.at.substring(11, 19),
+            departure : obj.itineraries[0].segments[0].departure,
+            arrival : obj.itineraries[0].segments[0].arrival,
             duration : obj.itineraries[0].segments[0].duration.split('T')[1],
             carrierCode : obj.itineraries[0].segments[0].carrierCode,
-            aircraft: obj.itineraries[0].segments[0].aircraft.code
+            aircraft: obj.itineraries[0].segments[0].aircraft.code,
+            numberOfStops: obj.itineraries[0].segments[0].numberOfStops
         };
 
         return flight;
