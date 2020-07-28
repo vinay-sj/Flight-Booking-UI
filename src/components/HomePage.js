@@ -1,6 +1,5 @@
 import React from 'react';
-import TripTypeButton from './TripTypeButton';
-import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Col, Row, Button, Form, FormGroup, ButtonGroup, Label, Input } from 'reactstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import SelectAsync from 'react-select/lib/Async';
 import * as places from '../connect_api/places';
@@ -45,6 +44,20 @@ class HomePage extends React.Component {
     })
   }
 
+  handleNumPassengersChange = (event) => {
+    this.setState({
+      numPassengers: event.target.value
+    })
+  }
+
+  handleOneWayTrip = () =>{
+    this.setState({rselected: 1})
+  }
+
+  handleReturnTrip = () =>{
+    this.setState({rselected: 2})
+  }
+
   async loadOptions(term) {
     if (term.length < 3) return [];
     const options = await places.getPlaces(term);
@@ -65,7 +78,11 @@ class HomePage extends React.Component {
           <Form onSubmit={this.handleSubmit}>
             <Row form>
               <FormGroup>
-                <TripTypeButton handleSelectedTripType={this.setRselected} rSelected={this.state.rselected} />
+                {/* <TripTypeButton handleSelectedTripType={this.setRselected} rSelected={this.state.rselected} /> */}
+                <ButtonGroup>
+                  <Button color="primary"  onClick={this.handleOneWayTrip}>Round Trip</Button>
+                  <Button color="secondary" onClick={this.handleReturnTrip}>One Way</Button>
+                </ButtonGroup>
               </FormGroup>
             </Row>
             <Row form>
@@ -116,7 +133,7 @@ class HomePage extends React.Component {
               <Col md={1}>
                 <FormGroup>
                   <Label>Passengers</Label>
-                  <Input type="number" id="numPassengers" name="numPassengers" placeholder="1" min="1" />
+                  <Input type="number" id="numPassengers" name="numPassengers" value={this.numPassengers} onChange={this.handleNumPassengersChange} placeholder="1" min="1" />
                 </FormGroup>
               </Col>
             </Row>
