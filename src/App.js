@@ -14,6 +14,9 @@ class App extends React.Component {
     this.updateBookingDetails = (response) => {
       this.setState({ bookingDetails: response.data });
     };
+    this.flightSearchParams = (searchParams) => {
+      this.setState({searchParams: searchParams });
+    }
   }
   render() {
     if (this.state.bookingDetails) {
@@ -26,16 +29,26 @@ class App extends React.Component {
         </div>
       );
     }
+    if (this.state.searchParams){
+      return (
+        <div className="container main">
+          <BrowserRouter>
+            <Route path="/search" render={() => <Search searchParams={this.state.searchParams} />} />
+            <Redirect to="/search" />
+          </BrowserRouter>
+        </div>
+      );
+    }
     return (
       <div>
         <Header />
         <div className="container main">
           <BrowserRouter>
             <Switch>
-              <Route path="/homepage" component={Homepage} />
+              <Route path="/homepage" render={() => <Homepage flightSearchParams={this.flightSearchParams} />} />
               <Route path="/passengerdetails" render={() => <PassengerDetails updateBookingDetails={this.updateBookingDetails} />} />
               <Route path="/bookings" component={Bookings} />
-              <Route path="/search" component={Search} />
+              {/*<Route path="/search" render={() => <Search searchParams={this.state.searchParams} />} />*/}
               <Redirect from="/" to="/homepage" />
             </Switch>
           </BrowserRouter>

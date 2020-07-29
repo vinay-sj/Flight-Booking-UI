@@ -30,7 +30,9 @@ class Search extends React.Component {
           <div>{flight.arrival.iataCode}</div>
           <div>{new Date(flight.arrival.at).toLocaleString()}</div>
         </td>
-        <td>{flight.numberOfStops}</td>
+        <td>
+          {flight.numberOfStops}
+        </td>
         <td>{flight.duration}</td>
         <td>{'$'+flight.price}</td>
         <td>

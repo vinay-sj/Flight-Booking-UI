@@ -18,6 +18,7 @@ class HomePage extends React.Component {
 
     this.loadOptions = this.loadOptions.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   handleDepartureDateChange = (event) => {
@@ -63,9 +64,9 @@ class HomePage extends React.Component {
     const options = await places.getPlaces(term);
     return options;
   }
-
   async handleSubmit(e) {
-    e.prevenDefault();
+    e.preventDefault();
+    this.props.flightSearchParams(this.state);
   }
 
   render() {
@@ -78,7 +79,7 @@ class HomePage extends React.Component {
           <h2> Search for flights</h2>
         </div>
         <div>
-          <Form onSubmit={this.handleSubmit} >
+          <Form>
             <Row form>
               <FormGroup>
                 {/* <TripTypeButton handleSelectedTripType={this.setRselected} rSelected={this.state.rselected} /> */}
@@ -141,7 +142,7 @@ class HomePage extends React.Component {
               </Col>
             </Row>
             <LinkContainer to={`/search`}>
-              <Button disabled={!isEnabled}>Search</Button>
+              <Button onClick={this.handleSubmit} disabled={!isEnabled}>Search</Button>
             </LinkContainer>
           </Form>
         </div>
