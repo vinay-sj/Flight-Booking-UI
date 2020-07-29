@@ -42,7 +42,7 @@ class Search extends React.Component {
             key={flight.id}
           >
             <td>{index + 1}</td>
-            <td>{flight.carrierCode}</td>
+            <td>{flight.carrierCode.concat('-').concat(flight.aircraft)}</td>
             <td>
               <div>{flight.departure.iataCode}</div>
               <div>{new Date(flight.departure.at).toLocaleString()}</div>
