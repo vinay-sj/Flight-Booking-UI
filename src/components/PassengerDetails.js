@@ -6,17 +6,27 @@ class PassengerDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      gender: '',
-      birthDate: '',
-      emailId: '',
-      contactNo: '',
-      passPortNo: '',
-    }
+      journeyDate: props.bookingDetails.departure.at,
+      flightNo: props.bookingDetails.carrierCode.concat('-').concat(props.bookingDetails.aircraft),
+      airlineName: props.bookingDetails.carrierCode.concat(' Airlines'),
+      passengerDetails: [
+        {
+          name: '',
+          gender: '',
+          birthDate: '',
+          emailId: '',
+          contactNo: '',
+          passPortNo: '',
+        },
+      ],
+    };
   }
 
   genderSelect = (event) => {
-    this.setState({ gender: event.target.value });
+    this.setState({
+      ...this.state,
+      passengerDetails: [{ ...this.state.passengerDetails[0], gender: event.target.value }],
+    });
   };
 
   confirmBooking = () => {
@@ -31,7 +41,18 @@ class PassengerDetails extends React.Component {
       <Form>
         <FormGroup>
           <Label for="name">Name</Label>
-          <Input type="text" name="name" id="name" placeholder="Name" onChange={(event) => this.setState({ name: event.target.value })} />
+          <Input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Name"
+            onChange={(event) =>
+              this.setState({
+                ...this.state,
+                passengerDetails: [{ ...this.state.passengerDetails[0], name: event.target.value }],
+              })
+            }
+          />
         </FormGroup>
         <FormGroup>
           <Label for="gender">Gender</Label>
@@ -47,7 +68,12 @@ class PassengerDetails extends React.Component {
             name="birthDate"
             id="birthDate"
             placeholder="Birth Date"
-            onChange={(event) => this.setState({ birthDate: event.target.value })}
+            onChange={(event) =>
+              this.setState({
+                ...this.state,
+                passengerDetails: [{ ...this.state.passengerDetails[0], birthDate: event.target.value }],
+              })
+            }
           />
         </FormGroup>
 
@@ -58,7 +84,12 @@ class PassengerDetails extends React.Component {
             name="email"
             id="email"
             placeholder="Email"
-            onChange={(event) => this.setState({ emailId: event.target.value })}
+            onChange={(event) =>
+              this.setState({
+                ...this.state,
+                passengerDetails: [{ ...this.state.passengerDetails[0], emailId: event.target.value }],
+              })
+            }
           />
         </FormGroup>
         <FormGroup>
@@ -68,7 +99,12 @@ class PassengerDetails extends React.Component {
             name="contact"
             id="contact"
             placeholder="Contact No"
-            onChange={(event) => this.setState({ contactNo: event.target.value })}
+            onChange={(event) =>
+              this.setState({
+                ...this.state,
+                passengerDetails: [{ ...this.state.passengerDetails[0], contactNo: event.target.value }],
+              })
+            }
           />
         </FormGroup>
         <FormGroup>
@@ -78,7 +114,12 @@ class PassengerDetails extends React.Component {
             name="passport"
             id="passport"
             placeholder="Passport No"
-            onChange={(event) => this.setState({ passPortNo: event.target.value })}
+            onChange={(event) =>
+              this.setState({
+                ...this.state,
+                passengerDetails: [{ ...this.state.passengerDetails[0], passPortNo: event.target.value }],
+              })
+            }
           />
         </FormGroup>
 

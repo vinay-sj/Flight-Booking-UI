@@ -13,14 +13,12 @@ class App extends React.Component {
     this.state = {
       bookingDetails: {},
       confirmBookingFlag: false,
-      reRender: true,
     };
 
     this.updateBookingDetails = (response, confirmBookingFlag = false) => {
       const updatedData = response.data || {};
       this.setState({
         bookingDetails: { ...this.state.bookingDetails, ...updatedData },
-        reRender: !this.state.reRender,
         confirmBookingFlag: confirmBookingFlag,
       });
     };
@@ -30,7 +28,7 @@ class App extends React.Component {
     };
   }
   render() {
-    if (this.state.confirmBookingFlag && !Object.keys(this.state.bookingDetails)) {
+    if (this.state.confirmBookingFlag && this.state.bookingDetails && this.state.bookingDetails._id) {
       return (
         <div className="container main">
           <BrowserRouter>
@@ -44,7 +42,12 @@ class App extends React.Component {
       return (
         <div className="container main">
           <BrowserRouter>
-            <Route path="/passengerdetails" render={() => <PassengerDetails updateBookingDetails={this.updateBookingDetails} />} />
+            <Route
+              path="/passengerdetails"
+              render={() => (
+                <PassengerDetails bookingDetails={this.state.bookingDetails} updateBookingDetails={this.updateBookingDetails} />
+              )}
+            />
             <Redirect to="/passengerdetails" />
           </BrowserRouter>
         </div>

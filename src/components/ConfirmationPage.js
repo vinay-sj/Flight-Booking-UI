@@ -5,9 +5,9 @@ class ConfirmationPage extends React.Component {
   goToHomepage = () => window.location.replace('/');
 
   render() {
-    const { passengers } = this.props.bookingDetails.passengerDetails
+    const { passengerDetails } = this.props.bookingDetails
     let passengerRow = null;
-    passengerRow = passengers.map((passenger) => {
+    passengerRow = passengerDetails.map((passenger) => {
       return (
         <tr>
           <td>{passenger.name}</td>
@@ -45,7 +45,7 @@ class ConfirmationPage extends React.Component {
           </Table>
         </Row>
         <Row>
-          <Col>Booked on {Date(this.props.bookingDetails.bookingDate).toString().split('GMT')[0]}</Col>
+          <Col>Booked on {new Date(this.props.bookingDetails.bookingDate).toLocaleString()}</Col>
           <Col>Email: {this.props.bookingDetails.passengerDetails[0].emailId}</Col>
           <Col>Phone: {this.props.bookingDetails.passengerDetails[0].contactNo}</Col>
         </Row>
@@ -63,7 +63,7 @@ class ConfirmationPage extends React.Component {
               <tr>
                 <td>{this.props.bookingDetails.airlineName}</td>
                 <td>{this.props.bookingDetails.flightNo}</td>
-                <td>{Date(this.props.bookingDetails.journeyDate).toString().split('GMT')[0]}</td>
+                <td>{new Date(this.props.bookingDetails.journeyDate).toLocaleString()}</td>
                 {/* <td>Your flight will arrive at {this.props.bookingDetails.arrivalLocation} at {this.props.bookingDetails.arrivalTime}.</td>
                 <td>Your flight will be {this.props.bookingDetails.flightLength} hours/time long.</td> */}
               </tr>
