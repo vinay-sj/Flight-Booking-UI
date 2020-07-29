@@ -5,6 +5,19 @@ class ConfirmationPage extends React.Component {
   goToHomepage = () => window.location.replace('/');
 
   render() {
+    const { passengers } = this.props.bookingDetails.passengerDetails
+    let passengerRow = null;
+    passengerRow = passengers.map((passenger) => {
+      return (
+        <tr>
+          <td>{passenger.name}</td>
+          {/* <td>{this.props.bookingDetails.meal}</td>
+          <td>{this.props.bookingDetails.specialRequests}</td>
+          <td>{this.props.bookingDetails.seatNumber}</td> */}
+        </tr>
+      )
+    })
+
     return (
       <Container>
         <Row className="text-center">
@@ -27,12 +40,7 @@ class ConfirmationPage extends React.Component {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>{this.props.bookingDetails.passengerDetails[0].name}</td>
-                {/* <td>{this.props.bookingDetails.meal}</td>
-                <td>{this.props.bookingDetails.specialRequests}</td>
-                <td>{this.props.bookingDetails.seatNumber}</td> */}
-              </tr>
+              {passengerRow}
             </tbody>
           </Table>
         </Row>
