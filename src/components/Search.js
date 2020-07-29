@@ -15,31 +15,26 @@ class Search extends React.Component {
   }
 
   componentDidMount() {
-    this.loadData().then((data) => {
-      this.setState({
-        flights: data
-      })
-    });
+    this.loadData()
   }
 
-  componentDidUpdate() {
-    this.loadData();
-    this.loadData().then((data) => {
-      this.setState({
-        flights: data
-      })
-    });
+  componentDidUpdate(prevProps) {
+    if (prevProps.searchParams !== this.props.searchParams){
+      this.loadData()
+    }
   }
 
   async loadData() {
     const { rselected, departureDate, returnDate, deptAirport, arrAirport, numPassengers } = this.props.searchParams;
     const data = await getitenaries(deptAirport, arrAirport, departureDate, numPassengers);
-    return data;
+    this.setState({
+      flights: data
+    })
   }
 
   render() {
     const { flights } = this.state;
-let flightRows=null;
+    let flightRows=null;
     if (flights !== null) {
     flightRows = flights.map((flight, index) => {
             return (
