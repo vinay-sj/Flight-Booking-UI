@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Table, Button} from 'reactstrap';
+import { Table, Button, Collapse} from 'reactstrap';
 
 const json = require('../mock_json/retrieve_booking.json');
 const bookingsNew = JSON.parse(JSON.stringify(json));
@@ -65,13 +65,13 @@ const Bookings = (props) => {
   return (
     <>
       <Button color='secondary' size='lg' onClick={toggleNew} block>Upcoming Bookings</Button>
-      {/*<Collapse isOpen={isToggleNew}>*/}
+      <Collapse isOpen={isToggleNew}>
       <BookingTable bookingsRows={bookingsNew}/>
-      {/*</Collapse>*/}
+      </Collapse>
       <Button color='secondary' size='lg' onClick={togglePrevious} block>Previous Bookings</Button>
-      {/*<Collapse isOpen={isTogglePrevious}>*/}
+      <Collapse isOpen={isTogglePrevious}>
       <BookingTable bookingsRows={bookingsPrev}/>
-      {/*</Collapse>*/}
+      </Collapse>
     </>
   );
 }
