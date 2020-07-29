@@ -13,7 +13,7 @@ class HomePage extends React.Component {
       returnDate: '',
       deptAirport:'',
       arrAirport:'',
-      numPassengers: ''
+      numPassengers: 1
     };
 
     this.loadOptions = this.loadOptions.bind(this);
@@ -69,13 +69,16 @@ class HomePage extends React.Component {
   }
 
   render() {
+    const isEnabled = this.state.rselected === 1?
+    this.state.departureDate && this.state.returnDate && this.state.deptAirport && this.state.arrAirport : 
+    this.state.departureDate && this.state.deptAirport && this.state.arrAirport;
     return (
       <>
         <div>
           <h2> Search for flights</h2>
         </div>
         <div>
-          <Form onSubmit={this.handleSubmit}>
+          <Form onSubmit={this.handleSubmit} >
             <Row form>
               <FormGroup>
                 {/* <TripTypeButton handleSelectedTripType={this.setRselected} rSelected={this.state.rselected} /> */}
@@ -138,7 +141,7 @@ class HomePage extends React.Component {
               </Col>
             </Row>
             <LinkContainer to={`/search`}>
-              <Button>Search</Button>
+              <Button disabled={!isEnabled}>Search</Button>
             </LinkContainer>
           </Form>
         </div>
