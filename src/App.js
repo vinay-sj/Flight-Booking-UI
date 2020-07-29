@@ -30,39 +30,48 @@ class App extends React.Component {
   render() {
     if (this.state.confirmBookingFlag && this.state.bookingDetails && this.state.bookingDetails._id) {
       return (
-        <div className="container main">
-          <BrowserRouter>
-            <Route path="/bookingConfirmation" render={() => <ConfirmationPage bookingDetails={this.state.bookingDetails} />} />
-            <Redirect to="/bookingConfirmation" />
-          </BrowserRouter>
+        <div>
+          <Header />
+          <div className="container main">
+            <BrowserRouter>
+              <Route path="/bookingConfirmation" render={() => <ConfirmationPage bookingDetails={this.state.bookingDetails} />} />
+              <Redirect to="/bookingConfirmation" />
+            </BrowserRouter>
+          </div>
         </div>
       );
     }
     if (!this.state.confirmBookingFlag && this.state.bookingDetails && typeof this.state.bookingDetails.id === 'number') {
       return (
-        <div className="container main">
-          <BrowserRouter>
-            <Route
-              path="/passengerdetails"
-              render={() => (
-                <PassengerDetails bookingDetails={this.state.bookingDetails} updateBookingDetails={this.updateBookingDetails} />
-              )}
-            />
-            <Redirect to="/passengerdetails" />
-          </BrowserRouter>
+        <div>
+          <Header />
+          <div className="container main">
+            <BrowserRouter>
+              <Route
+                path="/passengerdetails"
+                render={() => (
+                  <PassengerDetails bookingDetails={this.state.bookingDetails} updateBookingDetails={this.updateBookingDetails} />
+                )}
+              />
+              <Redirect to="/passengerdetails" />
+            </BrowserRouter>
+          </div>
         </div>
       );
     }
     if (this.state.searchParams) {
       return (
-        <div className="container main">
-          <BrowserRouter>
-            <Route
-              path="/search"
-              render={() => <Search searchParams={this.state.searchParams} updateBookingDetails={this.updateBookingDetails} />}
-            />
-            <Redirect to="/search" />
-          </BrowserRouter>
+        <div>
+          <Header />
+          <div className="container main">
+            <BrowserRouter>
+              <Route
+                path="/search"
+                render={() => <Search searchParams={this.state.searchParams} updateBookingDetails={this.updateBookingDetails} />}
+              />
+              <Redirect to="/search" />
+            </BrowserRouter>
+          </div>
         </div>
       );
     }
