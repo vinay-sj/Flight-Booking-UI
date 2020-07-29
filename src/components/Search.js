@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Form, FormGroup, Label, Input, Row, Col, Button, Jumbotron, Table} from "reactstrap";
-import {LinkContainer} from 'react-router-bootstrap';
 import getitenaries from '../connect_api/amadeus'
 
 class Search extends React.Component {
@@ -25,7 +24,7 @@ class Search extends React.Component {
   }
 
   async loadData() {
-    const { rselected, departureDate, returnDate, deptAirport, arrAirport, numPassengers } = this.props.searchParams;
+    const { departureDate, deptAirport, arrAirport, numPassengers } = this.props.searchParams;
     const data = await getitenaries(deptAirport, arrAirport, departureDate, numPassengers);
     this.setState({
       flights: data
