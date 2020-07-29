@@ -11,17 +11,12 @@ let amadeus = new Amadeus({
 });
 
 export  default async function getitenaries(origin,destination,onwardDate, adults){
-
-    let data = await amadeus.shopping.flightOffersSearch.get({
+    let {data} = await amadeus.shopping.flightOffersSearch.get({
         originLocationCode: origin,
         destinationLocationCode: destination,
         departureDate: onwardDate,
         adults: adults
-    }).then(function(response){
-      return(response.data);
-    }).catch(function(responseError){
-      console.log(responseError.code);
-    });
+    })
 
     let flights = data.map((obj,key) => {
         let flight = {
