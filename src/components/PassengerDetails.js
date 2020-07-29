@@ -22,7 +22,7 @@ class PassengerDetails extends React.Component {
   confirmBooking = () => {
     ConfirmBookingCall(this.state).then((res) => {
       console.log(res);
-      this.props.updateBookingDetails(res);
+      this.props.updateBookingDetails(res, true);
     });
   };
 

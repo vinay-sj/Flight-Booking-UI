@@ -58,9 +58,7 @@ class Search extends React.Component {
             <td>{flight.duration}</td>
             <td>{'$' + flight.price}</td>
             <td>
-              <LinkContainer to={`/passengerdetails/${flight.id}`}>
-                <Button>Book</Button>
-              </LinkContainer>
+              <Button onClick={(e) => this.props.updateBookingDetails({data: flight})}>Book</Button>
             </td>
           </tr>
         );
