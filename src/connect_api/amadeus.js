@@ -10,7 +10,7 @@ let amadeus = new Amadeus({
   clientSecret: 'M0zp5ikeGXsmD0Mc'
 });
 
-async function getitenaries(origin,destination,onwardDate, adults){
+export  default async function getitenaries(origin,destination,onwardDate, adults){
 
     let data = await amadeus.shopping.flightOffersSearch.get({
         originLocationCode: origin,
@@ -37,8 +37,8 @@ async function getitenaries(origin,destination,onwardDate, adults){
 
         return flight;
     })
-    console.log(flights); // remove this later
+    // console.log(flights); // remove this later
     return(flights);
 }
 
-getitenaries(origin,destination,onwardDate,adults);
+// getitenaries(origin,destination,onwardDate,adults);
