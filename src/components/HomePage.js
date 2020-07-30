@@ -11,68 +11,65 @@ class HomePage extends React.Component {
       rselected: 1,
       departureDate: '',
       returnDate: '',
-      deptAirport:'',
-      arrAirport:'',
-      numPassengers: 1
+      deptAirport: '',
+      arrAirport: '',
+      numPassengers: 1,
     };
 
     this.loadOptions = this.loadOptions.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
   }
 
   handleDepartureDateChange = (event) => {
     this.setState({
-      departureDate: event.target.value
-    })
-  }
+      departureDate: event.target.value,
+    });
+  };
 
   handleReturnDateChange = (event) => {
     this.setState({
-      returnDate: event.target.value
-    })
-  }
+      returnDate: event.target.value,
+    });
+  };
 
-  handleDeptAirportChange = ({value,label}) => {
+  handleDeptAirportChange = ({ value, label }) => {
     this.setState({
       //deptAirport: value.split('-')[0]
-      deptAirport: value
-    })
-  }
-  handleArrAirportChange = ({value,label}) => {
+      deptAirport: value,
+    });
+  };
+  handleArrAirportChange = ({ value, label }) => {
     this.setState({
       //arrAirport: value.split('-')[0]
-      arrAirport: value
-    })
-  }
+      arrAirport: value,
+    });
+  };
 
   handleNumPassengersChange = (event) => {
     this.setState({
-      numPassengers: event.target.value
-    })
-  }
+      numPassengers: event.target.value,
+    });
+  };
 
-  handleOneWayTrip = () =>{
+  handleOneWayTrip = () => {
     this.setState({
       rselected: 1,
-      returnDate: ''
-    })
-  }
+      returnDate: '',
+    });
+  };
 
-  handleReturnTrip = () =>{
-    this.setState({rselected: 2})
-  }
+  handleReturnTrip = () => {
+    this.setState({ rselected: 2 });
+  };
 
   async loadOptions(term) {
     if (term.length < 3) return [];
-    try{
+    try {
       const options = await places.getPlaces(term);
       return options;
-
-    } catch(err){
+    } catch (err) {
       console.log(err);
     }
-    
   }
   async handleSubmit(e) {
     e.preventDefault();
@@ -80,9 +77,10 @@ class HomePage extends React.Component {
   }
 
   render() {
-    const isEnabled = this.state.rselected === 1?
-    this.state.departureDate && this.state.returnDate && this.state.deptAirport && this.state.arrAirport : 
-    this.state.departureDate && this.state.deptAirport && this.state.arrAirport;
+    const isEnabled =
+      this.state.rselected === 1
+        ? this.state.departureDate && this.state.returnDate && this.state.deptAirport && this.state.arrAirport
+        : this.state.departureDate && this.state.deptAirport && this.state.arrAirport;
     return (
       <>
         <div>
@@ -94,8 +92,12 @@ class HomePage extends React.Component {
               <FormGroup>
                 {/* <TripTypeButton handleSelectedTripType={this.setRselected} rSelected={this.state.rselected} /> */}
                 <ButtonGroup>
-                  <Button color="primary"  onClick={this.handleOneWayTrip}>Round Trip</Button>
-                  <Button color="secondary" onClick={this.handleReturnTrip}>One Way</Button>
+                  <Button color="primary" onClick={this.handleOneWayTrip}>
+                    Round Trip
+                  </Button>
+                  <Button color="secondary" onClick={this.handleReturnTrip}>
+                    One Way
+                  </Button>
                 </ButtonGroup>
               </FormGroup>
             </Row>
@@ -133,26 +135,48 @@ class HomePage extends React.Component {
               <Col md={3}>
                 <FormGroup>
                   <Label>Departure</Label>
-                  <Input type="date" id="departureDate" name="departureDate" value={this.state.departureDate} onChange={this.handleDepartureDateChange} />
+                  <Input
+                    type="date"
+                    id="departureDate"
+                    name="departureDate"
+                    value={this.state.departureDate}
+                    onChange={this.handleDepartureDateChange}
+                  />
                 </FormGroup>
               </Col>
               <Col md={3}>
                 {this.state.rselected !== 2 && (
                   <FormGroup>
                     <Label for="exampleState">Return</Label>
-                    <Input type="date" name="returnDate" id="returnDate" value={this.state.returnDate} onChange={this.handleReturnDateChange}/>
+                    <Input
+                      type="date"
+                      name="returnDate"
+                      id="returnDate"
+                      value={this.state.returnDate}
+                      onChange={this.handleReturnDateChange}
+                    />
                   </FormGroup>
                 )}
               </Col>
               <Col md={1}>
                 <FormGroup>
                   <Label>Passengers</Label>
-                  <Input type="number" id="numPassengers" name="numPassengers" value={this.numPassengers} onChange={this.handleNumPassengersChange} placeholder="1" min="1" />
+                  <Input
+                    type="number"
+                    id="numPassengers"
+                    name="numPassengers"
+                    value={this.numPassengers}
+                    onChange={this.handleNumPassengersChange}
+                    placeholder="1"
+                    min="1"
+                  />
                 </FormGroup>
               </Col>
             </Row>
             <LinkContainer to={`/search`}>
-              <Button onClick={this.handleSubmit} disabled={!isEnabled}>Search</Button>
+              <Button onClick={this.handleSubmit} disabled={!isEnabled}>
+                Search
+              </Button>
             </LinkContainer>
           </Form>
         </div>

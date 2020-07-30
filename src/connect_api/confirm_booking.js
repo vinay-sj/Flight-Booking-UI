@@ -9,7 +9,7 @@ const ConfirmBookingCall = (reqBody) => {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
     },
     data: reqBody,
-  })
+  });
 };
 
 export default ConfirmBookingCall;
