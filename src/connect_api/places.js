@@ -3,8 +3,8 @@
 let Amadeus = require('amadeus');
 
 let amadeus = new Amadeus({
-  clientId: 'BASiQ482pDpwH5pvtUEAKlqDM0t4bqRF',
-  clientSecret: 'M0zp5ikeGXsmD0Mc',
+	clientId: 'BASiQ482pDpwH5pvtUEAKlqDM0t4bqRF',
+	clientSecret: 'M0zp5ikeGXsmD0Mc',
 });
 
 //const searchString = 'New';
@@ -50,40 +50,40 @@ let amadeus = new Amadeus({
 //getPlaces(searchString);
 
 export async function getPlaces(searchString) {
-  try {
-    let data;
-    try {
-      data = await amadeus.referenceData.locations
-        .get({
-          keyword: searchString,
-          subType: Amadeus.location.any,
-        })
-        .then(({ data }) => {
-          return data;
-        });
-    } catch (err) {
-      console.log(err);
-    }
+	try {
+		let data;
+		try {
+			data = await amadeus.referenceData.locations
+				.get({
+					keyword: searchString,
+					subType: Amadeus.location.any,
+				})
+				.then(({ data }) => {
+					return data;
+				});
+		} catch (err) {
+			console.log(err);
+		}
 
-    const filters = {
-      subType: 'AIRPORT',
-    };
+		const filters = {
+			subType: 'AIRPORT',
+		};
 
-    let airports = data.filter((airport) => Object.entries(filters).every(([key, val]) => (val !== '' ? airport[key] === val : true)));
+		let airports = data.filter((airport) => Object.entries(filters).every(([key, val]) => (val !== '' ? airport[key] === val : true)));
 
-    airports = airports.map(({ detailedName, iataCode }) => ({ detailedName, iataCode }));
-    airports = airports.map((obj) => {
-      obj.value = obj.iataCode;
-      obj.label = obj.detailedName;
-      delete obj.iataCode;
-      delete obj.detailedName;
-      return obj;
-    });
-    //console.log(airports);
-    return airports;
-  } catch (err) {
-    console.log(err);
-  }
+		airports = airports.map(({ detailedName, iataCode }) => ({ detailedName, iataCode }));
+		airports = airports.map((obj) => {
+			obj.value = obj.iataCode;
+			obj.label = obj.detailedName;
+			delete obj.iataCode;
+			delete obj.detailedName;
+			return obj;
+		});
+		//console.log(airports);
+		return airports;
+	} catch (err) {
+		console.log(err);
+	}
 }
 
 //getPlaces('aus');
