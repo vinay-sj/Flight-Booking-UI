@@ -35,13 +35,14 @@ class HomePage extends React.Component {
 
   handleDeptAirportChange = ({value,label}) => {
     this.setState({
-      deptAirport: value.split('-')[0]
+      //deptAirport: value.split('-')[0]
+      deptAirport: value
     })
-    
   }
   handleArrAirportChange = ({value,label}) => {
     this.setState({
-      arrAirport: value.split('-')[0]
+      //arrAirport: value.split('-')[0]
+      arrAirport: value
     })
   }
 
@@ -52,7 +53,10 @@ class HomePage extends React.Component {
   }
 
   handleOneWayTrip = () =>{
-    this.setState({rselected: 1})
+    this.setState({
+      rselected: 1,
+      returnDate: ''
+    })
   }
 
   handleReturnTrip = () =>{
@@ -61,8 +65,14 @@ class HomePage extends React.Component {
 
   async loadOptions(term) {
     if (term.length < 3) return [];
-    const options = await places.getPlaces(term);
-    return options;
+    try{
+      const options = await places.getPlaces(term);
+      return options;
+
+    } catch(err){
+      console.log(err);
+    }
+    
   }
   async handleSubmit(e) {
     e.preventDefault();
