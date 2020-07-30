@@ -4,6 +4,7 @@ import { Table, Button, Collapse } from 'reactstrap';
 const json = require('../mock_json/retrieve_booking.json');
 const bookingsNew = JSON.parse(JSON.stringify(json));
 const bookingsPrev = JSON.parse(JSON.stringify(json));
+const bookingsCancel = JSON.parse(JSON.stringify(json));
 
 const BookingRow = (props) => {
 	const { booking, index } = props;
@@ -47,8 +48,10 @@ const BookingRows = ({ bookings }) => {
 const Bookings = () => {
 	const [isToggleNew, setisToggleNew] = useState(true);
 	const [isTogglePrevious, setisTogglePrevious] = useState(false);
+	const[isToggleCancel, setisToggleCancel] = useState(false);
 	const toggleNew = () => setisToggleNew(!isToggleNew);
 	const togglePrevious = () => setisTogglePrevious(!isTogglePrevious);
+	const toggleCancel = () => setisToggleCancel(!isToggleCancel);
 
 	return (
 		<>
@@ -63,6 +66,12 @@ const Bookings = () => {
 			</Button>
 			<Collapse isOpen={isTogglePrevious}>
 				<BookingTable bookingsRows={bookingsPrev} />
+			</Collapse>
+			<Button color='secondary' size='lg' onClick={toggleCancel} block>
+				Cancelled Bookings
+			</Button>
+			<Collapse isOpen={isToggleCancel}>
+				<BookingTable bookingsRows={bookingsCancel} />
 			</Collapse>
 		</>
 	);
