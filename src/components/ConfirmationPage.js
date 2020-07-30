@@ -9,7 +9,7 @@ class ConfirmationPage extends React.Component {
     let passengerRow = null;
     passengerRow = passengerDetails.map((passenger) => {
       return (
-        <tr>
+        <tr key={passenger.passPortNo} >
           <td>{passenger.name}</td>
           {/* <td>{this.props.bookingDetails.meal}</td>
           <td>{this.props.bookingDetails.specialRequests}</td>
