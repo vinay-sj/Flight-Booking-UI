@@ -1,5 +1,35 @@
 # GroupProject-Avengers
 
+## Description
+We will avenge confused travellers with a flight booking web applicaiton that allows users to search for and book flights as well as find previous bookings and manage travellers.
+
+*Add deployed heroku link*\
+[Api Link](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-avengers-API)
+
+## Team
+Ram Tarun Balagam\
+*Contributions*\
+Vinay Srampickal Joseph\
+*Contributions*\
+Dhaval Mohandas\
+*Contributions*\
+Priyank Shelat\
+*Contributions*
+
+## Iteration 1
+We used [Create React App](https://github.com/facebook/create-react-app) to start the app.\
+Our homepage was inspired by [Galatia Flight Search](https://galatia.herokuapp.com/homepage). 
+
+For this iteration, we have implemented the main functionality of our app, booking flights. You first land on the homepage where they can input what type of trip and the trip details that they are looking for.
+
+One Way Flight Search             |  Round Trip Flight Search
+:-------------------------:|:-------------------------:
+![](readme_images/Homepage_OneWay.PNG) | ![](readme_images/Homepage_RoundTrip.PNG)
+
+When you hit search, you are taken to the available flights page where it shows you flights based on your search.
+
+![](readme_images/AvailableFlights.PNG)
+
 =======
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
