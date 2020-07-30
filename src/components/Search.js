@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Form, FormGroup, Label, Input, Row, Col, Button, Jumbotron, Table} from "reactstrap";
-import {LinkContainer} from 'react-router-bootstrap';
 import getitenaries from '../connect_api/amadeus'
 
 class Search extends React.Component {
@@ -25,7 +24,7 @@ class Search extends React.Component {
   }
 
   async loadData() {
-    const { rselected, departureDate, returnDate, deptAirport, arrAirport, numPassengers } = this.props.searchParams;
+    const { departureDate, deptAirport, arrAirport, numPassengers } = this.props.searchParams;
     const data = await getitenaries(deptAirport, arrAirport, departureDate, numPassengers);
     this.setState({
       flights: data
@@ -43,7 +42,7 @@ class Search extends React.Component {
             key={flight.id}
           >
             <td>{index + 1}</td>
-            <td>{flight.carrierCode}</td>
+            <td>{flight.carrierCode.concat('-').concat(flight.aircraft)}</td>
             <td>
               <div>{flight.departure.iataCode}</div>
               <div>{new Date(flight.departure.at).toLocaleString()}</div>
@@ -58,9 +57,7 @@ class Search extends React.Component {
             <td>{flight.duration}</td>
             <td>{'$' + flight.price}</td>
             <td>
-              <LinkContainer to={`/passengerdetails/${flight.id}`}>
-                <Button>Book</Button>
-              </LinkContainer>
+              <Button onClick={(e) => this.props.updateBookingDetails({data: flight})}>Book</Button>
             </td>
           </tr>
         );
