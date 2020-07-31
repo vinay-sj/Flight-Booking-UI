@@ -8,13 +8,17 @@ We will avenge confused travellers with a flight booking web applicaiton that al
 
 ## Team
 Ram Tarun Balagam\
-*Contributions*\
+1. Linked UI and API layers and made connections with MongoDB with Mongoose serving as the Schema\
+2. Developed GET and POST API's for confirming and retrieving Bookings\
+3. Connected Flights Search page with Passenger Details page and finally with Booking Confirmation page maintaining the state across all pages\
 Vinay Srampickal Joseph\
-*Contributions*\
+1. Designed the Flight Search page and the Flight Bookings page.\
+2. Connected the Home Page with the Flight Search page maintaining the state across the pages.\
 Dhaval Mohandas\
-*Contributions*\
+1. Designing of landing page and navigation bar.\
+2. Integrated the external Amadeus API, for fetching airports and flights data, with the application.\
 Priyank Shelat\
-*Contributions*
+1. Designed the confirmation page.
 
 ## Iteration 1
 We used [Create React App](https://github.com/facebook/create-react-app) to start the app.\
@@ -29,6 +33,16 @@ One Way Flight Search             |  Round Trip Flight Search
 When you hit search, you are taken to the available flights page where it shows you flights based on your search.
 
 ![](readme_images/AvailableFlights.PNG)
+
+Once you select the flight you like, it will ask you to input your personal information.
+
+![](readme_images/PassengerDetails.PNG)
+
+Then, last but not least, you get a confirmation with a unique id and a read-back of your flight and personal information.
+
+![](readme_images/ConfirmationPage.PNG)
+
+Our next iterations goals will be to add, get, and show more necessary flight and user information as well as to give the user editing capability.
 
 =======
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
