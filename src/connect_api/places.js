@@ -37,10 +37,10 @@ let amadeus = new Amadeus({
   let newArray = data.Places.map(({ PlaceId, PlaceName }) => ({ PlaceId, PlaceName }))
   newArray = newArray.map((obj) => {
     obj.value = obj.PlaceId;
-    obj.label = obj.PlaceName;      
+    obj.label = obj.PlaceName;
     delete obj.PlaceName;
     delete obj.PlaceId;
-    return obj;      
+    return obj;
   });
   console.log(newArray);
   return newArray;
