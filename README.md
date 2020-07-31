@@ -39,11 +39,11 @@ When you hit search, you are taken to the available flights page where it shows 
 
 Once you select the flight you like, it will ask you to input your personal information.
 
-![](readme_images/PassengerDetails.PNG)
+![](readme_images/PassengerDetail.PNG)
 
 Then, last but not least, you get a confirmation with a unique id and a read-back of your flight and personal information.
 
-![](readme_images/ConfirmationPage.PNG)
+![](readme_images/ConfirmationPage.png)
 
 Our next iterations goals will be to add, get, and show more necessary flight and user information as well as to give the user editing capability.
 
