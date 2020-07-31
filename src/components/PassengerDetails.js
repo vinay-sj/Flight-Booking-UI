@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Form, FormGroup, Label, Input, CustomInput } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Jumbotron } from 'reactstrap';
+// import { Select } from 'react-select'
 import ConfirmBookingCall from '../connect_api/confirm_booking';
 
 class PassengerDetails extends React.Component {
@@ -9,27 +10,10 @@ class PassengerDetails extends React.Component {
 			journeyDate: props.bookingDetails.departure.at,
 			flightNo: props.bookingDetails.carrierCode.concat('-').concat(props.bookingDetails.aircraft),
 			airlineName: props.bookingDetails.carrierCode.concat(' Airlines'),
-			passengerDetails: [
-				{
-					name: '',
-					gender: '',
-					birthDate: '',
-					emailId: '',
-					contactNo: '',
-					passPortNo: '',
-				},
-			],
+			numPassengers: props.numPassengers,
+			passengerDetails: []
 		};
-    
-		this.genderSelect = this.genderSelect.bind(this);
 		this.confirmBooking = this.confirmBooking.bind(this);
-	}
-
-	genderSelect(event) {
-		this.setState({
-			...this.state,
-			passengerDetails: [{ ...this.state.passengerDetails[0], gender: event.target.value }],
-		});
 	}
 
 	confirmBooking() {
@@ -40,92 +24,117 @@ class PassengerDetails extends React.Component {
 	}
 
 	render() {
+		const { numPassengers } = this.state;
+		const passengerForm = Array.apply(null, { length: numPassengers }).map((e,i) => {
+			return (
+				<Jumbotron key={i}>
+					<FormGroup>
+						<Label for="name">Name</Label>
+						<Input
+							type="text"
+							name="name"
+							id="name"
+							placeholder="Name"
+							onChange={(event) => {
+								let newState = JSON.parse(JSON.stringify(this.state.passengerDetails));
+								newState[i]= { ...newState[i], name:event.target.value };
+								this.setState({
+									passengerDetails: newState
+								});
+							}}
+						/>
+					</FormGroup>
+					<FormGroup>
+						<Label for="gender">Gender</Label>
+						<div>
+							<select
+								type="text"
+								id="gender"
+								name="gender"
+								onChange={(event) => {
+									let newState = JSON.parse(JSON.stringify(this.state.passengerDetails));
+									newState[i]= { ...newState[i], gender:event.target.value };
+									this.setState({
+										passengerDetails: newState
+									});
+								}}>
+								<option value="---">Select a value</option>
+								<option value="M">Male</option>
+								<option value="F">Female</option>
+							</select>
+						</div>
+					</FormGroup>
+					<FormGroup>
+						<Label for="birthDate">Birth Date</Label>
+						<Input
+							type="date"
+							name="birthDate"
+							id="birthDate"
+							placeholder="Birth Date"
+							onChange={(event) => {
+								let newState = JSON.parse(JSON.stringify(this.state.passengerDetails));
+								newState[i]= { ...newState[i], birthDate:event.target.value };
+								this.setState({
+									passengerDetails: newState
+								});
+							}}
+						/>
+					</FormGroup>
+					<FormGroup>
+						<Label for="email">Email</Label>
+						<Input
+							type="email"
+							name="email"
+							id="email"
+							placeholder="Email"
+							onChange={(event) => {
+								let newState = JSON.parse(JSON.stringify(this.state.passengerDetails));
+								newState[i]= { ...newState[i], emailId:event.target.value };
+								this.setState({
+									passengerDetails: newState
+								});
+							}}
+						/>
+					</FormGroup>
+					<FormGroup>
+						<Label for="contact">Contact No</Label>
+						<Input
+							type="number"
+							name="contact"
+							id="contact"
+							placeholder="Contact No"
+							onChange={(event) => {
+								let newState = JSON.parse(JSON.stringify(this.state.passengerDetails));
+								newState[i]= { ...newState[i], contactNo:event.target.value };
+								this.setState({
+									passengerDetails: newState
+								});
+							}}
+						/>
+					</FormGroup>
+					<FormGroup>
+						<Label for="passport">Passport</Label>
+						<Input
+							type="text"
+							name="passport"
+							id="passport"
+							placeholder="Passport No"
+							onChange={(event) => {
+								let newState = JSON.parse(JSON.stringify(this.state.passengerDetails));
+								newState[i]= { ...newState[i], passPortNo:event.target.value };
+								this.setState({
+									passengerDetails: newState
+								});
+							}}
+						/>
+					</FormGroup>
+				</Jumbotron>
+			);
+		});
+
 		return (
 			<Form>
-				<FormGroup>
-					<Label for="name">Name</Label>
-					<Input
-						type="text"
-						name="name"
-						id="name"
-						placeholder="Name"
-						onChange={(event) =>
-							this.setState({
-								...this.state,
-								passengerDetails: [{ ...this.state.passengerDetails[0], name: event.target.value }],
-							})
-						}
-					/>
-				</FormGroup>
-				<FormGroup>
-					<Label for="gender">Gender</Label>
-					<div>
-						<CustomInput id="male" type="radio" name="gender" label="Male" inline defaultValue={'M'} onClick={this.genderSelect} />
-						<CustomInput id="female" type="radio" name="gender" label="Female" inline defaultValue={'F'} onClick={this.genderSelect} />
-					</div>
-				</FormGroup>
-				<FormGroup>
-					<Label for="birthDate">Birth Date</Label>
-					<Input
-						type="date"
-						name="birthDate"
-						id="birthDate"
-						placeholder="Birth Date"
-						onChange={(event) =>
-							this.setState({
-								...this.state,
-								passengerDetails: [{ ...this.state.passengerDetails[0], birthDate: event.target.value }],
-							})
-						}
-					/>
-				</FormGroup>
-
-				<FormGroup>
-					<Label for="email">Email</Label>
-					<Input
-						type="email"
-						name="email"
-						id="email"
-						placeholder="Email"
-						onChange={(event) =>
-							this.setState({
-								...this.state,
-								passengerDetails: [{ ...this.state.passengerDetails[0], emailId: event.target.value }],
-							})
-						}
-					/>
-				</FormGroup>
-				<FormGroup>
-					<Label for="contact">Contact No</Label>
-					<Input
-						type="number"
-						name="contact"
-						id="contact"
-						placeholder="Contact No"
-						onChange={(event) =>
-							this.setState({
-								...this.state,
-								passengerDetails: [{ ...this.state.passengerDetails[0], contactNo: event.target.value }],
-							})
-						}
-					/>
-				</FormGroup>
-				<FormGroup>
-					<Label for="passport">Passport</Label>
-					<Input
-						type="text"
-						name="passport"
-						id="passport"
-						placeholder="Passport No"
-						onChange={(event) =>
-							this.setState({
-								...this.state,
-								passengerDetails: [{ ...this.state.passengerDetails[0], passPortNo: event.target.value }],
-							})
-						}
-					/>
-				</FormGroup>
-
+				{passengerForm}
 				<Button onClick={this.confirmBooking}>Confirm</Button>
 			</Form>
 		);
