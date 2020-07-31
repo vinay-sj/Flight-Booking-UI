@@ -18,6 +18,10 @@
     "indent": ["error", "tab"],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+    "no-multiple-empty-lines": ["error"],
+    "no-trailing-spaces":["error"],
+    "padding-line-between-statements":["error"],
+    "eqeqeq":["error"]
   }
 }
