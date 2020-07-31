@@ -29,6 +29,9 @@ class PassengerDetails extends React.Component {
 			return (
 				<Jumbotron key={i}>
 					<FormGroup>
+						<div id={i}>Passenger Details: {i+1}</div>
+					</FormGroup>
+					<FormGroup>
 						<Label for="name">Name</Label>
 						<Input
 							type="text"
