@@ -1,19 +1,14 @@
 import React from 'react';
-import {
-  Navbar,
-  NavbarBrand,
-} from 'reactstrap';
+import { Navbar, NavbarBrand } from 'reactstrap';
 
-const Example = (props) => {
-  
-  return (
-    <div>
-      <Navbar expand="md">
-        <NavbarBrand href="/">Home</NavbarBrand>
-
-      </Navbar>
-    </div>
-  );
-}
+const Example = () => {
+	return (
+		<div>
+			<Navbar expand="md">
+				<NavbarBrand href="/">Home</NavbarBrand>
+			</Navbar>
+		</div>
+	);
+};
 
 export default Example;
