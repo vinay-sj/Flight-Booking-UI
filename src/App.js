@@ -50,7 +50,11 @@ class App extends React.Component {
 							<Route
 								path="/passengerdetails"
 								render={() => (
-									<PassengerDetails bookingDetails={this.state.bookingDetails} updateBookingDetails={this.updateBookingDetails} numPassengers={this.state.searchParams.numPassengers} />
+									<PassengerDetails
+										bookingDetails={this.state.bookingDetails}
+										updateBookingDetails={this.updateBookingDetails}
+										numPassengers={this.state.searchParams.numPassengers}
+									/>
 								)}
 							/>
 							<Redirect to="/passengerdetails" />
