@@ -2,6 +2,66 @@ import React from 'react';
 import { Form, FormGroup, Label, Input, Row, Col, Button, Jumbotron, Table } from 'reactstrap';
 import getitenaries from '../connect_api/amadeus';
 
+
+const FlightRow = (props) => {
+	const { flight, index } = props;
+	return (
+		<tr className="text-center">
+			<td>{index + 1}</td>
+			<td>{flight.carrierCode.concat('-').concat(flight.aircraft)}</td>
+			<td>
+				<div>{flight.departure.iataCode}</div>
+				<div>{new Date(flight.departure.at).toLocaleString()}</div>
+			</td>
+			<td>
+				<div>{flight.arrival.iataCode}</div>
+				<div>{new Date(flight.arrival.at).toLocaleString()}</div>
+			</td>
+			<td>{flight.numberOfStops}</td>
+			<td>{flight.duration}</td>
+			<td>{'$' + flight.price}</td>
+			<td>
+				<Button onClick={() => props.updateBookingDetails({ data: flight })}>Book</Button>
+			</td>
+		</tr>
+	);
+};
+
+const FlightTable = ({ flights, updateBookingDetails, direction }) => {
+	const flightRows = (flights||[]).map((flight, index) =>
+		<FlightRow key={flight.id} flight={flight} index={index} updateBookingDetails={updateBookingDetails} />
+	);
+	if (!flights){
+		return null;
+	}
+	else {
+		return (
+			<Col>
+			<Jumbotron>
+				<h5 className='text-center'>{direction}</h5>
+				<Table responsive hover striped>
+					<thead>
+					<tr className="text-center">
+						<th>#</th>
+						<th>Flight Name</th>
+						<th>Departure</th>
+						<th>Arrival</th>
+						<th>Stops</th>
+						<th>Travel duration</th>
+						<th>Price</th>
+						<th></th>
+					</tr>
+					</thead>
+					<tbody>
+					{flightRows}
+					</tbody>
+				</Table>
+			</Jumbotron>
+			</Col>
+		);
+	}
+};
+
 class Search extends React.Component {
 	constructor(props) {
 		super(props);
@@ -9,7 +69,8 @@ class Search extends React.Component {
 			price: '',
 			departure: '',
 			arrival: '',
-			flights: null,
+			flights_forward: null,
+			flights_return: null,
 		};
 	}
 
@@ -24,40 +85,21 @@ class Search extends React.Component {
 	}
 
 	async loadData() {
-		const { departureDate, deptAirport, arrAirport, numPassengers } = this.props.searchParams;
-		const data = await getitenaries(deptAirport, arrAirport, departureDate, numPassengers);
+		const { departureDate, returnDate, deptAirport, arrAirport, numPassengers } = this.props.searchParams;
+		const data_forward = await getitenaries(deptAirport, arrAirport, departureDate, numPassengers);
 		this.setState({
-			flights: data,
+			flights_forward: data_forward,
 		});
+		if(returnDate) {
+			const data_return = await getitenaries(arrAirport, deptAirport, returnDate, numPassengers);
+			this.setState({
+				flights_return: data_return,
+			});
+		}
 	}
 
 	render() {
-		const { flights } = this.state;
-		let flightRows = null;
-		if (flights !== null) {
-			flightRows = flights.map((flight, index) => {
-				return (
-					<tr className="text-center" key={flight.id}>
-						<td>{index + 1}</td>
-						<td>{flight.carrierCode.concat('-').concat(flight.aircraft)}</td>
-						<td>
-							<div>{flight.departure.iataCode}</div>
-							<div>{new Date(flight.departure.at).toLocaleString()}</div>
-						</td>
-						<td>
-							<div>{flight.arrival.iataCode}</div>
-							<div>{new Date(flight.arrival.at).toLocaleString()}</div>
-						</td>
-						<td>{flight.numberOfStops}</td>
-						<td>{flight.duration}</td>
-						<td>{'$' + flight.price}</td>
-						<td>
-							<Button onClick={() => this.props.updateBookingDetails({ data: flight })}>Book</Button>
-						</td>
-					</tr>
-				);
-			});
-		}
+		const { flights_forward, flights_return } = this.state;
 		return (
 			<>
 				<h4 className="text-center">Available Flights</h4>
@@ -108,23 +150,10 @@ class Search extends React.Component {
 						</Row>
 					</Form>
 				</Jumbotron>
-				<Jumbotron>
-					<Table responsive hover striped>
-						<thead>
-							<tr className="text-center">
-								<th>#</th>
-								<th>Flight Name</th>
-								<th>Departure</th>
-								<th>Arrival</th>
-								<th>Stops</th>
-								<th>Travel duration</th>
-								<th>Price</th>
-								<th> </th>
-							</tr>
-						</thead>
-						<tbody>{flightRows}</tbody>
-					</Table>
-				</Jumbotron>
+				<Row>
+					<FlightTable flights={flights_forward} updateBookingDetails={this.props.updateBookingDetails} direction={'Onward Journey'} />
+					<FlightTable flights={flights_return} updateBookingDetails={this.props.updateBookingDetails} direction={'Return Journey'} />
+				</Row>
 			</>
 		);
 	}
