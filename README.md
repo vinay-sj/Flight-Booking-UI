@@ -7,17 +7,20 @@ We will avenge confused travellers with a flight booking web applicaiton that al
 [Api Link](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-avengers-API)
 
 ## Team
-Ram Tarun Balagam\
-1. Linked UI and API layers and made connections with MongoDB with Mongoose serving as the Schema\
-2. Developed GET and POST API's for confirming and retrieving Bookings\
-3. Connected Flights Search page with Passenger Details page and finally with Booking Confirmation page maintaining the state across all pages\
-Vinay Srampickal Joseph\
-1. Designed the Flight Search page and the Flight Bookings page.\
-2. Connected the Home Page with the Flight Search page maintaining the state across the pages.\
-Dhaval Mohandas\
-1. Designing of landing page and navigation bar.\
-2. Integrated the external Amadeus API, for fetching airports and flights data, with the application.\
-Priyank Shelat\
+Ram Tarun Balagam
+1. Linked UI and API layers and made connections with MongoDB with Mongoose serving as the Schema.
+2. Developed GET and POST API's for confirming and retrieving Bookings.
+3. Connected Flights Search page with Passenger Details page and finally with Booking Confirmation page maintaining the state across all pages.
+
+Vinay Srampickal Joseph
+1. Designed the Flight Search page and the Flight Bookings page.
+2. Connected the Home Page with the Flight Search page maintaining the state across the pages.
+
+Dhaval Mohandas
+1. Designing of landing page and navigation bar.
+2. Integrated the external Amadeus API, for fetching airports and flights data, with the application.
+
+Priyank Shelat
 1. Designed the confirmation page.
 
 ## Iteration 1
