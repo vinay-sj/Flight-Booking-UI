@@ -50,26 +50,24 @@ let amadeus = new Amadeus({
 //getPlaces(searchString);
 
 export async function getPlaces(searchString) {
+//async function getPlaces(searchString) {
+	let airports;
 	try {
 		let data;
-		try {
-			data = await amadeus.referenceData.locations
-				.get({
-					keyword: searchString,
-					subType: Amadeus.location.any,
-				})
-				.then(({ data }) => {
-					return data;
-				});
-		} catch (err) {
-			console.log(err);
-		}
+		data = await amadeus.referenceData.locations
+			.get({
+				keyword: searchString,
+				subType: Amadeus.location.any,
+			})
+			.then(({ data }) => {
+				return data;
+			});
 
 		const filters = {
 			subType: 'AIRPORT',
 		};
 
-		let airports = data.filter((airport) => Object.entries(filters).every(([key, val]) => (val !== '' ? airport[key] === val : true)));
+		airports = data.filter((airport) => Object.entries(filters).every(([key, val]) => (val !== '' ? airport[key] === val : true)));
 
 		airports = airports.map(({ detailedName, iataCode }) => ({ detailedName, iataCode }));
 		airports = airports.map((obj) => {
@@ -80,10 +78,12 @@ export async function getPlaces(searchString) {
 			return obj;
 		});
 		//console.log(airports);
-		return airports;
 	} catch (err) {
 		console.log(err);
 	}
+	return airports;
+
 }
 
-//getPlaces('aus');
+
+//getPlaces('san');
