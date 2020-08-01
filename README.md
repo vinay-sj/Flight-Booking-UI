@@ -45,10 +45,14 @@ Once you select the flight you like, it will ask you to input your personal info
 
 ![](readme_images/PassengerDetail.PNG)
 
-Then, last but not least, you get a confirmation with a unique id and a read-back of your flight and personal information.
+Then, you get a confirmation with a unique id and a read-back of your flight and personal information.
 
 ![](readme_images/ConfirmationPage.png)
 
+Then, last but not least, you can view the upcoming, previous, and the cancelled bookings.
+
+![](readme_images/Bookings.PNG)
+ 
 Our next iterations goals will be to add, get, and show more necessary flight and user information as well as to give the user editing capability which include but are not limited to canceling tickets and passengers as well as booking return flights.
 
 =======
