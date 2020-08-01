@@ -42,14 +42,14 @@ class HomePage extends React.Component {
 
 	handleDeptAirportChange({ value }) {
 		this.setState({
-			//deptAirport: value.split('-')[0]
-			deptAirport: value,
+			deptAirport: value.split('-')[0]
+			// deptAirport: value,
 		});
 	}
 	handleArrAirportChange({ value }) {
 		this.setState({
-			//arrAirport: value.split('-')[0]
-			arrAirport: value,
+			arrAirport: value.split('-')[0]
+			// arrAirport: value,
 		});
 	}
 
