@@ -49,7 +49,7 @@ Then, last but not least, you get a confirmation with a unique id and a read-bac
 
 ![](readme_images/ConfirmationPage.png)
 
-Our next iterations goals will be to add, get, and show more necessary flight and user information as well as to give the user editing capability.
+Our next iterations goals will be to add, get, and show more necessary flight and user information as well as to give the user editing capability which include but are not limited to canceling tickets and passengers as well as booking return flights.
 
 =======
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
