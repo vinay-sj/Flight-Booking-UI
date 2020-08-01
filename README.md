@@ -6,6 +6,8 @@ We will avenge confused travellers with a flight booking web applicaiton that al
 *Add deployed heroku link*\
 [Api Link](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-avengers-API)
 
+_Note: While fetching the list of airports, not all airports would work with the search, we are still working on it. For now, for testing purposes, you can these airports : "Boston Logan International" and "New York J.F. Kennedy"_
+
 ## Team
 Ram Tarun Balagam
 1. Linked UI and API layers and made connections with MongoDB with Mongoose serving as the Schema.
