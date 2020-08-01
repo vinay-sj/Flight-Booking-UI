@@ -6,7 +6,7 @@ We will avenge confused travellers with a flight booking web applicaiton that al
 *Add deployed heroku link*\
 [Api Link](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-avengers-API)
 
-__Note__: While fetching the list of airports, not all airports would work with the search, we are still working on it. For now, for testing purposes, you can these airports : "Boston Logan International" and "New York J.F. Kennedy"
+__Note__: While fetching the list of airports, not all airports would work with the search, we are still working on it. For now, for testing purposes, you can test with these airports : "Boston Logan International" and "New York J.F. Kennedy"
 
 ## Team
 Ram Tarun Balagam
