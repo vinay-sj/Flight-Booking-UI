@@ -37,26 +37,26 @@ const FlightTable = ({ flights, updateBookingDetails, direction }) => {
 	else {
 		return (
 			<Col>
-			<Jumbotron>
-				<h5 className='text-center'>{direction}</h5>
-				<Table responsive hover striped>
-					<thead>
-					<tr className="text-center">
-						<th>#</th>
-						<th>Flight Name</th>
-						<th>Departure</th>
-						<th>Arrival</th>
-						<th>Stops</th>
-						<th>Travel duration</th>
-						<th>Price</th>
-						<th></th>
-					</tr>
-					</thead>
-					<tbody>
-					{flightRows}
-					</tbody>
-				</Table>
-			</Jumbotron>
+				<Jumbotron>
+					<h5 className='text-center'>{direction}</h5>
+					<Table responsive hover striped>
+						<thead>
+							<tr className="text-center">
+								<th>#</th>
+								<th>Flight Name</th>
+								<th>Departure</th>
+								<th>Arrival</th>
+								<th>Stops</th>
+								<th>Travel duration</th>
+								<th>Price</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							{flightRows}
+						</tbody>
+					</Table>
+				</Jumbotron>
 			</Col>
 		);
 	}
