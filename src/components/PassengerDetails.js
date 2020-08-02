@@ -12,11 +12,11 @@ class PassengerDetails extends React.Component {
 				flightNo: props.bookingDetails.onwardFlightDetails.carrierCode.concat('-').concat(props.bookingDetails.onwardFlightDetails.aircraft),
 				airlineName: props.bookingDetails.onwardFlightDetails.carrierCode.concat(' Airlines'),
 			},
-			returnFlag: props.bookingDetails.returnFlag,
+			isRoundTrip: props.bookingDetails.isRoundTrip,
 			numPassengers: props.numPassengers,
 			passengerDetails: [],
 		};
-		if (this.state.returnFlag) {
+		if (this.state.isRoundTrip) {
 			this.state.returnFlightDetails = {
 				journeyDate: props.bookingDetails.returnFlightDetails.departure.at,
 				flightNo: props.bookingDetails.returnFlightDetails.carrierCode.concat('-').concat(props.bookingDetails.returnFlightDetails.aircraft),

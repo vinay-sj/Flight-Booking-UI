@@ -12,7 +12,7 @@ const handleBooking = (props) => {
 		isOnwardSelected = true;
 
 	} else {
-		bookingDetails.data = {...bookingDetails.data, ...{returnFlightDetails: props.flight, returnFlag: true}};
+		bookingDetails.data = {...bookingDetails.data, ...{returnFlightDetails: props.flight, isRoundTrip: true}};
 		isReturnSelected = true;
 	}
 	isValidSelectionHandler(isReturnValid ? isReturnSelected && isOnwardSelected : isOnwardSelected);

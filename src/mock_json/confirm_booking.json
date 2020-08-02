@@ -2,7 +2,7 @@
   "onwardFlightDetails": { "flightNo": "B6-E90", "airlineName": "B6 Airlines", "journeyDate": "2020-08-04T13:25:00.000Z" },
   "returnFlightDetails": { "flightNo": "B6-320", "airlineName": "B6 Airlines", "journeyDate": "2020-08-04T09:24:00.000Z" },
   "numPassengers": 1,
-  "returnFlag": true,
+  "isRoundTrip": true,
   "_id": "5f26087154d15ebd90fc31f2",
   "passengerDetails": [
     {
