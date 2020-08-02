@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, FormGroup, Label, Input, Row, Col, Button, Jumbotron, Table } from 'reactstrap';
 import getitenaries from '../connect_api/amadeus';
-import {LinkContainer} from "react-router-bootstrap";
+import {LinkContainer} from 'react-router-bootstrap';
 
 const bookingDetails = {};
 

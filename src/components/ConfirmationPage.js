@@ -5,12 +5,23 @@ class ConfirmationPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.goToHomepage = () => window.location.replace('/');
+		this.state={
+			id:this.props.bookingDetails._id,
+		};
+	}
+
+	componentDidUpdate(prevProps) {
+		if (prevProps.bookingDetails !== this.props.bookingDetails) {
+			this.setState({ id: this.props.bookingDetails._id });
+		}
 	}
 
 	render() {
+		if (!this.state.id) {
+			return null;
+		}
 		const { passengerDetails } = this.props.bookingDetails;
-		let passengerRow = null;
-		passengerRow = passengerDetails.map((passenger) => {
+		const passengerRow = (passengerDetails || []).map((passenger) => {
 			return (
 				<tr key={passenger.passPortNo}>
 					<td>{passenger.name}</td>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Form, FormGroup, Label, Input, Jumbotron } from 'reactstrap';
 // import { Select } from 'react-select'
 import ConfirmBookingCall from '../connect_api/confirm_booking';
+import { LinkContainer } from 'react-router-bootstrap';
 
 class PassengerDetails extends React.Component {
 	constructor(props) {
@@ -28,7 +29,6 @@ class PassengerDetails extends React.Component {
 
 	confirmBooking() {
 		ConfirmBookingCall(this.state).then((res) => {
-			console.log(res);
 			this.props.updateBookingDetails(res, true);
 		});
 	}
@@ -149,7 +149,9 @@ class PassengerDetails extends React.Component {
 		return (
 			<Form>
 				{passengerForm}
-				<Button onClick={this.confirmBooking}>Confirm</Button>
+				<LinkContainer to={'/bookingConfirmation'}>
+					<Button onClick={this.confirmBooking}>Confirm</Button>
+				</LinkContainer>
 			</Form>
 		);
 	}
