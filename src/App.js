@@ -28,57 +28,19 @@ class App extends React.Component {
 		};
 	}
 	render() {
-		// if (this.state.confirmBookingFlag && this.state.bookingDetails && this.state.bookingDetails._id) {
-		// 	return (
-		// 		<div>
-		// 			<Header />
-		// 			<div className="container main">
-		// 				<BrowserRouter>
-		// 					<Route path="/bookingConfirmation" render={() => <ConfirmationPage bookingDetails={this.state.bookingDetails} />} />
-		// 					<Redirect to="/bookingConfirmation" />
-		// 				</BrowserRouter>
-		// 			</div>
-		// 		</div>
-		// 	);
-		// }
-		// if (!this.state.confirmBookingFlag && this.state.bookingDetails && this.state.bookingDetails.onwardFlightDetails) {
-		// 	return (
-		// 		<div>
-		// 			<Header />
-		// 			<div className="container main">
-		// 				<BrowserRouter>
-		// 					<Route
-		// 						path="/passengerdetails"
-		// 						render={() => (
-		// 							<PassengerDetails
-		// 								bookingDetails={this.state.bookingDetails}
-		// 								updateBookingDetails={this.updateBookingDetails}
-		// 								numPassengers={this.state.searchParams.numPassengers}
-		// 							/>
-		// 						)}
-		// 					/>
-		// 					<Redirect to="/passengerdetails" />
-		// 				</BrowserRouter>
-		// 			</div>
-		// 		</div>
-		// 	);
-		// }
-		// if (this.state.searchParams) {
-		// 	return (
-		// 		<div>
-		// 			<Header />
-		// 			<div className="container main">
-		// 				<BrowserRouter>
-		// 					<Route
-		// 						path="/search"
-		// 						render={() => <Search searchParams={this.state.searchParams} updateBookingDetails={this.updateBookingDetails} />}
-		// 					/>
-		// 					<Redirect to="/search" />
-		// 				</BrowserRouter>
-		// 			</div>
-		// 		</div>
-		// 	);
-		// }
+		if (this.state.confirmBookingFlag && this.state.bookingDetails && this.state.bookingDetails._id) {
+			return (
+				<div>
+					<Header />
+					<div className="container main">
+						<BrowserRouter>
+							<Route path="/bookingConfirmation" render={() => <ConfirmationPage bookingDetails={this.state.bookingDetails} />} />
+							<Redirect to="/bookingConfirmation" />
+						</BrowserRouter>
+					</div>
+				</div>
+			);
+		}
 		return (
 			<div>
 				<Header />
