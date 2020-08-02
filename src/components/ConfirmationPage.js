@@ -62,9 +62,9 @@ class ConfirmationPage extends React.Component {
 						</thead>
 						<tbody>
 							<tr>
-								<td>{this.props.bookingDetails.airlineName}</td>
-								<td>{this.props.bookingDetails.flightNo}</td>
-								<td>{new Date(this.props.bookingDetails.journeyDate).toLocaleString()}</td>
+								<td>{this.props.bookingDetails.onwardFlightDetails.airlineName}</td>
+								<td>{this.props.bookingDetails.onwardFlightDetails.flightNo}</td>
+								<td>{new Date(this.props.bookingDetails.onwardFlightDetails.journeyDate).toLocaleString()}</td>
 								{/* <td>Your flight will arrive at {this.props.bookingDetails.arrivalLocation} at {this.props.bookingDetails.arrivalTime}.</td>
                 <td>Your flight will be {this.props.bookingDetails.flightLength} hours/time long.</td> */}
 							</tr>

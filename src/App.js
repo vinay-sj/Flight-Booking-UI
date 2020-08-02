@@ -41,7 +41,7 @@ class App extends React.Component {
 				</div>
 			);
 		}
-		if (!this.state.confirmBookingFlag && this.state.bookingDetails && typeof this.state.bookingDetails.id === 'number') {
+		if (!this.state.confirmBookingFlag && this.state.bookingDetails && this.state.bookingDetails.onwardFlightDetails) {
 			return (
 				<div>
 					<Header />

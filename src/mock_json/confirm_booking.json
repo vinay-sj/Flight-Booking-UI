@@ -1,19 +1,20 @@
 {
-  "flightNo": 11231,
-  "airlineName": "ABC Airlines",
-  "_id": "5f1f0ce1490065362c0f20da",
+  "onwardFlightDetails": { "flightNo": "B6-E90", "airlineName": "B6 Airlines", "journeyDate": "2020-08-04T13:25:00.000Z" },
+  "returnFlightDetails": { "flightNo": "B6-320", "airlineName": "B6 Airlines", "journeyDate": "2020-08-04T09:24:00.000Z" },
+  "numPassengers": 1,
+  "returnFlag": true,
+  "_id": "5f26087154d15ebd90fc31f2",
   "passengerDetails": [
     {
-      "_id": "5f1f0ce1490065362c0f20db",
-      "name": "asdasda",
+      "_id": "5f26087154d15ebd90fc31f3",
+      "name": "Ram Tarun Balagam",
+      "emailId": "ramtarun.b2013@gmail.com",
       "gender": "M",
-      "birthDate": "0231-12-31T00:00:00.000Z",
-      "emailId": "asdasd",
-      "contactNo": 123123,
-      "passPortNo": "sdfsdfsa"
+      "birthDate": "2020-08-01T00:00:00.000Z",
+      "contactNo": 131231,
+      "passPortNo": "MKLMLKML"
     }
   ],
-  "bookingDate": "2020-07-27T17:20:33.007Z",
-  "journeyDate": "2020-07-27T17:20:33.007Z",
+  "bookingDate": "2020-08-02T00:27:29.576Z",
   "__v": 0
 }

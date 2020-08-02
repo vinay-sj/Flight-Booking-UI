@@ -2,6 +2,22 @@ import React from 'react';
 import { Form, FormGroup, Label, Input, Row, Col, Button, Jumbotron, Table } from 'reactstrap';
 import getitenaries from '../connect_api/amadeus';
 
+const bookingDetails = {};
+
+let isValidSelectionHandler, isReturnValid = false, isOnwardSelected = false, isReturnSelected = false;
+
+const handleBooking = (props) => {
+	if (props.direction === 1) {
+		bookingDetails.data = {onwardFlightDetails: props.flight};
+		isOnwardSelected = true;
+
+	} else {
+		bookingDetails.data = {...bookingDetails.data, ...{returnFlightDetails: props.flight, returnFlag: true}};
+		isReturnSelected = true;
+		console.log(bookingDetails.data);
+	}
+	isValidSelectionHandler(isReturnValid ? isReturnSelected && isOnwardSelected : isOnwardSelected);
+};
 
 const FlightRow = (props) => {
 	const { flight, index } = props;
@@ -21,15 +37,15 @@ const FlightRow = (props) => {
 			<td>{flight.duration}</td>
 			<td>{'$' + flight.price}</td>
 			<td>
-				<Button onClick={() => props.updateBookingDetails({ data: flight })}>Book</Button>
+				<Button onClick={() => handleBooking(props)}>Select</Button>
 			</td>
 		</tr>
 	);
 };
 
-const FlightTable = ({ flights, updateBookingDetails, direction }) => {
+const FlightTable = ({ flights, direction = 1 }) => {
 	const flightRows = (flights||[]).map((flight, index) =>
-		<FlightRow key={flight.id} flight={flight} index={index} updateBookingDetails={updateBookingDetails} />
+		<FlightRow key={flight.id} flight={flight} index={index} direction={direction} />
 	);
 	if (!flights){
 		return null;
@@ -38,7 +54,7 @@ const FlightTable = ({ flights, updateBookingDetails, direction }) => {
 		return (
 			<Col>
 				<Jumbotron>
-					<h5 className='text-center'>{direction}</h5>
+					<h5 className='text-center'>{direction === 1 ? 'Onward Journey' : 'Return Jounrey'}</h5>
 					<Table responsive hover striped>
 						<thead>
 							<tr className="text-center">
@@ -71,7 +87,10 @@ class Search extends React.Component {
 			arrival: '',
 			flights_forward: null,
 			flights_return: null,
+			isValidSelection: false
 		};
+
+		this.isValidSelectionFn = this.isValidSelectionFn.bind(this);
 	}
 
 	componentDidMount() {
@@ -84,6 +103,10 @@ class Search extends React.Component {
 		}
 	}
 
+	isValidSelectionFn(value) {
+		this.setState({isValidSelection: value});
+	}
+
 	async loadData() {
 		const { departureDate, returnDate, deptAirport, arrAirport, numPassengers } = this.props.searchParams;
 		const data_forward = await getitenaries(deptAirport, arrAirport, departureDate, numPassengers);
@@ -91,6 +114,7 @@ class Search extends React.Component {
 			flights_forward: data_forward,
 		});
 		if(returnDate) {
+			isReturnValid = true;
 			const data_return = await getitenaries(arrAirport, deptAirport, returnDate, numPassengers);
 			this.setState({
 				flights_return: data_return,
@@ -99,6 +123,7 @@ class Search extends React.Component {
 	}
 
 	render() {
+		isValidSelectionHandler = this.isValidSelectionFn;
 		const { flights_forward, flights_return } = this.state;
 		return (
 			<>
@@ -151,9 +176,10 @@ class Search extends React.Component {
 					</Form>
 				</Jumbotron>
 				<Row>
-					<FlightTable flights={flights_forward} updateBookingDetails={this.props.updateBookingDetails} direction={'Onward Journey'} />
-					<FlightTable flights={flights_return} updateBookingDetails={this.props.updateBookingDetails} direction={'Return Journey'} />
+					<FlightTable flights={flights_forward} direction={1} />
+					<FlightTable flights={flights_return} direction={2} />
 				</Row>
+				<Button disabled={!this.state.isValidSelection} onClick={() => this.props.updateBookingDetails(bookingDetails)}>Submit</Button>
 			</>
 		);
 	}
