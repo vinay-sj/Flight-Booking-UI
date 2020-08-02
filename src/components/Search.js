@@ -8,7 +8,7 @@ let isValidSelectionHandler, isReturnValid = false, isOnwardSelected = false, is
 
 const handleBooking = (props) => {
 	if (props.direction === 1) {
-		bookingDetails.data = {onwardFlightDetails: props.flight};
+		bookingDetails.data = {...bookingDetails.data, ...{onwardFlightDetails: props.flight}};
 		isOnwardSelected = true;
 
 	} else {
