@@ -80,7 +80,7 @@ class HomePage extends React.Component {
 		}
 	}
 	async handleSubmit(e) {
-		e.preventDefault();
+		// e.preventDefault();
 		this.props.flightSearchParams(this.state);
 	}
 

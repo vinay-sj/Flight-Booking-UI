@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, FormGroup, Label, Input, Row, Col, Button, Jumbotron, Table } from 'reactstrap';
 import getitenaries from '../connect_api/amadeus';
+import {LinkContainer} from "react-router-bootstrap";
 
 const bookingDetails = {};
 
@@ -178,7 +179,9 @@ class Search extends React.Component {
 					<FlightTable flights={flights_forward} direction={1} />
 					<FlightTable flights={flights_return} direction={2} />
 				</Row>
-				<Button disabled={!this.state.isValidSelection} onClick={() => this.props.updateBookingDetails(bookingDetails)}>Submit</Button>
+				<LinkContainer to={'/passengerdetails'}>
+					<Button disabled={!this.state.isValidSelection} onClick={() => this.props.updateBookingDetails(bookingDetails)}>Submit</Button>
+				</LinkContainer>
 			</>
 		);
 	}
