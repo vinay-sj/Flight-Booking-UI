@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Header from './components/Header';
 import Homepage from './components/HomePage';
 import PassengerDetails from './components/PassengerDetails';
@@ -31,23 +31,14 @@ class App extends React.Component {
 	render() {
 		return (
 			<div>
-				<Header/>
+				<Header />
 				<div className="container main">
 					<BrowserRouter>
 						<Switch>
-							<Route
-								path="/homepage"
-								render={() => <Homepage
-									flightSearchParams={this.flightSearchParams}
-								/>}
-							/>
-							{/* <Route path="/passengerdetails" render={() => <PassengerDetails updateBookingDetails={this.updateBookingDetails} />} /> */}
+							<Route path="/homepage" render={() => <Homepage flightSearchParams={this.flightSearchParams} />} />
 							<Route
 								path="/search"
-								render={() => <Search
-									searchParams={this.state.searchParams}
-									updateBookingDetails={this.updateBookingDetails}
-								/>}
+								render={() => <Search searchParams={this.state.searchParams} updateBookingDetails={this.updateBookingDetails} />}
 							/>
 							<Route
 								path="/passengerdetails"
@@ -59,18 +50,9 @@ class App extends React.Component {
 									/>
 								)}
 							/>
-							<Route
-								path="/bookingConfirmation"
-								render={() => <ConfirmationPage
-									bookingDetails={this.state.bookingDetails}
-								/>}
-							/>
-							<Route
-								path="/bookings"
-								component={Bookings}
-							/>
-							{/*<Route path="/search" render={() => <Search searchParams={this.state.searchParams} />} />*/}
-							<Redirect from="/" to="/homepage"/>
+							<Route path="/bookingConfirmation" render={() => <ConfirmationPage bookingDetails={this.state.bookingDetails} />} />
+							<Route path="/bookings" component={Bookings} />
+							<Redirect from="/" to="/homepage" />
 						</Switch>
 					</BrowserRouter>
 				</div>
