@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navbar, NavbarBrand } from 'reactstrap';
+import { Navbar, NavbarBrand, NavItem, Nav, NavLink } from 'reactstrap';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 let userName;
@@ -37,6 +37,14 @@ const Example = ({updateUserDetails}) => {
 		<div>
 			<Navbar expand="md">
 				<NavbarBrand className="mr-auto" href="/">Home</NavbarBrand>
+				<Nav className="mr-auto" navbar>
+					<NavItem>
+						<NavLink href="/bookings">Bookings</NavLink>
+					</NavItem>
+					<NavItem>
+						<NavLink href="/passengerlist">Saved Passengers</NavLink>
+					</NavItem>
+				</Nav>
 				<RenderLoginButtons updateUserDetails={updateUserDetails}/>
 			</Navbar>
 		</div>
