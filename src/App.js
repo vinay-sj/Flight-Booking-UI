@@ -6,6 +6,7 @@ import PassengerDetails from './components/PassengerDetails';
 import Bookings from './components/Bookings';
 import Search from './components/Search';
 import ConfirmationPage from './components/ConfirmationPage';
+import Passengers from './components/PassengerList';
 
 class App extends React.Component {
 	constructor(props) {
@@ -60,6 +61,7 @@ class App extends React.Component {
 								)}
 							/>
 							<Route path="/bookingConfirmation" render={() => <ConfirmationPage bookingDetails={this.state.bookingDetails} />} />
+							<Route path="/passengerList" render={() => <Passengers /> } />
 							<Route path="/bookings" component={Bookings} />
 							<Redirect from="/" to="/homepage" />
 						</Switch>
