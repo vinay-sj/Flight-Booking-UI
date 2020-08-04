@@ -13,6 +13,7 @@ class App extends React.Component {
 		this.state = {
 			bookingDetails: {},
 			confirmBookingFlag: false,
+			userData: null
 		};
 
 		this.updateBookingDetails = (response, confirmBookingFlag = false) => {
@@ -23,15 +24,22 @@ class App extends React.Component {
 			});
 		};
 
+		this.updateUserDetails = (userData) => {
+			this.setState({userData});
+		};
+
 		this.flightSearchParams = (searchParams) => {
 			this.setState({ searchParams: searchParams });
 		};
 	}
 
 	render() {
+		if (this.state.userData){
+			console.log(this.state.userData.profileObj);
+		}
 		return (
 			<div>
-				<Header />
+				<Header updateUserDetails={this.updateUserDetails} />
 				<div className="container main">
 					<BrowserRouter>
 						<Switch>
@@ -47,6 +55,7 @@ class App extends React.Component {
 										bookingDetails={this.state.bookingDetails}
 										updateBookingDetails={this.updateBookingDetails}
 										numPassengers={this.state.searchParams.numPassengers}
+										userData = {this.state.userData}
 									/>
 								)}
 							/>
