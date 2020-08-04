@@ -1,5 +1,6 @@
 import { FormGroup, Input, Jumbotron, Label } from "reactstrap";
 import React from "react";
+import DatePicker from "react-datepicker";
 
 const PassengerForm = (props) => {
   const { onChange, index } = props;
@@ -31,7 +32,7 @@ const PassengerForm = (props) => {
               onChange(event,index);
             }}
           >
-            <option value="---">Select a value</option>
+            <option value="---">Select a gender</option>
             <option value="M">Male</option>
             <option value="F">Female</option>
           </select>
@@ -39,11 +40,7 @@ const PassengerForm = (props) => {
       </FormGroup>
       <FormGroup>
         <Label for="birthDate">Birth Date</Label>
-        <Input
-          type="date"
-          name="birthDate"
-          id="birthDate"
-          placeholder="Birth Date"
+        <DatePicker
           onChange={(event) => {
             onChange(event,index);
           }}

@@ -4,14 +4,16 @@ import { Col, Row, Button, Form, FormGroup, ButtonGroup, Label, Input } from 're
 import { LinkContainer } from 'react-router-bootstrap';
 import SelectAsync from 'react-select/lib/Async';
 import * as places from '../connect_api/places';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 class HomePage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			rselected: 1,
-			departureDate: '',
-			returnDate: '',
+			departureDate: new Date(),
+			returnDate: new Date(),
 			deptAirport: '',
 			arrAirport: '',
 			numPassengers: 1,
@@ -28,15 +30,16 @@ class HomePage extends React.Component {
 		this.handleNumPassengersChange = this.handleNumPassengersChange.bind(this);
 	}
 
-	handleDepartureDateChange(event) {
+	handleDepartureDateChange(date) {
 		this.setState({
-			departureDate: event.target.value,
+			departureDate: date,
+			returnDate: date,
 		});
 	}
 
-	handleReturnDateChange(event) {
+	handleReturnDateChange(date) {
 		this.setState({
-			returnDate: event.target.value,
+			returnDate: date,
 		});
 	}
 
@@ -62,7 +65,6 @@ class HomePage extends React.Component {
 	handleOneWayTrip() {
 		this.setState({
 			rselected: 1,
-			returnDate: '',
 		});
 	}
 
@@ -88,6 +90,7 @@ class HomePage extends React.Component {
       this.state.rselected === 1
       	? this.state.departureDate && this.state.returnDate && this.state.deptAirport && this.state.arrAirport
       	: this.state.departureDate && this.state.deptAirport && this.state.arrAirport;
+
 		return (
 			<>
 				<div>
@@ -142,29 +145,25 @@ class HomePage extends React.Component {
 							<Col md={3}>
 								<FormGroup>
 									<Label>Departure</Label>
-									<Input
-										type="date"
-										id="departureDate"
-										name="departureDate"
-										value={this.state.departureDate}
+									<DatePicker
+										minDate={new Date()}
+										selected={this.state.departureDate}
 										onChange={this.handleDepartureDateChange}
 									/>
 								</FormGroup>
 							</Col>
-							<Col md={3}>
-								{this.state.rselected !== 2 && (
+							{this.state.rselected !== 2 &&
+								<Col md={3}>
 									<FormGroup>
 										<Label for="exampleState">Return</Label>
-										<Input
-											type="date"
-											name="returnDate"
-											id="returnDate"
-											value={this.state.returnDate}
+										<DatePicker
+											minDate={this.state.departureDate}
+											selected={this.state.returnDate}
 											onChange={this.handleReturnDateChange}
 										/>
 									</FormGroup>
-								)}
-							</Col>
+								</Col>
+							}
 							<Col md={1}>
 								<FormGroup>
 									<Label>Passengers</Label>

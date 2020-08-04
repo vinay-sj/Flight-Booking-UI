@@ -5,6 +5,7 @@ class ConfirmationPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.goToHomepage = () => window.location.replace('/');
+		this.goToBookings = () => window.location.replace('/bookings');
 		this.state={
 			id:this.props.bookingDetails._id,
 		};
@@ -34,14 +35,14 @@ class ConfirmationPage extends React.Component {
 
 		return (
 			<Container>
-				<Row className="text-center">
-					<h1>Confirmation</h1>
+				<Row>
+					<h1 className='text-center'>Confirmation</h1>
 				</Row>
-				<Row className="text-center">
-					<pre>Your booking went through Succesfully!</pre>
+				<Row>
+					<pre className='text-center'>Your booking went through Succesfully!</pre>
 				</Row>
-				<Row className="text-center">
-					<pre>Your confirmation number is {this.props.bookingDetails._id}.</pre>
+				<Row>
+					<pre className='text-center'>Your confirmation number is {this.props.bookingDetails._id}.</pre>
 				</Row>
 				<Row>
 					<Table striped bordered>
@@ -89,6 +90,11 @@ class ConfirmationPage extends React.Component {
 					<Col sm={{ size: 'auto', offset: 1 }}>
 						<Button onClick={this.goToHomepage} color="primary">
               Go To Homepage
+						</Button>{' '}
+					</Col>
+					<Col sm={{ size: 'auto', offset: 1 }}>
+						<Button onClick={this.goToBookings} color="primary">
+              See Previous Bookings
 						</Button>{' '}
 					</Col>
 				</Row>
