@@ -41,7 +41,7 @@ export async function getRoundTripBookings()  {
     }catch(err){
         console.log(err);
     }
-    console.log(roundTripBookings);
+    //console.log(roundTripBookings);
     return roundTripBookings;
     
 }
@@ -87,11 +87,31 @@ export async function getOneWayBookings()  {
     }catch(err){
         console.log(err);
     }
-    console.log(oneWayBookings);
+    //console.log(oneWayBookings);
     return oneWayBookings;
     
 }
 
+export async function deleteBooking(isRoundTrip, id){
 
-//getRoundTripBookings();
-//getOneWayBookings();
+    let success;
+    let url;
+    if(isRoundTrip){
+        url = 'http://localhost:5000/api/bookings/deleteRoundTrip/'.concat('',id) ;
+    }else{
+        url = 'http://localhost:5000/api/bookings/deleteOneWayTrip/'.concat('',id) ;
+    }
+   
+    try{
+        success = await axios.delete(url).then((response) => {
+			return response;
+		})
+    }
+    catch(err){
+        console.log(err);
+    }
+    //console.log(success);
+    return success;
+
+}
+
