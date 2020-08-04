@@ -1,20 +1,11 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
 import { Button, Form } from 'reactstrap';
 // import { Select } from 'react-select'
 import ConfirmBookingCall from '../connect_api/confirm_booking';
-// import { LinkContainer } from 'react-router-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import PassengerForm from './PassengerForm';
-
-/* Not using LinkContainer as it redirects to confirmation page even before successful POST call. Therefore using 'useHistory' instead */
-
-let confirmBooking, history;
-
-const ConfirmBookingButton = () => {
-	history = useHistory();
-	return <Button onClick={confirmBooking}>Confirm</Button>;
-};
 
 class PassengerDetails extends React.Component {
 	constructor(props) {
@@ -43,24 +34,18 @@ class PassengerDetails extends React.Component {
 		}
 		this.confirmBooking = this.confirmBooking.bind(this);
 		this.onChange = this.onChange.bind(this);
-		confirmBooking = this.confirmBooking;
 	}
 
 	componentDidUpdate(prevProps) {
 		if(prevProps.userData !== this.props.userData) {
-			this.setState({userEmail: this.props.userData.profileObj.email});
+			this.setState({userEmail: this.props.userData ? this.props.userData.profileObj.email : null});
 		}
 	}
 
 	confirmBooking() {
-		if (this.props.userData && this.props.userData.profileObj.email) {
-			ConfirmBookingCall(this.state).then((res) => {
-				this.props.updateBookingDetails(res, true);
-				history.push('/bookingConfirmation');
-			});
-		} else {
-			console.log('Please Login first');
-		}
+		ConfirmBookingCall(this.state).then((res) => {
+			this.props.updateBookingDetails(res, true);
+		});
 	}
 
 	onChange(event, index) {
@@ -81,7 +66,9 @@ class PassengerDetails extends React.Component {
 		return (
 			<Form>
 				{passengerForm}
-				<ConfirmBookingButton />
+				<LinkContainer to='/bookingConfirmation'>
+					<Button disabled={!this.state.userEmail} onClick={this.confirmBooking}>Confirm</Button>
+				</LinkContainer>
 			</Form>
 		);
 	}
