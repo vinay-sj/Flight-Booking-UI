@@ -4,8 +4,8 @@ import { Col, Row, Button, Form, FormGroup, ButtonGroup, Label, Input } from 're
 import { LinkContainer } from 'react-router-bootstrap';
 import SelectAsync from 'react-select/lib/Async';
 import * as places from '../connect_api/places';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 class HomePage extends React.Component {
 	constructor(props) {
