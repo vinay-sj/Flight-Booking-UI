@@ -2,15 +2,28 @@ import React from 'react';
 import { Button, Form, FormGroup, Label, Input, Jumbotron } from 'reactstrap';
 // import { Select } from 'react-select'
 import ConfirmBookingCall from '../connect_api/confirm_booking';
-import { LinkContainer } from 'react-router-bootstrap';
+// import { LinkContainer } from 'react-router-bootstrap';
+import { useHistory } from 'react-router-dom';
+
+/* Not using LinkContainer as it redirects to confirmation page even before successful POST call. Therefore using 'useHistory' instead */
+
+let confirmBooking, history;
+
+const ConfirmBookingButton = () => {
+	history = useHistory();
+	return <Button onClick={confirmBooking}>Confirm</Button>;
+};
 
 class PassengerDetails extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			userEmail: props.userData ? props.userData.profileObj.email : null,
 			onwardFlightDetails: {
 				journeyDate: props.bookingDetails.onwardFlightDetails.departure.at,
-				flightNo: props.bookingDetails.onwardFlightDetails.carrierCode.concat('-').concat(props.bookingDetails.onwardFlightDetails.aircraft),
+				flightNo: props.bookingDetails.onwardFlightDetails.carrierCode
+					.concat('-')
+					.concat(props.bookingDetails.onwardFlightDetails.aircraft),
 				airlineName: props.bookingDetails.onwardFlightDetails.carrierCode.concat(' Airlines'),
 			},
 			isRoundTrip: props.bookingDetails.isRoundTrip,
@@ -20,17 +33,31 @@ class PassengerDetails extends React.Component {
 		if (this.state.isRoundTrip) {
 			this.state.returnFlightDetails = {
 				journeyDate: props.bookingDetails.returnFlightDetails.departure.at,
-				flightNo: props.bookingDetails.returnFlightDetails.carrierCode.concat('-').concat(props.bookingDetails.returnFlightDetails.aircraft),
+				flightNo: props.bookingDetails.returnFlightDetails.carrierCode
+					.concat('-')
+					.concat(props.bookingDetails.returnFlightDetails.aircraft),
 				airlineName: props.bookingDetails.returnFlightDetails.carrierCode.concat(' Airlines'),
 			};
 		}
 		this.confirmBooking = this.confirmBooking.bind(this);
+		confirmBooking = this.confirmBooking;
+	}
+
+	componentDidUpdate(prevProps) {
+		if(prevProps.userData !== this.props.userData) {
+			this.setState({userEmail: this.props.userData.profileObj.email});
+		}
 	}
 
 	confirmBooking() {
-		ConfirmBookingCall(this.state).then((res) => {
-			this.props.updateBookingDetails(res, true);
-		});
+		if (this.props.userData && this.props.userData.profileObj.email) {
+			ConfirmBookingCall(this.state).then((res) => {
+				this.props.updateBookingDetails(res, true);
+				history.push('/bookingConfirmation');
+			});
+		} else {
+			console.log('Please Login first');
+		}
 	}
 
 	render() {
@@ -149,9 +176,7 @@ class PassengerDetails extends React.Component {
 		return (
 			<Form>
 				{passengerForm}
-				<LinkContainer to={'/bookingConfirmation'}>
-					<Button onClick={this.confirmBooking}>Confirm</Button>
-				</LinkContainer>
+				<ConfirmBookingButton />
 			</Form>
 		);
 	}
