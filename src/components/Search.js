@@ -87,7 +87,7 @@ class Search extends React.Component {
 			flights_forward: null,
 			flights_return: null,
 			isValidSelection: false,
-			modal: true
+			openModal: false,
 		};
 
 		this.isValidSelectionFn = this.isValidSelectionFn.bind(this);
@@ -100,19 +100,11 @@ class Search extends React.Component {
 	componentDidUpdate(prevProps) {
 		if (prevProps.searchParams !== this.props.searchParams) {
 			this.loadData();
-
-			if (!(this.state.isValidSelection && this.props.userData)) {
-				this.setState({modal: !this.state.modal});
-			}
 		}
 	}
 
 	isValidSelectionFn(value) {
 		this.setState({ isValidSelection: value });
-
-		if (!(this.state.isValidSelection && this.props.userData)) {
-			this.setState({modal: !this.state.modal});
-		}
 	}
 
 	async loadData() {
@@ -128,7 +120,6 @@ class Search extends React.Component {
 				flights_return: data_return,
 			});
 		}
-
 	}
 
 	render() {
@@ -189,24 +180,29 @@ class Search extends React.Component {
 					<FlightTable flights={flights_forward} direction={1} />
 					<FlightTable flights={flights_return} direction={2} />
 				</Row>
-				<LinkContainer to={'/passengerdetails'}>
-					<Button
-						disabled={!(this.state.isValidSelection && this.props.userData)}
-						onClick={() => this.props.updateBookingDetails(bookingDetails)}
-					>
-            Submit
-					</Button>
-				</LinkContainer>
-				{(this.state.isValidSelection && !this.props.userData) && (
+
+				{this.state.isValidSelection && !this.props.userData ? (
 					<div>
-						<Modal isOpen={this.state.modal} toggle={() => this.setState({modal: false})}>
-							<ModalHeader toggle={() => this.setState({modal: false})}>Login</ModalHeader>
+						<Button onClick={() => this.setState({ openModal: true })}>Proceed</Button>
+						<Modal
+							isOpen={this.state.openModal}
+							toggle={() => this.setState({ openModal: false })}
+							onClosed={() => this.setState({ openModal: false })}
+						>
+							<ModalHeader toggle={() => this.setState({ openModal: false })}>Login</ModalHeader>
 							<ModalBody>Please Login first to proceed with booking</ModalBody>
 							<ModalFooter>
-								<Button color="primary" onClick={() => this.setState({modal: false})}>Ok</Button>{' '}
+								<Button color="primary" onClick={() => this.setState({ openModal: false })}>Ok</Button>{' '}
 							</ModalFooter>
 						</Modal>
 					</div>
+				) : (
+					<LinkContainer to={'/passengerdetails'}>
+						<Button
+							disabled={!(this.state.isValidSelection && this.props.userData)}
+							onClick={() => this.props.updateBookingDetails(bookingDetails)}
+						>Proceed</Button>
+					</LinkContainer>
 				)}
 			</>
 		);
