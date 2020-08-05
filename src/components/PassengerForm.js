@@ -1,4 +1,4 @@
-import {FormGroup, Input, Jumbotron, Label} from 'reactstrap';
+import {FormGroup, Input, Jumbotron, Label, Row} from 'reactstrap';
 import React from 'react';
 import DatePicker from 'react-datepicker';
 
@@ -24,83 +24,107 @@ class PassengerForm extends React.Component {
 		const i = index || 0;
 		return (
 			<Jumbotron key={index}>
-				<FormGroup>
+				<FormGroup row>
 					<div id={index}>Passenger Details: {passNo}</div>
 				</FormGroup>
 				<FormGroup>
-					<Label for="name">Name</Label>
-					<Input
-						type="text"
-						name="name"
-						id="name"
-						placeholder="Name"
-						onChange={(event) => {
-							onChange(event, i);
-						}}
-					/>
+          <Row>
+					  <Label for="name">Name</Label>
+          </Row>
+          <Row>
+  					<Input
+  						type="text"
+  						name="name"
+  						id="name"
+  						placeholder="Name"
+  						onChange={(event) => {
+  							onChange(event, i);
+  						}}
+  					/>
+          </Row>
 				</FormGroup>
 				<FormGroup>
-					<Label for="gender">Gender</Label>
-					<div>
-						<select
-							type="text"
-							id="gender"
-							name="gender"
-							onChange={(event) => {
-								onChange(event, i);
-							}}
-						>
-							<option value="---">Select a gender</option>
-							<option value="M">Male</option>
-							<option value="F">Female</option>
-						</select>
-					</div>
+          <Row>
+					  <Label for="gender">Gender</Label>
+          </Row>
+          <Row>
+  					<div>
+  						<select
+  							type="text"
+  							id="gender"
+  							name="gender"
+  							onChange={(event) => {
+  								onChange(event, i);
+  							}}
+  						>
+  							<option value="---">Select a gender</option>
+  							<option value="M">Male</option>
+  							<option value="F">Female</option>
+  						</select>
+  					</div>
+          </Row>
 				</FormGroup>
 				<FormGroup>
-					<Label for="birthDate">Birth Date</Label>
-					<DatePicker
-						selected={birthDate}
-						onChange={(date) => {
-							this.updateBirthDate(date);
-							onDatePickerChange(date, 'birthDate', i);
-						}}
-					/>
+          <Row>
+					  <Label for="birthDate">Birth Date</Label>
+          </Row>
+          <Row>
+					  <DatePicker
+						  selected={birthDate}
+						  onChange={(date) => {
+							  this.updateBirthDate(date);
+							  onDatePickerChange(date, 'birthDate', i);
+						  }}
+					  />
+          </Row>
 				</FormGroup>
 				<FormGroup>
-					<Label for="email">Email</Label>
-					<Input
-						type="email"
-						name="emailId"
-						id="email"
-						placeholder="Email"
-						onChange={(event) => {
-							onChange(event, i);
-						}}
-					/>
+          <Row>
+					  <Label for="email">Email</Label>
+          </Row>
+          <Row>
+  					<Input
+  						type="email"
+  						name="emailId"
+  						id="email"
+  						placeholder="Email"
+  						onChange={(event) => {
+  							onChange(event, i);
+  						}}
+  					/>
+          </Row>
 				</FormGroup>
 				<FormGroup>
-					<Label for="contact">Contact No</Label>
-					<Input
-						type="number"
-						name="contactNo"
-						id="contact"
-						placeholder="Contact No"
-						onChange={(event) => {
-							onChange(event, i);
-						}}
-					/>
+          <Row>
+					  <Label for="contact">Contact No</Label>
+          </Row>
+          <Row>
+            <Input
+  						type="number"
+  						name="contactNo"
+  						id="contact"
+  						placeholder="Contact No"
+  						onChange={(event) => {
+  							onChange(event, i);
+  						}}
+  					/>
+          </Row>
 				</FormGroup>
 				<FormGroup>
-					<Label for="passport">Passport</Label>
-					<Input
-						type="text"
-						name="passPortNo"
-						id="passport"
-						placeholder="Passport No"
-						onChange={(event) => {
-							onChange(event, i);
-						}}
-					/>
+          <Row>
+            <Label for="passport">Passport</Label>
+          </Row>
+          <Row>
+            <Input
+  						type="text"
+  						name="passPortNo"
+  						id="passport"
+  						placeholder="Passport No"
+  						onChange={(event) => {
+  							onChange(event, i);
+  						}}
+  					/>
+          </Row>
 				</FormGroup>
 			</Jumbotron>
 		);

@@ -30,16 +30,26 @@ class HomePage extends React.Component {
 		this.handleNumPassengersChange = this.handleNumPassengersChange.bind(this);
 	}
 
-	handleDepartureDateChange(date) {
-		this.setState({
-			departureDate: date,
-			returnDate: date,
+	async handleDepartureDateChange(date) {
+		await this.setState({
+			departureDate: date.toISOString().slice(0,10),
 		});
+
+		if (this.state.rselected === 1) {
+			let dept = Date.parse(this.state.departureDate);
+			let ret = Date.parse(this.state.returnDate);
+
+			if (ret < dept) {
+				this.setState({
+					returnDate: date.toISOString().slice(0,10),
+				});
+			}
+		}
 	}
 
 	handleReturnDateChange(date) {
 		this.setState({
-			returnDate: date,
+			returnDate: date.toISOString().slice(0,10),
 		});
 	}
 
@@ -69,7 +79,9 @@ class HomePage extends React.Component {
 	}
 
 	handleReturnTrip() {
-		this.setState({ rselected: 2 });
+		this.setState({
+			rselected: 2
+		});
 	}
 
 	async loadOptions(term) {
@@ -81,6 +93,7 @@ class HomePage extends React.Component {
 			console.log(err);
 		}
 	}
+
 	async handleSubmit() {
 		this.props.flightSearchParams(this.state);
 	}
@@ -141,13 +154,25 @@ class HomePage extends React.Component {
 								</FormGroup>
 							</Col>
 						</Row>
+						<Row>
+							<Col md={3}>
+								<Label>Departure</Label>
+							</Col>
+							{this.state.rselected !== 2 &&
+								<Col md={3}>
+									<Label for="exampleState">Return</Label>
+								</Col>
+							}
+							<Col md={1}>
+								<Label>Passengers</Label>
+							</Col>
+						</Row>
 						<Row form>
 							<Col md={3}>
 								<FormGroup>
-									<Label>Departure</Label>
 									<DatePicker
 										minDate={new Date()}
-										selected={this.state.departureDate}
+										selected={Date.parse(this.state.departureDate)}
 										onChange={this.handleDepartureDateChange}
 									/>
 								</FormGroup>
@@ -155,10 +180,9 @@ class HomePage extends React.Component {
 							{this.state.rselected !== 2 &&
 								<Col md={3}>
 									<FormGroup>
-										<Label for="exampleState">Return</Label>
 										<DatePicker
-											minDate={this.state.departureDate}
-											selected={this.state.returnDate}
+											minDate={Date.parse(this.state.departureDate)}
+											selected={Date.parse(this.state.returnDate)}
 											onChange={this.handleReturnDateChange}
 										/>
 									</FormGroup>
@@ -166,7 +190,6 @@ class HomePage extends React.Component {
 							}
 							<Col md={1}>
 								<FormGroup>
-									<Label>Passengers</Label>
 									<Input
 										type="number"
 										id="numPassengers"
