@@ -1,29 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, FormGroup, Label, Input, Row, Col, Button, Jumbotron, Table, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import getitenaries from '../connect_api/amadeus';
 import { LinkContainer } from 'react-router-bootstrap';
-
-let modal, setModal;
-
-const LoginMessageModal = ({isValidSelection, userData}) => {
-	[modal, setModal] = useState(!userData);
-
-	const toggle = () => setModal(!modal);
-
-	if (isValidSelection && !userData) {
-		return (
-			<div>
-				<Modal isOpen={modal} toggle={toggle}>
-					<ModalHeader toggle={toggle}>Login</ModalHeader>
-					<ModalBody>Please Login first to proceed with booking</ModalBody>
-					<ModalFooter>
-						<Button color="primary" onClick={toggle}>Ok</Button>{' '}
-					</ModalFooter>
-				</Modal>
-			</div>
-		);
-	} else return null;
-};
 
 const bookingDetails = {};
 
@@ -109,6 +87,7 @@ class Search extends React.Component {
 			flights_forward: null,
 			flights_return: null,
 			isValidSelection: false,
+			modal: true
 		};
 
 		this.isValidSelectionFn = this.isValidSelectionFn.bind(this);
@@ -121,11 +100,19 @@ class Search extends React.Component {
 	componentDidUpdate(prevProps) {
 		if (prevProps.searchParams !== this.props.searchParams) {
 			this.loadData();
+
+			if (!(this.state.isValidSelection && this.props.userData)) {
+				this.setState({modal: !this.state.modal});
+			}
 		}
 	}
 
 	isValidSelectionFn(value) {
 		this.setState({ isValidSelection: value });
+
+		if (!(this.state.isValidSelection && this.props.userData)) {
+			this.setState({modal: !this.state.modal});
+		}
 	}
 
 	async loadData() {
@@ -141,14 +128,13 @@ class Search extends React.Component {
 				flights_return: data_return,
 			});
 		}
+
 	}
 
 	render() {
 		isValidSelectionHandler = this.isValidSelectionFn;
 		const { flights_forward, flights_return } = this.state;
-		if (!(this.state.isValidSelection && this.props.userData)) {
-			setModal && setModal(!modal);
-		}
+
 		return (
 			<>
 				<h4 className="text-center">Available Flights</h4>
@@ -204,11 +190,24 @@ class Search extends React.Component {
 					<FlightTable flights={flights_return} direction={2} />
 				</Row>
 				<LinkContainer to={'/passengerdetails'}>
-					<Button disabled={!(this.state.isValidSelection && this.props.userData)} onClick={() => this.props.updateBookingDetails(bookingDetails)}>
+					<Button
+						disabled={!(this.state.isValidSelection && this.props.userData)}
+						onClick={() => this.props.updateBookingDetails(bookingDetails)}
+					>
             Submit
 					</Button>
 				</LinkContainer>
-				<LoginMessageModal isValidSelection={this.state.isValidSelection} userData={this.props.userData}/>
+				{(this.state.isValidSelection && !this.props.userData) && (
+					<div>
+						<Modal isOpen={this.state.modal} toggle={() => this.setState({modal: false})}>
+							<ModalHeader toggle={() => this.setState({modal: false})}>Login</ModalHeader>
+							<ModalBody>Please Login first to proceed with booking</ModalBody>
+							<ModalFooter>
+								<Button color="primary" onClick={() => this.setState({modal: false})}>Ok</Button>{' '}
+							</ModalFooter>
+						</Modal>
+					</div>
+				)}
 			</>
 		);
 	}
