@@ -41,6 +41,7 @@ class  Passengers extends React.Component {
 		this.savePassenger = this.savePassenger.bind(this);
 		this.toggle = this.toggle.bind(this);
 		this.onChange = this.onChange.bind(this);
+		this.onDatePickerChange = this.onDatePickerChange.bind(this);
 	}
 
 	savePassenger() {
