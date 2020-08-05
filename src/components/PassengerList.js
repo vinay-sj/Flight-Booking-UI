@@ -1,14 +1,17 @@
 import React from 'react';
-import {Table, Button, ButtonGroup, Modal, ModalFooter, ModalBody} from 'reactstrap';
-import {Well, Glyphicon} from 'react-bootstrap';
+import { Table, Button, ButtonGroup, Modal, ModalFooter, ModalBody } from 'reactstrap';
+import { Well, Glyphicon } from 'react-bootstrap';
 import PassengerForm from './PassengerForm';
+import { getPassengers, addPassenger, deletePassenger } from '../connect_api/passengers';
 
-const json = require('../mock_json/passenger.json');
-const passengerDetail = JSON.parse(JSON.stringify(json));
-
-const PassengerRows = ({ passengers }) => {
+const PassengerRows = ({ passengers, deletePassenger }) => {
 	const passengerRows = (passengers || []).map((passenger, index) => {
 		const birthDate = new Date(passenger.birthDate);
+
+		const onDelete = () => {
+			deletePassenger(index);
+		}
+
 		return (
 			<tr key={index}>
 				<td>{index + 1}</td>
@@ -21,7 +24,7 @@ const PassengerRows = ({ passengers }) => {
 				<td>
 					<ButtonGroup className="btn-group-sm">
 						<Button><Glyphicon glyph="edit"/>Edit</Button>
-						<Button> <Glyphicon glyph="trash"/>Delete</Button>
+						<Button onClick={onDelete}> <Glyphicon glyph="trash"/>Delete</Button>
 					</ButtonGroup>
 				</td>
 			</tr>
@@ -30,25 +33,26 @@ const PassengerRows = ({ passengers }) => {
 	return <>{passengerRows}</>;
 };
 
-class  Passengers extends React.Component {
+class Passengers extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
 			modal:false,
-			passengerDetails:[]
+			passengerDetails:[],
+			passengerList: [],
 		};
 
 		this.savePassenger = this.savePassenger.bind(this);
 		this.toggle = this.toggle.bind(this);
 		this.onChange = this.onChange.bind(this);
+		this.onDatePickerChange = this.onDatePickerChange.bind(this);
+		this.deletePassenger = this.deletePassenger.bind(this);
 	}
 
-	savePassenger() {
+	async savePassenger() {
 		const { passengerDetails } = this.state;
-		passengerDetail.push(passengerDetails[0]);
-		this.setState({
-			passengerDetails:[],
-		});
+		await addPassenger(passengerDetails[0]);
+		this.loadData();
 		this.toggle();
 	}
 
@@ -74,8 +78,29 @@ class  Passengers extends React.Component {
 		});
 	}
 
+	componentDidMount() {
+		this.loadData();
+	}
+
+	componentDidUpdate(prevProps) {
+		if(prevProps.passengerList !== this.props.passengerList) {
+			this.loadData();
+		}
+	}
+
+	async loadData() {
+		const  passengerList  = await getPassengers();
+		this.setState({ passengerList:passengerList });
+	}
+
+	async deletePassenger(index) {
+		const { passengerList } = this.state;
+		await deletePassenger(passengerList[index]._id);
+		this.loadData();
+	}
+
 	render() {
-		const { modal } = this.state;
+		const { modal, passengerList } = this.state;
 		return (
 			<>
 				<Well bsSize="small">
@@ -108,7 +133,7 @@ class  Passengers extends React.Component {
 						</tr>
 					</thead>
 					<tbody>
-						<PassengerRows passengers={passengerDetail}/>
+						<PassengerRows passengers={passengerList} deletePassenger={this.deletePassenger} />
 					</tbody>
 				</Table>
 			</>

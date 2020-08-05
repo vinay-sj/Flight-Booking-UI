@@ -34,6 +34,7 @@ class PassengerDetails extends React.Component {
 		}
 		this.confirmBooking = this.confirmBooking.bind(this);
 		this.onChange = this.onChange.bind(this);
+		this.onDatePickerChange = this.onDatePickerChange.bind(this);
 	}
 
 	componentDidUpdate(prevProps) {
