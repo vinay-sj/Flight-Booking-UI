@@ -74,13 +74,14 @@ class HomePage extends React.Component {
 
 	handleOneWayTrip() {
 		this.setState({
-			rselected: 1,
+			rselected: 1
 		});
 	}
 
 	handleReturnTrip() {
 		this.setState({
-			rselected: 2
+			rselected: 2,
+			returnDate: null
 		});
 	}
 

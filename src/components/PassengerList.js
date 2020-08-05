@@ -10,7 +10,7 @@ const PassengerRows = ({ passengers, deletePassenger }) => {
 
 		const onDelete = () => {
 			deletePassenger(index);
-		}
+		};
 
 		return (
 			<tr key={index}>

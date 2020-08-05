@@ -47,7 +47,7 @@ class App extends React.Component {
 							<Route path="/homepage" render={() => <Homepage flightSearchParams={this.flightSearchParams} />} />
 							<Route
 								path="/search"
-								render={() => <Search searchParams={this.state.searchParams} updateBookingDetails={this.updateBookingDetails} />}
+								render={() => <Search searchParams={this.state.searchParams} updateBookingDetails={this.updateBookingDetails} userData={this.state.userData} />}
 							/>
 							<Route
 								path="/passengerdetails"

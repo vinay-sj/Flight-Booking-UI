@@ -66,7 +66,6 @@ class PassengerDetails extends React.Component {
 		});
 	}
 
-
 	render() {
 		const { numPassengers } = this.state;
 		const passengerForm = Array.apply(null, { length: numPassengers }).map((e, index) => {

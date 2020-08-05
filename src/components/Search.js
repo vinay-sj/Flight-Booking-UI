@@ -1,19 +1,43 @@
-import React from 'react';
-import { Form, FormGroup, Label, Input, Row, Col, Button, Jumbotron, Table } from 'reactstrap';
+import React, { useState } from 'react';
+import { Form, FormGroup, Label, Input, Row, Col, Button, Jumbotron, Table, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import getitenaries from '../connect_api/amadeus';
-import {LinkContainer} from 'react-router-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+
+let modal, setModal;
+
+const LoginMessageModal = ({isValidSelection, userData}) => {
+	[modal, setModal] = useState(!userData);
+
+	const toggle = () => setModal(!modal);
+
+	if (isValidSelection && !userData) {
+		return (
+			<div>
+				<Modal isOpen={modal} toggle={toggle}>
+					<ModalHeader toggle={toggle}>Login</ModalHeader>
+					<ModalBody>Please Login first to proceed with booking</ModalBody>
+					<ModalFooter>
+						<Button color="primary" onClick={toggle}>Ok</Button>{' '}
+					</ModalFooter>
+				</Modal>
+			</div>
+		);
+	} else return null;
+};
 
 const bookingDetails = {};
 
-let isValidSelectionHandler, isReturnValid = false, isOnwardSelected = false, isReturnSelected = false;
+let isValidSelectionHandler,
+	isReturnValid = false,
+	isOnwardSelected = false,
+	isReturnSelected = false;
 
 const handleBooking = (props) => {
 	if (props.direction === 1) {
-		bookingDetails.data = {...bookingDetails.data, ...{onwardFlightDetails: props.flight}};
+		bookingDetails.data = { ...bookingDetails.data, ...{ onwardFlightDetails: props.flight } };
 		isOnwardSelected = true;
-
 	} else {
-		bookingDetails.data = {...bookingDetails.data, ...{returnFlightDetails: props.flight, isRoundTrip: true}};
+		bookingDetails.data = { ...bookingDetails.data, ...{ returnFlightDetails: props.flight, isRoundTrip: true } };
 		isReturnSelected = true;
 	}
 	isValidSelectionHandler(isReturnValid ? isReturnSelected && isOnwardSelected : isOnwardSelected);
@@ -44,17 +68,16 @@ const FlightRow = (props) => {
 };
 
 const FlightTable = ({ flights, direction = 1 }) => {
-	const flightRows = (flights||[]).map((flight, index) =>
+	const flightRows = (flights || []).map((flight, index) => (
 		<FlightRow key={flight.id} flight={flight} index={index} direction={direction} />
-	);
-	if (!flights){
+	));
+	if (!flights) {
 		return null;
-	}
-	else {
+	} else {
 		return (
 			<Col>
 				<Jumbotron>
-					<h5 className='text-center'>{direction === 1 ? 'Onward Journey' : 'Return Jounrey'}</h5>
+					<h5 className="text-center">{direction === 1 ? 'Onward Journey' : 'Return Jounrey'}</h5>
 					<Table responsive hover striped>
 						<thead>
 							<tr className="text-center">
@@ -68,9 +91,7 @@ const FlightTable = ({ flights, direction = 1 }) => {
 								<th></th>
 							</tr>
 						</thead>
-						<tbody>
-							{flightRows}
-						</tbody>
+						<tbody>{flightRows}</tbody>
 					</Table>
 				</Jumbotron>
 			</Col>
@@ -87,7 +108,7 @@ class Search extends React.Component {
 			arrival: '',
 			flights_forward: null,
 			flights_return: null,
-			isValidSelection: false
+			isValidSelection: false,
 		};
 
 		this.isValidSelectionFn = this.isValidSelectionFn.bind(this);
@@ -104,7 +125,7 @@ class Search extends React.Component {
 	}
 
 	isValidSelectionFn(value) {
-		this.setState({isValidSelection: value});
+		this.setState({ isValidSelection: value });
 	}
 
 	async loadData() {
@@ -113,7 +134,7 @@ class Search extends React.Component {
 		this.setState({
 			flights_forward: data_forward,
 		});
-		if(returnDate) {
+		if (returnDate) {
 			isReturnValid = true;
 			const data_return = await getitenaries(arrAirport, deptAirport, returnDate, numPassengers);
 			this.setState({
@@ -125,6 +146,9 @@ class Search extends React.Component {
 	render() {
 		isValidSelectionHandler = this.isValidSelectionFn;
 		const { flights_forward, flights_return } = this.state;
+		if (!(this.state.isValidSelection && this.props.userData)) {
+			setModal && setModal(!modal);
+		}
 		return (
 			<>
 				<h4 className="text-center">Available Flights</h4>
@@ -180,8 +204,11 @@ class Search extends React.Component {
 					<FlightTable flights={flights_return} direction={2} />
 				</Row>
 				<LinkContainer to={'/passengerdetails'}>
-					<Button disabled={!this.state.isValidSelection} onClick={() => this.props.updateBookingDetails(bookingDetails)}>Submit</Button>
+					<Button disabled={!(this.state.isValidSelection && this.props.userData)} onClick={() => this.props.updateBookingDetails(bookingDetails)}>
+            Submit
+					</Button>
 				</LinkContainer>
+				<LoginMessageModal isValidSelection={this.state.isValidSelection} userData={this.props.userData}/>
 			</>
 		);
 	}
