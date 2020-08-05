@@ -1,11 +1,17 @@
 import React from 'react';
 import { Table, Button, Collapse } from 'reactstrap';
-import { getOneWayBookings, getRoundTripBookings } from '../connect_api/bookings_list'
+import { getOneWayBookings, getRoundTripBookings, deleteBooking } from '../connect_api/bookings_list'
 
 const BookingRowOne = (props) => {
-	const { booking, index } = props;
+	const { booking, index, deleteBookings } = props;
 	const passengerNames = (booking.names || []).map((name) => name).join(', ');
 	const journeyDate = new Date(booking.onwardJourneyDate);
+
+	const onDelete = (e) => {
+		e.preventDefault();
+		deleteBookings(false, index);
+	}
+
 	return (
 		<tr className='text-center'>
 			<td>{index + 1}</td>
@@ -14,17 +20,23 @@ const BookingRowOne = (props) => {
 			<td>{journeyDate.toDateString()}</td>
 			<td>{passengerNames}</td>
 			<td>
-				<Button>Cancel</Button>
+				<Button onClick={onDelete}>Cancel</Button>
 			</td>
 		</tr>
 	);
 };
 
 const BookingRowReturn = (props) => {
-	const { booking, index } = props;
+	const { booking, index, deleteBookings } = props;
 	const passengerNames = (booking.names || []).map((name) => name).join(', ');
 	const onwardJourneyDate = new Date(booking.onwardJourneyDate);
 	const returnJourneyDate = new Date(booking.returnJourneyDate);
+
+	const onDelete = (e) => {
+		e.preventDefault();
+		deleteBookings(true, index);
+	}
+
 	return (
 		<tr className='text-center'>
 			<td>{index + 1}</td>
@@ -36,13 +48,13 @@ const BookingRowReturn = (props) => {
 			<td>{returnJourneyDate.toDateString()}</td>
 			<td>{passengerNames}</td>
 			<td>
-				<Button>Cancel</Button>
+				<Button onClick={onDelete}>Cancel</Button>
 			</td>
 		</tr>
 	);
 };
 
-const BookingTableOne = ({ bookingsRows }) => {
+const BookingTableOne = ({ bookingsRows, deleteBookings }) => {
 	return (
 		<Table responsive hover striped>
 			<thead>
@@ -56,13 +68,13 @@ const BookingTableOne = ({ bookingsRows }) => {
 				</tr>
 			</thead>
 			<tbody>
-				<BookingRowsOne bookings={bookingsRows} />
+				<BookingRowsOne bookings={bookingsRows} deleteBookings={deleteBookings} />
 			</tbody>
 		</Table>
 	);
 };
 
-const BookingTableReturn = ({ bookingsRows }) => {
+const BookingTableReturn = ({ bookingsRows, deleteBookings }) => {
 	return (
 		<Table responsive hover striped>
 			<thead>
@@ -79,30 +91,24 @@ const BookingTableReturn = ({ bookingsRows }) => {
 			</tr>
 			</thead>
 			<tbody>
-			<BookingRowsReturn bookings={bookingsRows} />
+			<BookingRowsReturn bookings={bookingsRows} deleteBookings={deleteBookings} />
 			</tbody>
 		</Table>
 	);
 };
 
 
-const BookingRowsOne = ({ bookings }) => {
-	const bookingRows = (bookings || []).map((booking, index) => <BookingRowOne key={booking._id} booking={booking} index={index} />);
+const BookingRowsOne = ({ bookings, deleteBookings }) => {
+	const bookingRows = (bookings || []).map((booking, index) => <BookingRowOne key={booking._id} booking={booking} index={index} deleteBookings={deleteBookings} />);
 	return <>{bookingRows}</>;
 };
 
-const BookingRowsReturn = ({ bookings }) => {
-	const bookingRows = (bookings || []).map((booking, index) => <BookingRowReturn key={booking._id} booking={booking} index={index} />);
+const BookingRowsReturn = ({ bookings, deleteBookings }) => {
+	const bookingRows = (bookings || []).map((booking, index) => <BookingRowReturn key={booking._id} booking={booking} index={index} deleteBookings={deleteBookings} />);
 	return <>{bookingRows}</>;
 };
 
 class Bookings extends React.Component {
-	// const [isToggleOne, setisToggleOne] = useState(true);
-	// const [isToggleRound, setisToggleRound] = useState(false);
-	// // const[isToggleCancel, setisToggleCancel] = useState(false);
-	// const toggleOne = () => setisToggleOne(!isToggleOne);
-	// const toggleRound = () => setisToggleRound(!isToggleRound);
-	// // const toggleCancel = () => setisToggleCancel(!isToggleCancel);
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -113,6 +119,7 @@ class Bookings extends React.Component {
 		}
 		this.toggleOne = this.toggleOne.bind(this);
 		this.toggleRound = this.toggleRound.bind(this);
+		this.deleteBookings = this.deleteBookings.bind(this);
 	}
 
 	toggleOne(){
@@ -139,13 +146,29 @@ class Bookings extends React.Component {
 
 	async loadBookingsOne() {
 		const bookingsOne = await getOneWayBookings();
+		console.log(bookingsOne)
 		this.setState({ bookingsOne:bookingsOne });
 	}
 
 	async loadBookingsRound() {
 		const bookingsRound = await getRoundTripBookings();
+		console.log(bookingsRound)
 		this.setState({ bookingsRound:bookingsRound });
 	}
+
+	async deleteBookings(isRoundTrip, index) {
+		if (!isRoundTrip) {
+			const { bookingsOne } = this.state;
+			console.log(bookingsOne[index])
+			await deleteBooking(isRoundTrip, bookingsOne[index]._id);
+			this.loadBookingsOne();
+		} else {
+			const { bookingsRound } = this.state;
+			await deleteBooking(isRoundTrip, bookingsRound[index]._id);
+			this.loadBookingsRound();
+		}
+	}
+
 	render() {
 		const { isToggleOne, isToggleRound, bookingsOne, bookingsRound } = this.state;
 		return (
@@ -154,13 +177,13 @@ class Bookings extends React.Component {
 					One Way Bookings
 				</Button>
 				<Collapse isOpen={isToggleOne}>
-					<BookingTableOne bookingsRows={bookingsOne} />
+					<BookingTableOne bookingsRows={bookingsOne} deleteBookings={this.deleteBookings} />
 				</Collapse>
 				<Button color="secondary" size="lg" onClick={this.toggleRound} block>
 					Round Trip Bookings
 				</Button>
 				<Collapse isOpen={isToggleRound}>
-					<BookingTableReturn bookingsRows={bookingsRound} />
+					<BookingTableReturn bookingsRows={bookingsRound} deleteBookings={this.deleteBookings} />
 				</Collapse>
 				{/*<Button color='secondary' size='lg' onClick={toggleCancel} block>*/}
 				{/*	Cancelled Bookings*/}
