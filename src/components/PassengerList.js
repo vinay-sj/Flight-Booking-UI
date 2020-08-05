@@ -1,13 +1,17 @@
 import React from 'react';
-import {Table, Button, ButtonGroup, Modal, ModalFooter, ModalBody} from 'reactstrap';
-import {Well, Glyphicon} from 'react-bootstrap';
+import { Table, Button, ButtonGroup, Modal, ModalFooter, ModalBody } from 'reactstrap';
+import { Well, Glyphicon } from 'react-bootstrap';
 import PassengerForm from './PassengerForm';
 import { getPassengers, addPassenger, deletePassenger } from '../connect_api/passengers';
-import {deleteBooking} from "../connect_api/bookings_list";
 
-const PassengerRows = ({ passengers }) => {
+const PassengerRows = ({ passengers, deletePassenger }) => {
 	const passengerRows = (passengers || []).map((passenger, index) => {
 		const birthDate = new Date(passenger.birthDate);
+
+		const onDelete = () => {
+			deletePassenger(index);
+		}
+
 		return (
 			<tr key={index}>
 				<td>{index + 1}</td>
@@ -20,7 +24,7 @@ const PassengerRows = ({ passengers }) => {
 				<td>
 					<ButtonGroup className="btn-group-sm">
 						<Button><Glyphicon glyph="edit"/>Edit</Button>
-						<Button> <Glyphicon glyph="trash"/>Delete</Button>
+						<Button onClick={onDelete}> <Glyphicon glyph="trash"/>Delete</Button>
 					</ButtonGroup>
 				</td>
 			</tr>
@@ -42,7 +46,7 @@ class Passengers extends React.Component {
 		this.toggle = this.toggle.bind(this);
 		this.onChange = this.onChange.bind(this);
 		this.onDatePickerChange = this.onDatePickerChange.bind(this);
-		// this.loadData = this.loadData.bind(this);
+		this.deletePassenger = this.deletePassenger.bind(this);
 	}
 
 	async savePassenger() {
@@ -86,8 +90,13 @@ class Passengers extends React.Component {
 
 	async loadData() {
 		const  passengerList  = await getPassengers();
-		console.log(passengerList)
 		this.setState({ passengerList:passengerList });
+	}
+
+	async deletePassenger(index) {
+		const { passengerList } = this.state;
+		await deletePassenger(passengerList[index]._id);
+		this.loadData();
 	}
 
 	render() {
@@ -124,7 +133,7 @@ class Passengers extends React.Component {
 						</tr>
 					</thead>
 					<tbody>
-						<PassengerRows passengers={passengerList}/>
+						<PassengerRows passengers={passengerList} deletePassenger={this.deletePassenger} />
 					</tbody>
 				</Table>
 			</>
