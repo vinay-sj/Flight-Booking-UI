@@ -6,7 +6,8 @@ export async function getPassengers()  {
 	try{
 		passengers = await axios({
 			method: 'GET',
-			url: 'http://localhost:5000/api/passengers/getPassenger',
+			//url: 'http://localhost:5000/api/passengers/getPassenger',
+			url: 'https://group-project-avengers-api.herokuapp.com/api/passengers/getPassenger',
 			headers: {
 				'Access-Control-Allow-Origin': '*',
 				'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
@@ -30,7 +31,8 @@ export async function getPassengers()  {
 export async function addPassenger(reqBody) {
 	return axios({
 		method: 'POST',
-		url: 'http://localhost:5000/api/passengers/addPassenger',
+		//url: 'http://localhost:5000/api/passengers/addPassenger',
+		url: 'https://group-project-avengers-api.herokuapp.com/api/passengers/addPassenger',
 		headers: {
 			'Access-Control-Allow-Origin': '*',
 			'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
@@ -43,7 +45,8 @@ export async function addPassenger(reqBody) {
 export async function deletePassenger(id) {
 
 	let success;
-	let url = 'http://localhost:5000/api/passengers/deletePassenger/'.concat('',id);
+	//let url = 'http://localhost:5000/api/passengers/deletePassenger/'.concat('',id);
+	url = 'https://group-project-avengers-api.herokuapp.com/api/passengers/deletePassenger/'.concat('',id);
 	try{
 		success = await axios.delete(url).then((response) => {
 			return response;
