@@ -19,6 +19,8 @@ class PassengerFormTemplate extends React.Component {
 
 	render() {
 		const { onChange, index, onDatePickerChange, addPassenger } = this.props;
+		let { passengerValue } = this.props;
+		passengerValue = passengerValue || [];
 		const { birthDate } = this.state;
 		const passNo = index + 1 || '';
 		const i = index || 0;
@@ -36,6 +38,7 @@ class PassengerFormTemplate extends React.Component {
 							type="text"
 							name="name"
 							id="name"
+							value={passengerValue.name}
 							placeholder="Name"
 							onChange={(event) => {
 								onChange(event, i);
@@ -52,6 +55,7 @@ class PassengerFormTemplate extends React.Component {
 							<select
 								type="text"
 								id="gender"
+								value={passengerValue.gender}
 								name="gender"
 								onChange={(event) => {
 									onChange(event, i);
@@ -70,7 +74,7 @@ class PassengerFormTemplate extends React.Component {
 					</Row>
 					<Row>
 						<DatePicker
-							selected={birthDate}
+							selected={(passengerValue.birthDate)?new Date(passengerValue.birthDate):birthDate}
 							onChange={(date) => {
 								this.updateBirthDate(date);
 								onDatePickerChange(date, 'birthDate', i);
@@ -86,6 +90,7 @@ class PassengerFormTemplate extends React.Component {
 						<Input
 							type="email"
 							name="emailId"
+							value={passengerValue.emailId}
 							id="email"
 							placeholder="Email"
 							onChange={(event) => {
@@ -102,6 +107,7 @@ class PassengerFormTemplate extends React.Component {
 						<Input
 							type="number"
 							name="contactNo"
+							value={passengerValue.contactNo}
 							id="contact"
 							placeholder="Contact No"
 							onChange={(event) => {
@@ -119,6 +125,7 @@ class PassengerFormTemplate extends React.Component {
 							type="text"
 							name="passPortNo"
 							id="passport"
+							value={passengerValue.passPortNo}
 							placeholder="Passport No"
 							onChange={(event) => {
 								onChange(event, i);

@@ -72,8 +72,6 @@ class PassengerDetails extends React.Component {
 
 	async loadData() {
 		const  passengerList  = await getPassengers();
-		console.log('list')
-		console.log(passengerList)
 		await this.setState({ passengerList: passengerList });
 	}
 
@@ -101,8 +99,6 @@ class PassengerDetails extends React.Component {
 	}
 
 	selectPassengers(passIndex, index, toggle) {
-		console.log("passIndex"+passIndex)
-		console.log("index"+index)
 		const { passengerList } = this.state;
 		let newState = JSON.parse(JSON.stringify(this.state.bookingDetails.passengerDetails));
 		const passenger = passengerList[passIndex]
@@ -114,7 +110,7 @@ class PassengerDetails extends React.Component {
 	}
 
 	render() {
-		const { numPassengers } = this.state.bookingDetails;
+		const { numPassengers, passengerDetails } = this.state.bookingDetails;
 		const { passengerList } = this.state;
 		const addPassengers = (index) => <AddPassenger
 			index={index}
@@ -137,6 +133,7 @@ class PassengerDetails extends React.Component {
 				onDatePickerChange={this.onDatePickerChange}
 				index={index}
 				addPassenger={addPassengers(index)}
+				passengerValue={passengerDetails[index]}
 			/>;
 		});
 
