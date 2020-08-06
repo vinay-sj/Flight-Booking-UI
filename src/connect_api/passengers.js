@@ -46,7 +46,7 @@ export async function deletePassenger(id) {
 
 	let success;
 	//let url = 'http://localhost:5000/api/passengers/deletePassenger/'.concat('',id);
-	url = 'https://group-project-avengers-api.herokuapp.com/api/passengers/deletePassenger/'.concat('',id);
+	let url = 'https://group-project-avengers-api.herokuapp.com/api/passengers/deletePassenger/'.concat('',id);
 	try{
 		success = await axios.delete(url).then((response) => {
 			return response;
