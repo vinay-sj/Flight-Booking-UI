@@ -64,6 +64,16 @@ class Passengers extends React.Component {
 		});
 	}
 
+	componentDidMount() {
+		this.loadData();
+	}
+
+	componentDidUpdate(prevProps) {
+		if(prevProps.passengers !== this.props.passengers) {
+			this.loadData();
+		}
+	}
+
 	async loadData() {
 		const  passengerList  = await getPassengers();
 		await this.setState({ passengerList:passengerList });
@@ -94,7 +104,7 @@ class Passengers extends React.Component {
 						</ModalFooter>
 					</Modal>
 				</Well>
-				<PassengerListTable passengers={passengerList} loadData={this.loadData} actionButtons={(index)=>{return (<ActionButtons index={index} deletePassengers={this.deletePassengers}/>)}} />
+				<PassengerListTable passengers={passengerList} actionButtons={(index)=>{return (<ActionButtons index={index} deletePassengers={this.deletePassengers}/>)}} />
 			</>
 		);
 	}

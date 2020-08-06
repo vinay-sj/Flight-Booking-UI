@@ -1,14 +1,14 @@
 import React from 'react';
 import { Table } from "reactstrap";
 
-const PassengerRows = ({ passengers, actionButtons }) => {
-  const passengerRows = (passengers || []).map((passenger, index) => {
+const PassengerRows = ({ passengers, actionButtons, index, toggle }) => {
+  const passengerRows = (passengers || []).map((passenger, passIndex) => {
     const birthDate = new Date(passenger.birthDate);
-    const actionbutton = actionButtons(index);
-
+    index = index || 0;
+    const actionbutton = actionButtons(passIndex, index, toggle);
     return (
-      <tr key={index}>
-        <td>{index + 1}</td>
+      <tr key={passIndex}>
+        <td>{passIndex + 1}</td>
         <td>{passenger.name}</td>
         <td>{passenger.gender}</td>
         <td>{birthDate.toLocaleDateString()}</td>
@@ -29,18 +29,8 @@ class PassengerListTable extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
-    this.props.loadData();
-  }
-
-  componentDidUpdate(prevProps) {
-    if(prevProps.passengers !== this.props.passengers) {
-      this.props.loadData();
-    }
-  }
-
   render() {
-    const { passengers, actionButtons } = this.props;
+    const { passengers, actionButtons, index, toggle } = this.props;
     console.log(passengers)
     return (
       <Table responsive hover>
@@ -57,7 +47,7 @@ class PassengerListTable extends React.Component {
         </tr>
         </thead>
         <tbody>
-        <PassengerRows passengers={passengers} actionButtons={actionButtons} />
+        <PassengerRows index={index} toggle={toggle} passengers={passengers} actionButtons={actionButtons} />
         </tbody>
       </Table>
     );

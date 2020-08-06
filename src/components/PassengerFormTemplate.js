@@ -18,14 +18,14 @@ class PassengerFormTemplate extends React.Component {
 	}
 
 	render() {
-		const { onChange, index, onDatePickerChange } = this.props;
+		const { onChange, index, onDatePickerChange, addPassenger } = this.props;
 		const { birthDate } = this.state;
 		const passNo = index + 1 || '';
 		const i = index || 0;
 		return (
 			<Jumbotron key={index}>
 				<FormGroup row>
-					<div id={index}>Passenger Details: {passNo}</div>
+					<div id={index}>Passenger Details: {passNo}  {addPassenger}</div>
 				</FormGroup>
 				<FormGroup>
 					<Row>
