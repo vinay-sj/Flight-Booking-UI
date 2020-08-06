@@ -6,7 +6,7 @@ import PassengerDetails from './components/PassengerDetails';
 import Bookings from './components/Bookings';
 import Search from './components/Search';
 import ConfirmationPage from './components/ConfirmationPage';
-import Passengers from './components/PassengerList';
+import Passengers from './components/SavedPassengerList';
 
 class App extends React.Component {
 	constructor(props) {

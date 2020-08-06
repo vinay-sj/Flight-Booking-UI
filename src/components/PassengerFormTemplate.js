@@ -2,7 +2,7 @@ import { FormGroup, Input, Jumbotron, Label, Row } from 'reactstrap';
 import React from 'react';
 import DatePicker from 'react-datepicker';
 
-class PassengerForm extends React.Component {
+class PassengerFormTemplate extends React.Component {
 	constructor() {
 		super();
 		this.state = {
@@ -131,4 +131,4 @@ class PassengerForm extends React.Component {
 	}
 }
 
-export default PassengerForm;
+export default PassengerFormTemplate;

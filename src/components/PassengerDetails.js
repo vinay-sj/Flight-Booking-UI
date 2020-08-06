@@ -5,7 +5,7 @@ import { Button, Form, Modal, ModalHeader, ModalFooter, ModalBody } from 'reacts
 // import { Select } from 'react-select'
 import ConfirmBookingCall from '../connect_api/confirm_booking';
 import { LinkContainer } from 'react-router-bootstrap';
-import PassengerForm from './PassengerForm';
+import PassengerFormTemplate from './PassengerFormTemplate';
 
 class PassengerDetails extends React.Component {
 	constructor(props) {
@@ -72,7 +72,7 @@ class PassengerDetails extends React.Component {
 	render() {
 		const { numPassengers } = this.state.bookingDetails;
 		const passengerForm = Array.apply(null, { length: numPassengers }).map((e, index) => {
-			return <PassengerForm key={index} onChange={this.onChange} onDatePickerChange={this.onDatePickerChange} index={index} />;
+			return <PassengerFormTemplate key={index} onChange={this.onChange} onDatePickerChange={this.onDatePickerChange} index={index} />;
 		});
 
 		return (

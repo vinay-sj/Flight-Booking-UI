@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Button, ButtonGroup, Modal, ModalFooter, ModalBody } from 'reactstrap';
 import { Well, Glyphicon } from 'react-bootstrap';
-import PassengerForm from './PassengerForm';
+import PassengerFormTemplate from './PassengerFormTemplate';
 import { getPassengers, addPassenger, deletePassenger } from '../connect_api/passengers';
 
 const PassengerRows = ({ passengers, deletePassenger }) => {
@@ -110,7 +110,7 @@ class Passengers extends React.Component {
 					</div>
 					<Modal isOpen={modal} toggle={this.toggle}>
 						<ModalBody>
-							<PassengerForm onChange={this.onChange} onDatePickerChange={this.onDatePickerChange} />
+							<PassengerFormTemplate onChange={this.onChange} onDatePickerChange={this.onDatePickerChange} />
 						</ModalBody>
 						<ModalFooter>
 							<Button color="primary" onClick={this.savePassenger}>Save</Button>{' '}
