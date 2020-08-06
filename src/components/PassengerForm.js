@@ -1,4 +1,4 @@
-import {FormGroup, Input, Jumbotron, Label, Row} from 'reactstrap';
+import {FormGroup, Input, Jumbotron, Label, Row, FormFeedback} from 'reactstrap';
 import React from 'react';
 import DatePicker from 'react-datepicker';
 
@@ -7,14 +7,32 @@ class PassengerForm extends React.Component {
 		super();
 		this.state = {
 			birthDate: new Date(),
+			validate: {
+				emailState: false,
+			}
 		};
 		this.updateBirthDate = this.updateBirthDate.bind(this);
+		this.validateEmail = this.validateEmail.bind(this);
 	}
 
 	updateBirthDate(date) {
 		this.setState({
 			birthDate: date
 		});
+	}
+
+	validateEmail(e, i){
+		const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		let { validate } = this.state;
+
+		if (emailRex.test(e.target.value)) {
+			validate.emailState = false;
+			this.props.onChange(e, i);
+		} else {
+			validate.emailState = true;
+		}
+
+		this.setState({ validate });
 	}
 
 	render() {
@@ -81,17 +99,17 @@ class PassengerForm extends React.Component {
 				<FormGroup>
           <Row>
 					  <Label for="email">Email</Label>
-          </Row>
-          <Row>
   					<Input
+							invalid={ this.state.validate.emailState }
   						type="email"
   						name="emailId"
   						id="email"
   						placeholder="Email"
-  						onChange={(event) => {
-  							onChange(event, i);
+  						onBlur={(event) => {
+								this.validateEmail(event, i);
   						}}
   					/>
+						<FormFeedback>Please enter email in the proper format: wanda@maximoff.com</FormFeedback>
           </Row>
 				</FormGroup>
 				<FormGroup>
