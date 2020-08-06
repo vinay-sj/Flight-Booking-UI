@@ -9,11 +9,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 class HomePage extends React.Component {
 	constructor(props) {
+		const date = new Date();
 		super(props);
 		this.state = {
 			rselected: 1,
-			departureDate: new Date(),
-			returnDate: new Date(),
+			departureDate: date.toISOString().slice(0,10),
+			returnDate: date.toISOString().slice(0,10),
 			deptAirport: '',
 			arrAirport: '',
 			numPassengers: 1,
@@ -27,6 +28,7 @@ class HomePage extends React.Component {
 		this.handleDeptAirportChange = this.handleDeptAirportChange.bind(this);
 		this.handleDepartureDateChange = this.handleDepartureDateChange.bind(this);
 		this.handleReturnDateChange = this.handleReturnDateChange.bind(this);
+		this.formatDate = this.formatDate.bind(this);
 		this.handleNumPassengersChange = this.handleNumPassengersChange.bind(this);
 	}
 
@@ -83,6 +85,10 @@ class HomePage extends React.Component {
 			rselected: 2,
 			returnDate: null
 		});
+	}
+
+	formatDate(date) {
+		return Date.parse(date.concat(' 00:00:00 EST'));
 	}
 
 	async loadOptions(term) {
@@ -173,7 +179,7 @@ class HomePage extends React.Component {
 								<FormGroup>
 									<DatePicker
 										minDate={new Date()}
-										selected={Date.parse(this.state.departureDate)}
+										selected={this.formatDate(this.state.departureDate)}
 										onChange={this.handleDepartureDateChange}
 									/>
 								</FormGroup>
@@ -182,8 +188,8 @@ class HomePage extends React.Component {
 								<Col md={3}>
 									<FormGroup>
 										<DatePicker
-											minDate={Date.parse(this.state.departureDate)}
-											selected={Date.parse(this.state.returnDate)}
+											minDate={this.formatDate(this.state.departureDate)}
+											selected={this.formatDate(this.state.returnDate)}
 											onChange={this.handleReturnDateChange}
 										/>
 									</FormGroup>
