@@ -1,37 +1,22 @@
 import React from 'react';
-import { Table, Button, ButtonGroup, Modal, ModalFooter, ModalBody } from 'reactstrap';
+import { Button, ButtonGroup, Modal, ModalFooter, ModalBody } from 'reactstrap';
 import { Well, Glyphicon } from 'react-bootstrap';
-import PassengerForm from './PassengerForm';
+import PassengerFormTemplate from './PassengerFormTemplate';
 import { getPassengers, addPassenger, deletePassenger } from '../connect_api/passengers';
+import PassengerListTable from "./PassengerListTable";
 
-const PassengerRows = ({ passengers, deletePassenger }) => {
-	const passengerRows = (passengers || []).map((passenger, index) => {
-		const birthDate = new Date(passenger.birthDate);
-
-		const onDelete = () => {
-			deletePassenger(index);
-		}
-
-		return (
-			<tr key={index}>
-				<td>{index + 1}</td>
-				<td>{passenger.name}</td>
-				<td>{passenger.gender}</td>
-				<td>{birthDate.toLocaleDateString()}</td>
-				<td>{passenger.emailId}</td>
-				<td>{passenger.contactNo}</td>
-				<td>{passenger.passPortNo}</td>
-				<td>
-					<ButtonGroup className="btn-group-sm">
-						<Button><Glyphicon glyph="edit"/>Edit</Button>
-						<Button onClick={onDelete}> <Glyphicon glyph="trash"/>Delete</Button>
-					</ButtonGroup>
-				</td>
-			</tr>
-		);
-	});
-	return <>{passengerRows}</>;
-};
+const ActionButtons = (props) => {
+	const { deletePassengers, index} = props;
+	const onDelete = () => {
+		deletePassengers(index);
+	};
+	return(
+		<ButtonGroup className="btn-group-sm">
+			<Button><Glyphicon glyph="edit"/>Edit</Button>
+			<Button onClick={onDelete}> <Glyphicon glyph="trash"/>Delete</Button>
+		</ButtonGroup>
+	);
+}
 
 class Passengers extends React.Component {
 	constructor(props) {
@@ -46,13 +31,14 @@ class Passengers extends React.Component {
 		this.toggle = this.toggle.bind(this);
 		this.onChange = this.onChange.bind(this);
 		this.onDatePickerChange = this.onDatePickerChange.bind(this);
-		this.deletePassenger = this.deletePassenger.bind(this);
+		this.deletePassengers = this.deletePassengers.bind(this);
+		this.loadData = this.loadData.bind(this);
 	}
 
 	async savePassenger() {
 		const { passengerDetails } = this.state;
 		await addPassenger(passengerDetails[0]);
-		this.loadData();
+		await this.loadData();
 		this.toggle();
 	}
 
@@ -83,20 +69,20 @@ class Passengers extends React.Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if(prevProps.passengerList !== this.props.passengerList) {
+		if(prevProps.passengers !== this.props.passengers) {
 			this.loadData();
 		}
 	}
 
 	async loadData() {
 		const  passengerList  = await getPassengers();
-		this.setState({ passengerList:passengerList });
+		await this.setState({ passengerList:passengerList });
 	}
 
-	async deletePassenger(index) {
+	async deletePassengers(index) {
 		const { passengerList } = this.state;
 		await deletePassenger(passengerList[index]._id);
-		this.loadData();
+		await this.loadData();
 	}
 
 	render() {
@@ -110,7 +96,7 @@ class Passengers extends React.Component {
 					</div>
 					<Modal isOpen={modal} toggle={this.toggle}>
 						<ModalBody>
-							<PassengerForm onChange={this.onChange} onDatePickerChange={this.onDatePickerChange} />
+							<PassengerFormTemplate onChange={this.onChange} onDatePickerChange={this.onDatePickerChange} addPassenger={null}/>
 						</ModalBody>
 						<ModalFooter>
 							<Button color="primary" onClick={this.savePassenger}>Save</Button>{' '}
@@ -118,24 +104,7 @@ class Passengers extends React.Component {
 						</ModalFooter>
 					</Modal>
 				</Well>
-
-				<Table responsive hover>
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>Name</th>
-							<th>Gender</th>
-							<th>Birth Date</th>
-							<th>Email</th>
-							<th>Contact No.</th>
-							<th>Passport No.</th>
-							<th>Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						<PassengerRows passengers={passengerList} deletePassenger={this.deletePassenger} />
-					</tbody>
-				</Table>
+				<PassengerListTable passengers={passengerList} actionButtons={(index)=>{return (<ActionButtons index={index} deletePassengers={this.deletePassengers}/>)}} />
 			</>
 		);
 	}

@@ -6,7 +6,7 @@ import PassengerDetails from './components/PassengerDetails';
 import Bookings from './components/Bookings';
 import Search from './components/Search';
 import ConfirmationPage from './components/ConfirmationPage';
-import Passengers from './components/PassengerList';
+import Passengers from './components/SavedPassengerList';
 
 class App extends React.Component {
 	constructor(props) {
@@ -47,7 +47,7 @@ class App extends React.Component {
 							<Route path="/homepage" render={() => <Homepage flightSearchParams={this.flightSearchParams} />} />
 							<Route
 								path="/search"
-								render={() => <Search searchParams={this.state.searchParams} updateBookingDetails={this.updateBookingDetails} />}
+								render={() => <Search searchParams={this.state.searchParams} updateBookingDetails={this.updateBookingDetails} userData={this.state.userData} />}
 							/>
 							<Route
 								path="/passengerdetails"
