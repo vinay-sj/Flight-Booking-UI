@@ -25,9 +25,6 @@ const PassengerRows = ({ passengers, actionButtons, index, toggle }) => {
 };
 
 class PassengerListTable extends React.Component {
-	constructor(props) {
-		super(props);
-	}
 
 	render() {
 		const { passengers, actionButtons, index, toggle } = this.props;
