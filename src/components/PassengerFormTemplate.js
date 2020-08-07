@@ -33,7 +33,7 @@ class PassengerFormTemplate extends React.Component {
 		const { name } = event.target;
 		this.setState({
 			[name]:event.target.value
-		})
+		});
 	}
 
 	validateEmail(e, i){

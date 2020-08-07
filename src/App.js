@@ -40,7 +40,7 @@ class App extends React.Component {
 		}
 		return (
 			<div>
-				<Header updateUserDetails={this.updateUserDetails} />
+				<Header updateUserDetails={this.updateUserDetails} userData={this.state.userData} />
 				<div className="container main">
 					<BrowserRouter>
 						<Switch>

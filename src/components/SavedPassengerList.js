@@ -3,7 +3,7 @@ import { Button, ButtonGroup, Modal, ModalFooter, ModalBody } from 'reactstrap';
 import { Well, Glyphicon } from 'react-bootstrap';
 import PassengerFormTemplate from './PassengerFormTemplate';
 import { getPassengers, addPassenger, deletePassenger } from '../connect_api/passengers';
-import PassengerListTable from "./PassengerListTable";
+import PassengerListTable from './PassengerListTable';
 
 const ActionButtons = (props) => {
 	const { deletePassengers, index} = props;
@@ -16,7 +16,7 @@ const ActionButtons = (props) => {
 			<Button onClick={onDelete}> <Glyphicon glyph="trash"/>Delete</Button>
 		</ButtonGroup>
 	);
-}
+};
 
 class Passengers extends React.Component {
 	constructor(props) {
@@ -104,7 +104,7 @@ class Passengers extends React.Component {
 						</ModalFooter>
 					</Modal>
 				</Well>
-				<PassengerListTable passengers={passengerList} actionButtons={(index)=>{return (<ActionButtons index={index} deletePassengers={this.deletePassengers}/>)}} />
+				<PassengerListTable passengers={passengerList} actionButtons={(index)=>{return (<ActionButtons index={index} deletePassengers={this.deletePassengers}/>);}} />
 			</>
 		);
 	}
