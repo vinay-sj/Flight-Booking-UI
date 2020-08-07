@@ -1,4 +1,4 @@
-import { FormGroup, Input, Jumbotron, Label, Row } from 'reactstrap';
+import { FormGroup, Input, Jumbotron, Label, Row, FormFeedback, } from 'reactstrap';
 import React from 'react';
 import DatePicker from 'react-datepicker';
 
@@ -12,9 +12,15 @@ class PassengerFormTemplate extends React.Component {
 			emailId:'',
 			gender:'',
 			passPortNo:'',
+			validate: {
+				emailState: false,
+				passState: false,
+			}
 		};
 		this.updateBirthDate = this.updateBirthDate.bind(this);
 		this.updateState = this.updateState.bind(this);
+		this.validateEmail = this.validateEmail.bind(this);
+		this.validatePassport = this.validatePassport.bind(this);
 	}
 
 	updateBirthDate(date) {
@@ -28,6 +34,36 @@ class PassengerFormTemplate extends React.Component {
 		this.setState({
 			[name]:event.target.value
 		});
+	}
+
+	validateEmail(e, i){
+		const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		let { validate } = this.state;
+
+		if (emailRex.test(e.target.value)) {
+			validate.emailState = false;
+			this.props.onChange(e, i);
+			this.updateState(e);
+		} else {
+			validate.emailState = true;
+		}
+
+		this.setState({ validate });
+	}
+
+	validatePassport(e, i) {
+		const passRex = /[A-Z]{2}[0-9]{7}/;
+		let { validate } = this.state;
+
+		if (passRex.test(e.target.value)) {
+			validate.passState = false;
+			this.props.onChange(e, i);
+			this.updateState(e);
+		} else {
+			validate.passState = true;
+		}
+
+		this.setState({ validate });
 	}
 
 	render() {
@@ -76,7 +112,7 @@ class PassengerFormTemplate extends React.Component {
 									onChange(event, i);
 								}}
 							>
-								<option value="---">Select a gender</option>
+								<option value="---">Select Gender</option>
 								<option value="M">Male</option>
 								<option value="F">Female</option>
 							</select>
@@ -89,6 +125,7 @@ class PassengerFormTemplate extends React.Component {
 					</Row>
 					<Row>
 						<DatePicker
+							maxDate={new Date()}
 							selected={(passengerValue.birthDate)?new Date(passengerValue.birthDate):birthDate}
 							onChange={(date) => {
 								this.updateBirthDate(date);
@@ -100,19 +137,18 @@ class PassengerFormTemplate extends React.Component {
 				<FormGroup>
 					<Row>
 						<Label for="email">Email</Label>
-					</Row>
-					<Row>
 						<Input
+							invalid={ this.state.validate.emailState }
 							type="email"
 							name="emailId"
-							value={passengerValue.emailId||this.state.emailId}
+							defaultValue={passengerValue.emailId||this.state.emailId}
 							id="email"
 							placeholder="Email"
-							onChange={(event) => {
-								this.updateState(event);
-								onChange(event, i);
+							onBlur={(event) => {
+								this.validateEmail(event, i);
 							}}
 						/>
+						<FormFeedback>Please enter email in the proper format: wanda@maximoff.com</FormFeedback>
 					</Row>
 				</FormGroup>
 				<FormGroup>
@@ -123,10 +159,11 @@ class PassengerFormTemplate extends React.Component {
 						<Input
 							type="number"
 							name="contactNo"
-							value={passengerValue.contactNo||this.state.contactNo}
+							defaultValue={passengerValue.contactNo||this.state.contactNo}
 							id="contact"
 							placeholder="Contact No"
 							onChange={(event) => {
+								this.validatePassport(event, i);
 								this.updateState(event);
 								onChange(event, i);
 							}}
@@ -135,20 +172,19 @@ class PassengerFormTemplate extends React.Component {
 				</FormGroup>
 				<FormGroup>
 					<Row>
-						<Label for="passport">Passport</Label>
-					</Row>
-					<Row>
+						<Label for="passport">Passport Number</Label>
 						<Input
+							invalid={ this.state.validate.passState }
 							type="text"
 							name="passPortNo"
 							id="passport"
-							value={passengerValue.passPortNo||this.state.passPortNo}
+							defaultValue={passengerValue.passPortNo||this.state.passPortNo}
 							placeholder="Passport No"
-							onChange={(event) => {
-								this.updateState(event);
-								onChange(event, i);
+							onBlur={(event) => {
+								this.validatePassport(event, i);
 							}}
 						/>
+						<FormFeedback>Please enter passport number in the proper format.</FormFeedback>
 					</Row>
 				</FormGroup>
 			</Jumbotron>
