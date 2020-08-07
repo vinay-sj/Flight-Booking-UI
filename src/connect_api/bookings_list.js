@@ -93,7 +93,7 @@ export async function deleteBooking(isRoundTrip, id) {
 		// url =  'https://group-project-avengers-api.herokuapp.com/api/bookings/deleteRoundTrip/'.concat('',id);
 	} else {
 		url = 'http://localhost:5000/api/bookings/deleteOneWayTrip/'.concat('', id);
-		url =  'https://group-project-avengers-api.herokuapp.com/api/bookings/deleteOneWayTrip/'.concat('',id);
+		// url =  'https://group-project-avengers-api.herokuapp.com/api/bookings/deleteOneWayTrip/'.concat('',id);
 	}
 
 	try {
