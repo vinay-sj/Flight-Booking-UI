@@ -90,7 +90,7 @@ class HomePage extends React.Component {
 	}
 
 	formatDate(date) {
-		return Date.parse(date.concat(' 00:00:00 EST'));
+		return Date.parse(date.concat('T00:00:00'));
 	}
 
 	async loadOptions(term) {
