@@ -7,8 +7,8 @@ import ConfirmBookingCall from '../connect_api/confirm_booking';
 import { LinkContainer } from 'react-router-bootstrap';
 import PassengerFormTemplate from './PassengerFormTemplate';
 import AddPassenger from './AddPassenger';
-import {getPassengers} from "../connect_api/passengers";
-import {Glyphicon} from "react-bootstrap";
+import {getPassengers} from '../connect_api/passengers';
+import {Glyphicon} from 'react-bootstrap';
 
 const ActionButtons = (props) => {
 	const { selectPassengers, passIndex, index, toggle } = props;
@@ -20,7 +20,7 @@ const ActionButtons = (props) => {
 			<Button onClick={onSelect}> <Glyphicon glyph="ok"/>Select</Button>
 		</ButtonGroup>
 	);
-}
+};
 
 class PassengerDetails extends React.Component {
 	constructor(props) {
@@ -101,7 +101,7 @@ class PassengerDetails extends React.Component {
 	selectPassengers(passIndex, index, toggle) {
 		const { passengerList } = this.state;
 		let newState = JSON.parse(JSON.stringify(this.state.bookingDetails.passengerDetails));
-		const passenger = passengerList[passIndex]
+		const passenger = passengerList[passIndex];
 		newState[index] = { ...newState[index], ...passenger };
 		this.setState({
 			bookingDetails: {...this.state.bookingDetails, passengerDetails: newState},
@@ -123,9 +123,9 @@ class PassengerDetails extends React.Component {
 						toggle={toggle}
 						selectPassengers={this.selectPassengers}
 					/>
-					);
+				);
 			}}
-		/>
+		/>;
 		const passengerForm = Array.apply(null, { length: numPassengers }).map((e, index) => {
 			return <PassengerFormTemplate
 				key={index}
