@@ -7,14 +7,27 @@ class PassengerFormTemplate extends React.Component {
 		super();
 		this.state = {
 			birthDate: new Date(),
+			name: '',
+			contactNo:'',
+			emailId:'',
+			gender:'',
+			passPortNo:'',
 		};
 		this.updateBirthDate = this.updateBirthDate.bind(this);
+		this.updateState = this.updateState.bind(this);
 	}
 
 	updateBirthDate(date) {
 		this.setState({
 			birthDate: date,
 		});
+	}
+
+	updateState(event) {
+		const { name } = event.target;
+		this.setState({
+			[name]:event.target.value
+		})
 	}
 
 	render() {
@@ -38,9 +51,10 @@ class PassengerFormTemplate extends React.Component {
 							type="text"
 							name="name"
 							id="name"
-							value={passengerValue.name}
+							value={passengerValue.name||this.state.name}
 							placeholder="Name"
 							onChange={(event) => {
+								this.updateState(event);
 								onChange(event, i);
 							}}
 						/>
@@ -55,9 +69,10 @@ class PassengerFormTemplate extends React.Component {
 							<select
 								type="text"
 								id="gender"
-								value={passengerValue.gender}
+								value={passengerValue.gender||this.state.gender}
 								name="gender"
 								onChange={(event) => {
+									this.updateState(event);
 									onChange(event, i);
 								}}
 							>
@@ -90,10 +105,11 @@ class PassengerFormTemplate extends React.Component {
 						<Input
 							type="email"
 							name="emailId"
-							value={passengerValue.emailId}
+							value={passengerValue.emailId||this.state.emailId}
 							id="email"
 							placeholder="Email"
 							onChange={(event) => {
+								this.updateState(event);
 								onChange(event, i);
 							}}
 						/>
@@ -107,10 +123,11 @@ class PassengerFormTemplate extends React.Component {
 						<Input
 							type="number"
 							name="contactNo"
-							value={passengerValue.contactNo}
+							value={passengerValue.contactNo||this.state.contactNo}
 							id="contact"
 							placeholder="Contact No"
 							onChange={(event) => {
+								this.updateState(event);
 								onChange(event, i);
 							}}
 						/>
@@ -125,9 +142,10 @@ class PassengerFormTemplate extends React.Component {
 							type="text"
 							name="passPortNo"
 							id="passport"
-							value={passengerValue.passPortNo}
+							value={passengerValue.passPortNo||this.state.passPortNo}
 							placeholder="Passport No"
 							onChange={(event) => {
+								this.updateState(event);
 								onChange(event, i);
 							}}
 						/>
