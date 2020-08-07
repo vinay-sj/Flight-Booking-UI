@@ -61,7 +61,7 @@ Our next iterations goals will be to add, get, and show more necessary flight an
 
 The Heroku link for the website is:
 
-https://group-project-avengers-ui.herokuapp.com/homepage
+https://group-project-avengers-ui.herokuapp.com/
 
 
 ### Changes in the UI:
