@@ -28,7 +28,7 @@ Priyank Shelat
 1. Designed the confirmation page.
 
 ## Iteration 1
-We used [Create React App](https://github.com/facebook/create-react-app) to start the app.\
+We used [Create React App](https://github.com/facebook/create-react-app) to start the app.
 Our homepage was inspired by [Galatia Flight Search](https://galatia.herokuapp.com/homepage).
 
 For this iteration, we have implemented the main functionality of our app, booking flights. You first land on the homepage where they can input what type of trip and the trip details that they are looking for.
@@ -57,15 +57,39 @@ Our next iterations goals will be to add, get, and show more necessary flight an
 
 ## Iteration 2
 
-Changes in the UI:
+The Heroku link for the website is:
+
+https://group-project-avengers-ui.herokuapp.com/homepage
+
+
+### Changes in the UI:
 
 The navigation bar now has the google sign in button, previous bookings and list of saved passengers:
 
-![](img2_2.png)
+![](readme_images/img2_2.png)
+
+On the passenger details page, the user can add a passenger from a list of saved passengers (for example when tickets are being booked for an entire family) instead of having to fill details manually. The form will be auto-populated on selecting a passenger from the list of saved passengers.
+
+![](readme_images/img1_2.png)
+
+![](readme_images/img7_2.png)
+
+The user can add or delete to their list of passengers, for whom they book tickets frequently.
+
+![](readme_images/img8_2.png)
+
+![](readme_images/img9_2.png)
+
+
+The user can view a list of their bookings, shown separately as one way and round trip bookings. They can cancel a booking if they wish to.
+
+![](readme_images/img4_2.png)
+
+![](readme_images/img5_2.png)
 
 
 
-Contributions:
+### Contributions:
 
 Ram Tarun Balagam:
 1. Handled Round trip bookings on front end and back end
@@ -78,9 +102,18 @@ Vinay Srampickal Joseph:
 3. Added the functionality to add saved passengers in the booking flow.
 
 Priyank Shelat:
-1. Created form validations for flights search to ensure sensible dates are being input into the form.
+1. Added date and text validation in homepage and passenger form
 
 Dhaval Mohandas:
-1. Created GET,DELETE and POST APIs for adding passengers to the list of passengers.
+1. Created GET, DELETE and POST APIs for adding passengers to the list of passengers.
 2. Created GET and DELETE APIs for the bookings page.
-3. Deployed the website to Heroku.
+3. Added bookings and saved passenger links to the navigation bar. Deployed the website to Heroku.
+
+#### Instructions for testing:
+Due to limitations caused by using free external APIs for fetching live flights data, we would recommend using the following locations as to/from destinations:
+"Boston Logan International", "New York J.F. Kennedy", "San Francisco International"
+
+#### Some pending Work
+* Users should be able to see only those passengers which they have saved. Similarly they should be able to see/cancel only their bookings.
+* The edit button for editing the details of a passenger does not work yet.
+* Pagination
