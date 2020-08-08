@@ -1,8 +1,8 @@
 let Amadeus = require('amadeus');
 
 let amadeus = new Amadeus({
-	clientId: 'BASiQ482pDpwH5pvtUEAKlqDM0t4bqRF',
-	clientSecret: 'M0zp5ikeGXsmD0Mc',
+	clientId: process.env.REACT_APP_AMADEUS_CLIENT_ID,
+	clientSecret: process.env.REACT_APP_AMADEUS_CLIENT_SECRET,
 });
 
 export default async function getitenaries(origin, destination, onwardDate, adults) {

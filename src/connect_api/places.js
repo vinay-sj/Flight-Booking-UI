@@ -13,11 +13,11 @@ export async function getPlaces(searchString){
 
 	let data = await axios({
 		method: 'GET',
-		url: 'https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/UK/GBP/en-GB/',
+		url: process.env.REACT_APP_RAPIDAPI_URL,
 		headers: {
 			'content-type': 'application/octet-stream',
-			'x-rapidapi-host': 'skyscanner-skyscanner-flight-search-v1.p.rapidapi.com',
-			'x-rapidapi-key': '94187e22cdmshb6f23878dd88f1bp184650jsn983460c6e381',
+			'x-rapidapi-host': process.env.REACT_APP_RAPIDAPI_HOST,
+			'x-rapidapi-key': process.env.REACT_APP_RAPIDAPI_KEY,
 			useQueryString: true,
 		},
 		params: {

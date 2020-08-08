@@ -1,13 +1,15 @@
 const axios = require('axios');
 
+const UI_API_ENDPOINT = process.env.REACT_APP_UI_API_ENDPOINT || 'http://localhost:5000'
+
 export async function getPassengers()  {
 
 	let passengers;
 	try{
 		passengers = await axios({
 			method: 'GET',
-			// url: 'http://localhost:5000/api/passengers/getPassenger',
-			url: 'https://group-project-avengers-api.herokuapp.com/api/passengers/getPassenger',
+			url: `${UI_API_ENDPOINT}/api/passengers/getPassenger`,
+			// url: 'https://group-project-avengers-api.herokuapp.com/api/passengers/getPassenger',
 			withCredentials: true,
 			headers: {
 				'Content-Type': 'application/json',
@@ -31,8 +33,8 @@ export async function getPassengers()  {
 export async function addPassenger(reqBody) {
 	return axios({
 		method: 'POST',
-		// url: 'http://localhost:5000/api/passengers/addPassenger',
-		url: 'https://group-project-avengers-api.herokuapp.com/api/passengers/addPassenger',
+		url: `${UI_API_ENDPOINT}/api/passengers/addPassenger`,
+		// url: 'https://group-project-avengers-api.herokuapp.com/api/passengers/addPassenger',
 		withCredentials: true,
 		headers: {
 			'Content-Type': 'application/json',
@@ -45,8 +47,8 @@ export async function addPassenger(reqBody) {
 export async function deletePassenger(id) {
 
 	let success;
-	// let url = 'http://localhost:5000/api/passengers/deletePassenger/'.concat('',id);
-	let url = 'https://group-project-avengers-api.herokuapp.com/api/passengers/deletePassenger/'.concat('',id);
+	let url = `${UI_API_ENDPOINT}/api/passengers/deletePassenger/`.concat('',id);
+	// let url = 'https://group-project-avengers-api.herokuapp.com/api/passengers/deletePassenger/'.concat('',id);
 	try{
 		success = await axios({
 			method: 'DELETE',
@@ -66,8 +68,8 @@ export async function deletePassenger(id) {
 export async function editPassenger(id,reqBody) {
 
 	let success;
-	// let url_put = 'http://localhost:5000/api/passengers/editPassenger/'.concat('',id);
-	let url_put = 'https://group-project-avengers-api.herokuapp.com/api/passengers/editPassenger/'.concat('',id);
+	let url_put = `${UI_API_ENDPOINT}/api/passengers/editPassenger/`.concat('',id);
+	// let url_put = 'https://group-project-avengers-api.herokuapp.com/api/passengers/editPassenger/'.concat('',id);
 	try{
 		success = await axios({
 			method: 'PUT',

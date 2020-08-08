@@ -1,11 +1,13 @@
 import axios from 'axios';
 
+const UI_API_ENDPOINT = process.env.REACT_APP_UI_API_ENDPOINT || 'http://localhost:5000'
+
 export async function getRoundTripBookings() {
 	let roundTripBookings;
 	try {
 		roundTripBookings = await axios({
 			method: 'GET',
-			url: 'http://localhost:5000/api/bookings/roundTripBookings',
+			url: `${UI_API_ENDPOINT}/api/bookings/roundTripBookings`,
 			// url: 'https://group-project-avengers-api.herokuapp.com/api/bookings/roundTripBookings',
 			withCredentials: true,
 			headers: { 'Content-Type': 'application/json' },
@@ -48,7 +50,7 @@ export async function getOneWayBookings() {
 	try {
 		oneWayBookings = await axios({
 			method: 'GET',
-			url: 'http://localhost:5000/api/bookings/oneWayBookings',
+			url: `${UI_API_ENDPOINT}/api/bookings/oneWayBookings`,
 			// url: 'https://group-project-avengers-api.herokuapp.com/api/bookings/oneWayBookings',
 			withCredentials: true,
 			headers: { 'Content-Type': 'application/json' },
@@ -89,10 +91,10 @@ export async function deleteBooking(isRoundTrip, id) {
 	let success;
 	let url;
 	if (isRoundTrip) {
-		url = 'http://localhost:5000/api/bookings/deleteRoundTrip/'.concat('', id);
+		url = `${UI_API_ENDPOINT}/api/bookings/deleteRoundTrip/`.concat('', id);
 		// url =  'https://group-project-avengers-api.herokuapp.com/api/bookings/deleteRoundTrip/'.concat('',id);
 	} else {
-		url = 'http://localhost:5000/api/bookings/deleteOneWayTrip/'.concat('', id);
+		url = `${UI_API_ENDPOINT}/api/bookings/deleteOneWayTrip/`.concat('', id);
 		// url =  'https://group-project-avengers-api.herokuapp.com/api/bookings/deleteOneWayTrip/'.concat('',id);
 	}
 
