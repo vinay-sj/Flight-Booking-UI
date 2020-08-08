@@ -12,8 +12,8 @@ const ActionButtons = (props) => {
 	};
 	return(
 		<ButtonGroup className="btn-group-sm">
-			<Button><Glyphicon glyph="edit"/>Edit</Button>
-			<Button onClick={onDelete}> <Glyphicon glyph="trash"/>Delete</Button>
+			<Button className='buttonTheme' ><Glyphicon glyph="edit"/>Edit</Button>
+			<Button className='buttonTheme' onClick={onDelete}> <Glyphicon glyph="trash"/>Delete</Button>
 		</ButtonGroup>
 	);
 };
@@ -92,15 +92,15 @@ class Passengers extends React.Component {
 				<Well bsSize="small">
 					<div className="text-center btn-group-sm">
             Passenger List{' '}
-						<Button onClick={this.toggle}><Glyphicon glyph="plus"/>Add</Button>
+						<Button className='buttonTheme' onClick={this.toggle}><Glyphicon glyph="plus"/>Add</Button>
 					</div>
 					<Modal isOpen={modal} toggle={this.toggle}>
 						<ModalBody>
 							<PassengerFormTemplate onChange={this.onChange} onDatePickerChange={this.onDatePickerChange} addPassenger={null}/>
 						</ModalBody>
 						<ModalFooter>
-							<Button color="primary" onClick={this.savePassenger}>Save</Button>{' '}
-							<Button color="secondary" onClick={this.toggle}>Cancel</Button>
+							<Button className='buttonTheme' color="primary" onClick={this.savePassenger}>Save</Button>{' '}
+							<Button className='buttonTheme' color="secondary" onClick={this.toggle}>Cancel</Button>
 						</ModalFooter>
 					</Modal>
 				</Well>

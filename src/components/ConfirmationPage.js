@@ -85,15 +85,15 @@ class ConfirmationPage extends React.Component {
 				</Row>
 				<Row>
 					<Col sm={{ size: 'auto', offset: 1 }}>
-						<Button color="secondary">Print</Button>{' '}
+						<Button className='buttonTheme' color="secondary">Print</Button>{' '}
 					</Col>
 					<Col sm={{ size: 'auto', offset: 1 }}>
-						<Button onClick={this.goToHomepage} color="primary">
+						<Button className='buttonTheme' onClick={this.goToHomepage} color="primary">
               Go To Homepage
 						</Button>{' '}
 					</Col>
 					<Col sm={{ size: 'auto', offset: 1 }}>
-						<Button onClick={this.goToBookings} color="primary">
+						<Button className='buttonTheme' onClick={this.goToBookings} color="primary">
               See Previous Bookings
 						</Button>{' '}
 					</Col>

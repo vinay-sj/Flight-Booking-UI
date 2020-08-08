@@ -2,13 +2,15 @@ $baseColor: rgb(0, 0, 0);
 $backgroundColor: rgb(195, 226, 245);
 $navBackgroundColor: rgb(10, 10, 110);
 $applicationTheme: rgb(121, 206, 255);
+$buttonColor: rgb(220, 251, 252);
 
 body {
   background-color: $backgroundColor;
+  text-shadow: 0 0 1px $baseColor;
 }
 div {
   color: $baseColor;
-  font-weight: 600;
+  font-weight: 300;
 }
 nav {
   background-color: $navBackgroundColor;
@@ -23,4 +25,9 @@ h2 {
 .main {
   background-color: $applicationTheme;
   padding: 0.5rem 1rem;
+}
+.buttonTheme {
+  background-color: $buttonColor;
+  color: $navBackgroundColor;
+  text-shadow: 0 0 1px $baseColor;
 }

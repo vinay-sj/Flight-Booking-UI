@@ -20,7 +20,7 @@ const BookingRowOne = (props) => {
 			<td>{journeyDate.toDateString()}</td>
 			<td>{passengerNames}</td>
 			<td>
-				<Button onClick={onDelete}>Cancel</Button>
+				<Button className='buttonTheme' onClick={onDelete}>Cancel</Button>
 			</td>
 		</tr>
 	);
@@ -48,7 +48,7 @@ const BookingRowReturn = (props) => {
 			<td>{returnJourneyDate.toDateString()}</td>
 			<td>{passengerNames}</td>
 			<td>
-				<Button onClick={onDelete}>Cancel</Button>
+				<Button className='buttonTheme' onClick={onDelete}>Cancel</Button>
 			</td>
 		</tr>
 	);
@@ -173,19 +173,19 @@ class Bookings extends React.Component {
 		const { isToggleOne, isToggleRound, bookingsOne, bookingsRound } = this.state;
 		return (
 			<>
-				<Button color="secondary" size="lg" onClick={this.toggleOne} block>
+				<Button className='buttonTheme' color="secondary" size="lg" onClick={this.toggleOne} block>
 					One Way Bookings
 				</Button>
 				<Collapse isOpen={isToggleOne}>
 					<BookingTableOne bookingsRows={bookingsOne} deleteBookings={this.deleteBookings} />
 				</Collapse>
-				<Button color="secondary" size="lg" onClick={this.toggleRound} block>
+				<Button className='buttonTheme' color="secondary" size="lg" onClick={this.toggleRound} block>
 					Round Trip Bookings
 				</Button>
 				<Collapse isOpen={isToggleRound}>
 					<BookingTableReturn bookingsRows={bookingsRound} deleteBookings={this.deleteBookings} />
 				</Collapse>
-				{/*<Button color='secondary' size='lg' onClick={toggleCancel} block>*/}
+				{/*<Button className='buttonTheme' color='secondary' size='lg' onClick={toggleCancel} block>*/}
 				{/*	Cancelled Bookings*/}
 				{/*</Button>*/}
 				{/*<Collapse isOpen={isToggleCancel}>*/}
