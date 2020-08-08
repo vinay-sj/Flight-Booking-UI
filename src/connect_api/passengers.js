@@ -59,19 +59,24 @@ export async function deletePassenger(id) {
 	return success;
 }
 
-export async function editPassenger(id) {
+export async function editPassenger(id,reqBody) {
 
 	let success;
-	//let url = 'http://localhost:5000/api/passengers/deletePassenger/'.concat('',id);
-	let url = 'https://group-project-avengers-api.herokuapp.com/api/passengers/editPassenger/'.concat('',id);
+	//let url_put = 'http://localhost:5000/api/passengers/editPassenger/'.concat('',id);
+	let url_put = 'https://group-project-avengers-api.herokuapp.com/api/passengers/editPassenger/'.concat('',id);
 	try{
-		success = await axios.put(url).then((response) => {
-			return response;
+		success = await axios({
+			method: 'PUT',
+			url: url_put,
+			headers: {
+				'Access-Control-Allow-Origin': '*',
+				'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+			},
+			data: reqBody,
 		});
-	}
-	catch(err){
+	}catch(err){
 		console.log(err);
 	}
-	console.log(success);
+	//console.log(success);
 	return success;
 }
