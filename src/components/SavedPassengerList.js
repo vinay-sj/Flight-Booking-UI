@@ -28,6 +28,7 @@ class Passengers extends React.Component {
 			modal:false,
 			editModal: false,
 			passengerList: [],
+			editPassengerList: [],
 			editIndex: null,
 		};
 
@@ -53,10 +54,10 @@ class Passengers extends React.Component {
 	}
 
 	async updateEditPassenger() {
-		const { passengerList, editIndex } = this.state;
+		const { editPassengerList, editIndex } = this.state;
 		console.log('edit');
-		console.log(passengerList[editIndex]);
-		await editPassenger(passengerList[editIndex]._id, passengerList[editIndex]);
+		console.log(editPassengerList[editIndex]);
+		await editPassenger(editPassengerList[editIndex]._id, editPassengerList[editIndex]);
 		await this.loadData();
 		this.editToggle();
 		this.setState({passengerDetails:{}});
@@ -75,10 +76,10 @@ class Passengers extends React.Component {
 
 	onUpdateChange(event, index) {
 		const { name, value } = event.target;
-		let newState = JSON.parse(JSON.stringify(this.state.passengerList));
+		let newState = JSON.parse(JSON.stringify(this.state.editPassengerList));
 		newState[index] = { ...newState[index], [name]: value };
 		this.setState({
-			passengerList: newState,
+			editPassengerList: newState,
 		});
 	}
 
@@ -90,10 +91,10 @@ class Passengers extends React.Component {
 	}
 
 	onUpdateDatePickerChange(date, name, index) {
-		let newState = JSON.parse(JSON.stringify(this.state.passengerList));
+		let newState = JSON.parse(JSON.stringify(this.state.editPassengerList));
 		newState[index] = { ...newState[index], [name]: date };
 		this.setState({
-			passengerList: newState,
+			editPassengerList: newState,
 		});
 	}
 
@@ -116,6 +117,7 @@ class Passengers extends React.Component {
 	async loadData() {
 		const  passengerList  = await getPassengers();
 		await this.setState({ passengerList:passengerList });
+		await this.setState({ editPassengerList:passengerList });
 	}
 
 	async deletePassengers(index) {
@@ -131,7 +133,7 @@ class Passengers extends React.Component {
 
 
 	render() {
-		const { modal, editModal, passengerList, editIndex } = this.state;
+		const { modal, editModal, passengerList, editIndex, editPassengerList } = this.state;
 
 		return (
 			<>
@@ -153,7 +155,7 @@ class Passengers extends React.Component {
 				<PassengerListTable passengers={passengerList} actionButtons={(index)=>{return (<ActionButtons index={index} deletePassengers={this.deletePassengers} editPassengers={this.editPassengers} />);}} />
 				<Modal isOpen={editModal} toggle={this.editToggle}>
 					<ModalBody>
-						<PassengerFormTemplate onChange={this.onUpdateChange} index={editIndex} onDatePickerChange={this.onUpdateDatePickerChange} addPassenger={null} passengerValue={passengerList[editIndex]} />
+						<PassengerFormTemplate onChange={this.onUpdateChange} index={editIndex} onDatePickerChange={this.onUpdateDatePickerChange} addPassenger={null} passengerValue={editPassengerList[editIndex]} />
 					</ModalBody>
 					<ModalFooter>
 						<Button className='btn btn-light buttonTheme' color="primary" onClick={this.updateEditPassenger}>Update</Button>{' '}
