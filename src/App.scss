@@ -4,10 +4,6 @@ $navBackgroundColor: rgb(10, 10, 110);
 $applicationTheme: rgb(121, 206, 255);
 $buttonColor: rgb(220, 251, 252);
 
-body {
-  background-color: $backgroundColor;
-  text-shadow: 0 0 1px $baseColor;
-}
 div {
   color: $baseColor;
   font-weight: 300;
@@ -34,10 +30,20 @@ h2 {
   .screenType {
     padding: 0;
   }
+
+  body {
+    background-color: $backgroundColor;
+    text-shadow: 0 0 1px $baseColor;
+  }
 }
 
 @media only screen and (max-width: 620px) {
   .screenType {
     padding: 0;
+  }
+
+  body {
+    background-color: $applicationTheme;
+    text-shadow: 0 0 1px $baseColor;
   }
 }
