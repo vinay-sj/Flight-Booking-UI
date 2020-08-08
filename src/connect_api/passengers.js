@@ -8,10 +8,10 @@ export async function getPassengers()  {
 			method: 'GET',
 			url: 'http://localhost:5000/api/passengers/getPassenger',
 			// url: 'https://group-project-avengers-api.herokuapp.com/api/passengers/getPassenger',
+			withCredentials: true,
 			headers: {
-				'Access-Control-Allow-Origin': '*',
-				'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-			}
+				'Content-Type': 'application/json',
+			},
 		}).then((response) => {
 			return response;
 		})
@@ -33,9 +33,9 @@ export async function addPassenger(reqBody) {
 		method: 'POST',
 		url: 'http://localhost:5000/api/passengers/addPassenger',
 		// url: 'https://group-project-avengers-api.herokuapp.com/api/passengers/addPassenger',
+		withCredentials: true,
 		headers: {
-			'Access-Control-Allow-Origin': '*',
-			'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+			'Content-Type': 'application/json',
 		},
 		data: reqBody,
 	});
@@ -48,7 +48,11 @@ export async function deletePassenger(id) {
 	let url = 'http://localhost:5000/api/passengers/deletePassenger/'.concat('',id);
 	// let url = 'https://group-project-avengers-api.herokuapp.com/api/passengers/deletePassenger/'.concat('',id);
 	try{
-		success = await axios.delete(url).then((response) => {
+		success = await axios({
+			method: 'DELETE',
+			url,
+			withCredentials: true,
+		}).then((response) => {
 			return response;
 		});
 	}
@@ -68,9 +72,9 @@ export async function editPassenger(id,reqBody) {
 		success = await axios({
 			method: 'PUT',
 			url: url_put,
+			withCredentials: true,
 			headers: {
-				'Access-Control-Allow-Origin': '*',
-				'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+				'Content-Type': 'application/json',
 			},
 			data: reqBody,
 		});
