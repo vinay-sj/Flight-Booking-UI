@@ -58,3 +58,20 @@ export async function deletePassenger(id) {
 	console.log(success);
 	return success;
 }
+
+export async function editPassenger(id) {
+
+	let success;
+	//let url = 'http://localhost:5000/api/passengers/deletePassenger/'.concat('',id);
+	let url = 'https://group-project-avengers-api.herokuapp.com/api/passengers/editPassenger/'.concat('',id);
+	try{
+		success = await axios.put(url).then((response) => {
+			return response;
+		});
+	}
+	catch(err){
+		console.log(err);
+	}
+	console.log(success);
+	return success;
+}
