@@ -124,10 +124,10 @@ class HomePage extends React.Component {
 							<FormGroup>
 								{/* <TripTypeButton handleSelectedTripType={this.setRselected} rSelected={this.state.rselected} /> */}
 								<ButtonGroup>
-									<Button className='btn btn-light' color="primary" onClick={this.handleOneWayTrip}>
+									<Button className='btn btn-primary' color="primary" onClick={this.handleOneWayTrip}>
                     Round Trip
 									</Button>
-									<Button className='btn btn-light' color="primary" onClick={this.handleReturnTrip}>
+									<Button className='btn btn-primary' color="primary" onClick={this.handleReturnTrip}>
                     One Way
 									</Button>
 								</ButtonGroup>
