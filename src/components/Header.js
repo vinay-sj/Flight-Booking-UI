@@ -19,8 +19,8 @@ class Example extends React.Component {
 	async loginHandler(loginResponse) {
 		userName = loginResponse && loginResponse.profileObj ? loginResponse.profileObj.name : null;
 		if (loginResponse.tokenId) {
-			const serverSignInResponse = await fetch('http://localhost:5000/auth/signin', {
-			// const serverSignInResponse = await fetch('https://group-project-avengers-api.herokuapp.com/auth/signin', {
+			// const serverSignInResponse = await fetch('http://localhost:5000/auth/signin', {
+			const serverSignInResponse = await fetch('https://group-project-avengers-api.herokuapp.com/auth/signin', {
 				method: 'POST',
 				credentials: 'include',
 				headers: {
@@ -38,8 +38,8 @@ class Example extends React.Component {
 	}
 
 	async logoutHandler(logoutresponse) {
-		const serverSignOutResponse = await fetch('http://localhost:5000/auth/signout', {
-		// const serverSignOutResponse = await fetch('https://group-project-avengers-api.herokuapp.com/auth/signout', {
+		// const serverSignOutResponse = await fetch('http://localhost:5000/auth/signout', {
+		const serverSignOutResponse = await fetch('https://group-project-avengers-api.herokuapp.com/auth/signout', {
 			method: 'POST',
 			credentials: 'include',
 		});
