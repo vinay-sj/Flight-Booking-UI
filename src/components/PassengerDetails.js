@@ -17,7 +17,7 @@ const ActionButtons = (props) => {
 	};
 	return(
 		<ButtonGroup className="btn-group-sm">
-			<Button className='buttonTheme' onClick={onSelect}> <Glyphicon glyph="ok"/>Select</Button>
+			<Button className='btn btn-light' onClick={onSelect}> <Glyphicon glyph="ok"/>Select</Button>
 		</ButtonGroup>
 	);
 };
@@ -140,20 +140,20 @@ class PassengerDetails extends React.Component {
 		return (
 			<Form>
 				{passengerForm}
-				<Button className='buttonTheme' onClick={() => this.setState({openModal: true})}>Confirm</Button>
+				<Button className='btn btn-light' onClick={() => this.setState({openModal: true})}>Confirm</Button>
 				{this.state.openModal ? (
 					<Modal size='lg' isOpen={this.state.openModal} toggle={() => this.setState({openModal: false})}>
 						<ModalHeader toggle={() => this.setState({openModal: false})}>Confirm Booking</ModalHeader>
 						<ModalBody>{!this.props.userData ? 'Please Login first to confirm booking' : 'Do you really want to confirm Booking'}</ModalBody>
 						<ModalFooter>
 							{!this.props.userData ? (
-								<Button className='buttonTheme' color='primary' onClick={() => this.setState({openModal: false})}>Ok</Button>
+								<Button className='btn btn-light' color='primary' onClick={() => this.setState({openModal: false})}>Ok</Button>
 							) : (
 								<div>
 									<LinkContainer to='/bookingConfirmation'>
-										<Button className='buttonTheme' color='primary' onClick={this.confirmBooking}>Confirm</Button>
+										<Button className='btn btn-light' color='primary' onClick={this.confirmBooking}>Confirm</Button>
 									</LinkContainer>{' '}
-									<Button className='buttonTheme' color='secondary' onClick={() => this.setState({openModal: false})}>Cancel</Button>
+									<Button className='btn btn-light' color='secondary' onClick={() => this.setState({openModal: false})}>Cancel</Button>
 								</div>
 							)}
 						</ModalFooter>

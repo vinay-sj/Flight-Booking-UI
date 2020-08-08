@@ -20,13 +20,13 @@ class AddPassenger extends React.Component {
 		const { passengers, actionButtons, index } = this.props;
 		return(
 			<>
-				<Button className='buttonTheme' onClick={this.toggle}>Add</Button>
+				<Button className='btn btn-light' onClick={this.toggle}>Add</Button>
 				<Modal isOpen={modal} toggle={this.toggle}>
 					<ModalBody>
 						<PassengerListTable index={index} toggle={this.toggle} passengers={passengers} actionButtons={actionButtons}/>
 					</ModalBody>
 					<ModalFooter>
-						<Button className='buttonTheme' color='secondary' onClick={this.toggle}>Cancel</Button>
+						<Button className='btn btn-light' color='secondary' onClick={this.toggle}>Cancel</Button>
 					</ModalFooter>
 				</Modal>
 			</>
