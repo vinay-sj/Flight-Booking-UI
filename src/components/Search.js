@@ -39,7 +39,7 @@ const FlightRow = (props) => {
 			<td>{flight.duration}</td>
 			<td>{'$' + flight.price}</td>
 			<td>
-				<Button className='btn btn-light' onClick={() => handleBooking(props)}>Select</Button>
+				<Button className='btn btn-light buttonTheme' onClick={() => handleBooking(props)}>Select</Button>
 			</td>
 		</tr>
 	);
@@ -183,7 +183,7 @@ class Search extends React.Component {
 
 				{this.state.isValidSelection && !this.props.userData ? (
 					<div>
-						<Button className='btn btn-light' onClick={() => this.setState({ openModal: true })}>Proceed</Button>
+						<Button className='btn btn-light buttonTheme' onClick={() => this.setState({ openModal: true })}>Proceed</Button>
 						<Modal
 							isOpen={this.state.openModal}
 							toggle={() => this.setState({ openModal: false })}
@@ -192,13 +192,13 @@ class Search extends React.Component {
 							<ModalHeader toggle={() => this.setState({ openModal: false })}>Login</ModalHeader>
 							<ModalBody>Please Login first to proceed with booking</ModalBody>
 							<ModalFooter>
-								<Button className='btn btn-light' color="primary" onClick={() => this.setState({ openModal: false })}>Ok</Button>{' '}
+								<Button className='btn btn-light buttonTheme' color="primary" onClick={() => this.setState({ openModal: false })}>Ok</Button>{' '}
 							</ModalFooter>
 						</Modal>
 					</div>
 				) : (
 					<LinkContainer to={'/passengerdetails'}>
-						<Button
+						<Button className='btn btn-light buttonTheme'
 							disabled={!(this.state.isValidSelection && this.props.userData)}
 							onClick={() => this.props.updateBookingDetails(bookingDetails)}
 						>Proceed</Button>

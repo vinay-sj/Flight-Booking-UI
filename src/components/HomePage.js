@@ -212,7 +212,7 @@ class HomePage extends React.Component {
 							</Col>
 						</Row>
 						<LinkContainer to={'/search'}>
-							<Button className='btn btn-light' onClick={this.handleSubmit} disabled={!isEnabled}>
+							<Button className='btn btn-light buttonTheme' onClick={this.handleSubmit} disabled={!isEnabled}>
                 Search
 							</Button>
 						</LinkContainer>
