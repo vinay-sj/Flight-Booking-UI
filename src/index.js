@@ -5,7 +5,7 @@ import App from './App';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
-	<div className="container">
+	<div className="screenType">
 		<React.Fragment>
 			<App />
 		</React.Fragment>

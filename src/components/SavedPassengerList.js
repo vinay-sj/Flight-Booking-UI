@@ -12,7 +12,7 @@ const ActionButtons = (props) => {
 	};
 	const onEdit = () => {
 		editPassengers(index);
-	}
+	};
 	return(
 		<ButtonGroup className="btn-group-sm">
 			<Button className='btn btn-light buttonTheme' onClick={onEdit}><Glyphicon glyph="edit"/>Edit</Button>
@@ -54,8 +54,8 @@ class Passengers extends React.Component {
 
 	async updateEditPassenger() {
 		const { passengerList, editIndex } = this.state;
-		console.log('edit')
-		console.log(passengerList[editIndex])
+		console.log('edit');
+		console.log(passengerList[editIndex]);
 		await editPassenger(passengerList[editIndex]._id, passengerList[editIndex]);
 		await this.loadData();
 		this.editToggle();
@@ -85,8 +85,8 @@ class Passengers extends React.Component {
 	onChange(event) {
 		const { name, value } = event.target;
 		this.setState({
-				passengerDetails: {...this.state.passengerDetails, [name]:value}
-			});
+			passengerDetails: {...this.state.passengerDetails, [name]:value}
+		});
 	}
 
 	onUpdateDatePickerChange(date, name, index) {
