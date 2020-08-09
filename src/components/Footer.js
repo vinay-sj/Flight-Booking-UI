@@ -3,7 +3,7 @@ import {
 	Container, NavItem, Nav, NavLink, Row, Col, ModalFooter
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCopyright, faPhoneAlt, faEnvelope, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
+import { faCopyright, faPhoneAlt, faEnvelope, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * This class represents the footer of the application. It holds the link for the about page, the copyright and the
