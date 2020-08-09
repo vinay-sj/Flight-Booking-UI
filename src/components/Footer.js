@@ -2,7 +2,13 @@ import React from 'react';
 import {
 	Container, NavItem, Nav, NavLink, Row, Col, ModalFooter
 } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCopyright, faPhoneAlt, faEnvelope, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 
+/**
+ * This class represents the footer of the application. It holds the link for the about page, the copyright and the
+ * location of the company.
+ */
 class Footer extends React.Component {
 
 	render() {
@@ -25,13 +31,13 @@ class Footer extends React.Component {
 							</Col>
 							<Col lg={4} md={4}>
 								<h4>Location</h4>
-								<div>Snell Library, Northeastern University</div>
-								<div>(617) 373-8778</div>
-								<div>info@flightbooker.com</div>
+								<div><FontAwesomeIcon icon={faMapMarkerAlt}/>Snell Library, Northeastern University</div>
+								<div><FontAwesomeIcon icon={faPhoneAlt}/>(617) 373-8778</div>
+								<div><FontAwesomeIcon icon={faEnvelope}/>@flightbooker.com</div>
 							</Col>
 						</Row>
 						<Row>
-							<Col lg={4} md={4}><p>Flight Booker © 2020. All Rights Reserved.</p></Col>
+							<Col lg={4} md={4}><p>Flight Booker <FontAwesomeIcon icon={faCopyright}/> 2020. All Rights Reserved.</p></Col>
 						</Row>
 					</Container>
 				</ModalFooter>
