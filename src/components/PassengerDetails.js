@@ -8,7 +8,6 @@ import { LinkContainer } from 'react-router-bootstrap';
 import PassengerFormTemplate from './PassengerFormTemplate';
 import AddPassenger from './AddPassenger';
 import {getPassengers} from '../connect_api/passengers';
-import {Glyphicon} from 'react-bootstrap';
 
 const ActionButtons = (props) => {
 	const { selectPassengers, passIndex, index, toggle } = props;
@@ -17,7 +16,7 @@ const ActionButtons = (props) => {
 	};
 	return(
 		<ButtonGroup className="btn-group-sm">
-			<Button className='btn btn-light buttonTheme' onClick={onSelect}> <Glyphicon glyph="ok"/>Select</Button>
+			<Button className='btn btn-light buttonTheme' onClick={onSelect}>Select</Button>
 		</ButtonGroup>
 	);
 };

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, ButtonGroup, Modal, ModalFooter, ModalBody } from 'reactstrap';
-import { Well, Glyphicon } from 'react-bootstrap';
 import PassengerFormTemplate from './PassengerFormTemplate';
 import { getPassengers, addPassenger, deletePassenger, editPassenger } from '../connect_api/passengers';
 import PassengerListTable from './PassengerListTable';
@@ -15,8 +14,8 @@ const ActionButtons = (props) => {
 	};
 	return(
 		<ButtonGroup className="btn-group-sm">
-			<Button className='btn btn-light buttonTheme' onClick={onEdit}><Glyphicon glyph="edit"/>Edit</Button>
-			<Button className='btn btn-light buttonTheme' onClick={onDelete}> <Glyphicon glyph="trash"/>Delete</Button>
+			<Button className='btn btn-light buttonTheme' onClick={onEdit}>Edit</Button>
+			<Button className='btn btn-light buttonTheme' onClick={onDelete}>Delete</Button>
 		</ButtonGroup>
 	);
 };
@@ -137,21 +136,19 @@ class Passengers extends React.Component {
 
 		return (
 			<>
-				<Well bsSize="small">
-					<div className="text-center btn-group-sm">
+				<div className="text-center btn-group-sm">
             Passenger List{' '}
-						<Button className='btn btn-light buttonTheme' onClick={this.toggle}><Glyphicon glyph="plus"/>Add</Button>
-					</div>
-					<Modal isOpen={modal} toggle={this.toggle}>
-						<ModalBody>
-							<PassengerFormTemplate onChange={this.onChange} onDatePickerChange={this.onDatePickerChange} addPassenger={null}/>
-						</ModalBody>
-						<ModalFooter>
-							<Button className='btn btn-light buttonTheme' color="primary" onClick={this.savePassenger}>Save</Button>{' '}
-							<Button className='btn btn-light buttonTheme' color="secondary" onClick={this.toggle}>Cancel</Button>
-						</ModalFooter>
-					</Modal>
-				</Well>
+					<Button className='btn btn-light buttonTheme' onClick={this.toggle}>Add</Button>
+				</div>
+				<Modal isOpen={modal} toggle={this.toggle}>
+					<ModalBody>
+						<PassengerFormTemplate onChange={this.onChange} onDatePickerChange={this.onDatePickerChange} addPassenger={null}/>
+					</ModalBody>
+					<ModalFooter>
+						<Button className='btn btn-light buttonTheme' color="primary" onClick={this.savePassenger}>Save</Button>{' '}
+						<Button className='btn btn-light buttonTheme' color="secondary" onClick={this.toggle}>Cancel</Button>
+					</ModalFooter>
+				</Modal>
 				<PassengerListTable passengers={passengerList} actionButtons={(index)=>{return (<ActionButtons index={index} deletePassengers={this.deletePassengers} editPassengers={this.editPassengers} />);}} />
 				<Modal isOpen={editModal} toggle={this.editToggle}>
 					<ModalBody>
