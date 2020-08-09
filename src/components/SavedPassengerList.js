@@ -126,7 +126,7 @@ class Passengers extends React.Component {
 		});
 	}
 
-	onDatePickerChange(date, name) {
+	onUpdateDatePickerChange(date, name) {
 		let newState = JSON.parse(JSON.stringify(this.state.passengerDetails));
 		newState = { ...newState, [name]: date };
 		this.setState({
