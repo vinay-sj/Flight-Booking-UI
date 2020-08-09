@@ -31,9 +31,9 @@ class Footer extends React.Component {
 							</Col>
 							<Col lg={4} md={4}>
 								<h4>Location</h4>
-								<div><FontAwesomeIcon icon={faMapMarkerAlt}/>Snell Library, Northeastern University</div>
-								<div><FontAwesomeIcon icon={faPhoneAlt}/>(617) 373-8778</div>
-								<div><FontAwesomeIcon icon={faEnvelope}/>@flightbooker.com</div>
+								<div><FontAwesomeIcon icon={faMapMarkerAlt}/>{' '}Snell Library, Northeastern University</div>
+								<div><FontAwesomeIcon icon={faPhoneAlt}/>{' '}(617) 373-8778</div>
+								<div><FontAwesomeIcon icon={faEnvelope}/>{' '}@flightbooker.com</div>
 							</Col>
 						</Row>
 						<Row>

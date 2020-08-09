@@ -2,9 +2,11 @@ import React from 'react';
 import {
   Row, Col, Card, CardImg, CardBody, CardTitle, NavLink
 } from 'reactstrap';
+import { FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 
 /**
- * Class for the About page. It explains why we made this project and the details of the team members.
+ * Class for the About page. It explains why we made this project and introduces the team members.
  */
 class About extends React.Component {
   constructor(props) {
@@ -30,7 +32,7 @@ class About extends React.Component {
             <CardImg top width="100%" src={member.avatar} alt={member.name}></CardImg>
             <CardBody className='text-center'>
               <CardTitle>{member.name}</CardTitle>
-              <NavLink href={member.linkedin} target='_blank'>LinkedIn</NavLink>
+              <NavLink href={member.linkedin} target='_blank'><FontAwesomeIcon icon={faLinkedinIn}/></NavLink>
             </CardBody>
           </Card>
         </Col>
