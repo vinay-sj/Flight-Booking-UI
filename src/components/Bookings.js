@@ -1,6 +1,8 @@
 import React from 'react';
 import { Table, Button, Collapse } from 'reactstrap';
 import { getOneWayBookings, getRoundTripBookings, deleteBooking } from '../connect_api/bookings_list';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const BookingRowOne = (props) => {
 	const { booking, index, deleteBookings } = props;
@@ -20,7 +22,9 @@ const BookingRowOne = (props) => {
 			<td>{journeyDate.toDateString()}</td>
 			<td>{passengerNames}</td>
 			<td>
-				<Button className='btn btn-light buttonTheme' onClick={onDelete}>Cancel</Button>
+				<Button className='btn btn-light buttonTheme' onClick={onDelete}>
+					<FontAwesomeIcon icon={faTimes}/>
+				</Button>
 			</td>
 		</tr>
 	);
@@ -48,7 +52,9 @@ const BookingRowReturn = (props) => {
 			<td>{returnJourneyDate.toDateString()}</td>
 			<td>{passengerNames}</td>
 			<td>
-				<Button className='btn btn-light buttonTheme' onClick={onDelete}>Cancel</Button>
+				<Button className='btn btn-light buttonTheme' onClick={onDelete}>
+					<FontAwesomeIcon icon={faTimes}/>
+				</Button>
 			</td>
 		</tr>
 	);

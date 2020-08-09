@@ -3,6 +3,8 @@ import { Button, ButtonGroup, Modal, ModalFooter, ModalBody } from 'reactstrap';
 import PassengerFormTemplate from './PassengerFormTemplate';
 import { getPassengers, addPassenger, deletePassenger, editPassenger } from '../connect_api/passengers';
 import PassengerListTable from './PassengerListTable';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faEdit, faUser, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 
 const ActionButtons = (props) => {
 	const { deletePassengers, index, editPassengers } = props;
@@ -14,8 +16,12 @@ const ActionButtons = (props) => {
 	};
 	return(
 		<ButtonGroup className="btn-group-sm">
-			<Button className='btn btn-light buttonTheme' onClick={onEdit}>Edit</Button>
-			<Button className='btn btn-light buttonTheme' onClick={onDelete}>Delete</Button>
+			<Button className='btn btn-light buttonTheme' onClick={onEdit}>
+				<FontAwesomeIcon icon={faEdit}/>
+			</Button>
+			<Button className='btn btn-light buttonTheme' onClick={onDelete}>
+				<FontAwesomeIcon icon={faTrashAlt}/>
+			</Button>
 		</ButtonGroup>
 	);
 };
@@ -176,7 +182,7 @@ class Passengers extends React.Component {
 			<>
 				<div className="text-center btn-group-sm">
             Passenger List{' '}
-					<Button className='btn btn-light buttonTheme' onClick={this.toggle}>Add</Button>
+					<Button className='btn btn-light buttonTheme' onClick={this.toggle}>{' '}<FontAwesomeIcon icon={faUser}/>{' '}Add</Button>
 				</div>
 				<Modal isOpen={modal} toggle={this.toggle}>
 					<ModalBody>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap';
 import PassengerListTable from './PassengerListTable';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 class AddPassenger extends React.Component {
 	constructor(props) {
@@ -20,7 +22,7 @@ class AddPassenger extends React.Component {
 		const { passengers, actionButtons, index } = this.props;
 		return(
 			<>
-				<Button className='btn btn-light buttonTheme' onClick={this.toggle}>Add</Button>
+				<Button className='btn btn-light buttonTheme' onClick={this.toggle}>{' '}<FontAwesomeIcon icon={faUser}/>{' '}Add</Button>
 				<Modal isOpen={modal} toggle={this.toggle}>
 					<ModalBody>
 						<PassengerListTable index={index} toggle={this.toggle} passengers={passengers} actionButtons={actionButtons}/>
