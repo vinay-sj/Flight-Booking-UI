@@ -3,8 +3,8 @@ import React from 'react';
 import DatePicker from 'react-datepicker';
 
 class PassengerFormTemplate extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			birthDate: new Date(),
 			name: '',
@@ -12,15 +12,9 @@ class PassengerFormTemplate extends React.Component {
 			emailId:'',
 			gender:'',
 			passPortNo:'',
-			validate: {
-				emailState: false,
-				passState: false,
-			}
 		};
 		this.updateBirthDate = this.updateBirthDate.bind(this);
 		this.updateState = this.updateState.bind(this);
-		this.validateEmail = this.validateEmail.bind(this);
-		this.validatePassport = this.validatePassport.bind(this);
 	}
 
 	updateBirthDate(date) {
@@ -36,47 +30,20 @@ class PassengerFormTemplate extends React.Component {
 		});
 	}
 
-	validateEmail(e, i){
-		const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		let { validate } = this.state;
-
-		if (emailRex.test(e.target.value)) {
-			validate.emailState = false;
-			this.props.onChange(e, i);
-			this.updateState(e);
-		} else {
-			validate.emailState = true;
-		}
-
-		this.setState({ validate });
-	}
-
-	validatePassport(e, i) {
-		const passRex = /[A-Z]{2}[0-9]{7}/;
-		let { validate } = this.state;
-
-		if (passRex.test(e.target.value)) {
-			validate.passState = false;
-			this.props.onChange(e, i);
-			this.updateState(e);
-		} else {
-			validate.passState = true;
-		}
-
-		this.setState({ validate });
-	}
-
 	render() {
-		const { onChange, index, onDatePickerChange, addPassenger } = this.props;
+		const { onChange, index, onDatePickerChange,
+			addPassenger, validate, validateEmail, validatePassport } = this.props;
 		let { passengerValue } = this.props;
 		passengerValue = passengerValue || [];
 		const { birthDate } = this.state;
 		const passNo = index + 1 || '';
 		const i = index || 0;
+
 		return (
 			<Jumbotron key={index}>
 				<FormGroup row>
-					<div id={index}>Passenger Details: {passNo}  {addPassenger}</div>
+					<div id={index}>Passenger Details: {passNo}</div>
+					<div>{addPassenger}</div>
 				</FormGroup>
 				<FormGroup>
 					<Row>
@@ -87,7 +54,7 @@ class PassengerFormTemplate extends React.Component {
 							type="text"
 							name="name"
 							id="name"
-							value={passengerValue.name||this.state.name}
+							defaultValue={passengerValue.name||this.state.name}
 							placeholder="Name"
 							onChange={(event) => {
 								this.updateState(event);
@@ -102,20 +69,20 @@ class PassengerFormTemplate extends React.Component {
 					</Row>
 					<Row>
 						<div>
-							<select
-								type="text"
+							<Input
+								type="select"
 								id="gender"
-								value={passengerValue.gender||this.state.gender}
+								defaultValue={passengerValue.gender||this.state.gender}
 								name="gender"
 								onChange={(event) => {
 									this.updateState(event);
 									onChange(event, i);
 								}}
 							>
-								<option value="---">Select Gender</option>
-								<option value="M">Male</option>
-								<option value="F">Female</option>
-							</select>
+								<option>Select Gender</option>
+								<option>Male</option>
+								<option>Female</option>
+							</Input>
 						</div>
 					</Row>
 				</FormGroup>
@@ -138,14 +105,15 @@ class PassengerFormTemplate extends React.Component {
 					<Row>
 						<Label for="email">Email</Label>
 						<Input
-							invalid={ this.state.validate.emailState }
+							invalid={ validate.emailState }
 							type="email"
 							name="emailId"
 							defaultValue={passengerValue.emailId||this.state.emailId}
 							id="email"
 							placeholder="Email"
 							onBlur={(event) => {
-								this.validateEmail(event, i);
+								this.updateState(event);
+								this.props.validateEmail(event, i);
 							}}
 						/>
 						<FormFeedback>Please enter email in the proper format: wanda@maximoff.com</FormFeedback>
@@ -163,7 +131,6 @@ class PassengerFormTemplate extends React.Component {
 							id="contact"
 							placeholder="Contact No"
 							onChange={(event) => {
-								this.validatePassport(event, i);
 								this.updateState(event);
 								onChange(event, i);
 							}}
@@ -174,17 +141,18 @@ class PassengerFormTemplate extends React.Component {
 					<Row>
 						<Label for="passport">Passport Number</Label>
 						<Input
-							invalid={ this.state.validate.passState }
+							invalid={ validate.passState }
 							type="text"
 							name="passPortNo"
 							id="passport"
 							defaultValue={passengerValue.passPortNo||this.state.passPortNo}
 							placeholder="Passport No"
 							onBlur={(event) => {
-								this.validatePassport(event, i);
+								this.updateState(event);
+								this.props.validatePassport(event, i);
 							}}
 						/>
-						<FormFeedback>Please enter passport number in the proper format.</FormFeedback>
+						<FormFeedback>Please enter passport number in the proper format: AB1234567</FormFeedback>
 					</Row>
 				</FormGroup>
 			</Jumbotron>

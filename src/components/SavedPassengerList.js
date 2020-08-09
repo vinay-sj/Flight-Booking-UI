@@ -22,8 +22,19 @@ class Passengers extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
+			validate: {
+				emailState: false,
+				passState: false,
+			},
 			modal:false,
-			passengerDetails:[],
+			passengerDetails: {
+				name: '',
+				gender: '',
+				birthDate: JSON.parse(JSON.stringify(new Date())),
+				emailId: '',
+				contactNo: '',
+				passPortNo: '',
+			},
 			passengerList: [],
 		};
 
@@ -33,11 +44,13 @@ class Passengers extends React.Component {
 		this.onDatePickerChange = this.onDatePickerChange.bind(this);
 		this.deletePassengers = this.deletePassengers.bind(this);
 		this.loadData = this.loadData.bind(this);
+		this.validateEmail = this.validateEmail.bind(this);
+		this.validatePassport = this.validatePassport.bind(this);
 	}
 
 	async savePassenger() {
 		const { passengerDetails } = this.state;
-		await addPassenger(passengerDetails[0]);
+		await addPassenger(passengerDetails);
 		await this.loadData();
 		this.toggle();
 	}
@@ -47,18 +60,40 @@ class Passengers extends React.Component {
 		this.setState({ modal:!modal });
 	}
 
-	onChange(event,index) {
+	validateEmail(e, i){
+		const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+		if (emailRex.test(e.target.value)) {
+			this.setState({ validate: { emailState: false } });
+			this.onChange(e);
+		} else {
+			this.setState({ validate: { emailState: true } });
+		}
+	}
+
+	validatePassport(e, i) {
+		const passRex = /[A-Z]{2}[0-9]{7}/;
+
+		if (passRex.test(e.target.value)) {
+			this.setState({ validate: { passState: false } });
+			this.onChange(e);
+		} else {
+			this.setState({ validate: { passState: true } });
+		}
+	}
+
+	onChange(event) {
 		const { name } = event.target;
 		let newState = JSON.parse(JSON.stringify(this.state.passengerDetails));
-		newState[index] = { ...newState[index], [name]: event.target.value };
+		newState = { ...newState, [name]: event.target.value };
 		this.setState({
 			passengerDetails: newState,
 		});
 	}
 
-	onDatePickerChange(date, name, index) {
+	onDatePickerChange(date, name) {
 		let newState = JSON.parse(JSON.stringify(this.state.passengerDetails));
-		newState[index] = { ...newState[index], [name]: date };
+		newState = { ...newState, [name]: date };
 		this.setState({
 			passengerDetails: newState,
 		});
@@ -86,6 +121,8 @@ class Passengers extends React.Component {
 	}
 
 	render() {
+		const isEnabled = Object.values(this.state.passengerDetails).every(Boolean) && !Object.values(this.state.validate).every(Boolean);
+
 		const { modal, passengerList } = this.state;
 		return (
 			<>
@@ -96,10 +133,16 @@ class Passengers extends React.Component {
 					</div>
 					<Modal isOpen={modal} toggle={this.toggle}>
 						<ModalBody>
-							<PassengerFormTemplate onChange={this.onChange} onDatePickerChange={this.onDatePickerChange} addPassenger={null}/>
+							<PassengerFormTemplate
+							validate={this.state.validate}
+							validateEmail={this.validateEmail}
+							validatePassport={this.validatePassport}
+							onChange={this.onChange}
+							onDatePickerChange={this.onDatePickerChange}
+							addPassenger={null}/>
 						</ModalBody>
 						<ModalFooter>
-							<Button color="primary" onClick={this.savePassenger}>Save</Button>{' '}
+							<Button color="primary" disabled={!isEnabled} onClick={this.savePassenger}>Save</Button>{' '}
 							<Button color="secondary" onClick={this.toggle}>Cancel</Button>
 						</ModalFooter>
 					</Modal>
