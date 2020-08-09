@@ -7,6 +7,8 @@ import Bookings from './components/Bookings';
 import Search from './components/Search';
 import ConfirmationPage from './components/ConfirmationPage';
 import Passengers from './components/SavedPassengerList';
+import Footer from './components/Footer';
+import About from './components/About';
 
 class App extends React.Component {
 	constructor(props) {
@@ -40,7 +42,9 @@ class App extends React.Component {
 		}
 		return (
 			<div>
-				<Header updateUserDetails={this.updateUserDetails} userData={this.state.userData} />
+				<div className='container screenType'>
+					<Header updateUserDetails={this.updateUserDetails} userData={this.state.userData} />
+				</div>
 				<div className="container main">
 					<BrowserRouter>
 						<Switch>
@@ -63,9 +67,13 @@ class App extends React.Component {
 							<Route path="/bookingConfirmation" render={() => <ConfirmationPage bookingDetails={this.state.bookingDetails} />} />
 							<Route path="/passengerList" render={() => <Passengers /> } />
 							<Route path="/bookings" component={Bookings} />
+							<Route path="/about" component={About} />
 							<Redirect from="/" to="/homepage" />
 						</Switch>
 					</BrowserRouter>
+				</div>
+				<div className='container screenType'>
+					<Footer />
 				</div>
 			</div>
 		);

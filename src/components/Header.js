@@ -4,6 +4,7 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 let userName;
 
+const UI_API_ENDPOINT = process.env.REACT_APP_UI_API_ENDPOINT || 'http://localhost:5000';
 
 class Example extends React.Component {
 	constructor(props) {
@@ -19,7 +20,8 @@ class Example extends React.Component {
 	async loginHandler(loginResponse) {
 		userName = loginResponse && loginResponse.profileObj ? loginResponse.profileObj.name : null;
 		if (loginResponse.tokenId) {
-			const serverSignInResponse = await fetch('http://localhost:5000/auth/signin', {
+			// const serverSignInResponse = await fetch('http://localhost:5000/auth/signin', {
+			const serverSignInResponse = await fetch(`${UI_API_ENDPOINT}/auth/signin`, {
 				method: 'POST',
 				credentials: 'include',
 				headers: {
@@ -37,7 +39,8 @@ class Example extends React.Component {
 	}
 
 	async logoutHandler(logoutresponse) {
-		const serverSignOutResponse = await fetch('http://localhost:5000/auth/signout', {
+		// const serverSignOutResponse = await fetch('http://localhost:5000/auth/signout', {
+		const serverSignOutResponse = await fetch(`${UI_API_ENDPOINT}/auth/signout`, {
 			method: 'POST',
 			credentials: 'include',
 		});
@@ -63,7 +66,7 @@ class Example extends React.Component {
 					</Nav>
 					{!this.state.isUserLoggedIn ? (
 						<GoogleLogin
-							clientId="660147973995-blt1grgbfeebedrr543u53s7okhgtlso.apps.googleusercontent.com"
+							clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
 							buttonText="Login"
 							onSuccess={(res) => this.loginHandler(res)}
 							onFailure={(err) => console.log(err)}
@@ -72,7 +75,7 @@ class Example extends React.Component {
 						/>
 					) : (
 						<GoogleLogout
-							clientId="660147973995-blt1grgbfeebedrr543u53s7okhgtlso.apps.googleusercontent.com"
+							clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
 							buttonText={`Logout ${userName}`}
 							onLogoutSuccess={(res) => this.logoutHandler(res)}
 						/>
