@@ -7,6 +7,7 @@ import Bookings from './components/Bookings';
 import Search from './components/Search';
 import ConfirmationPage from './components/ConfirmationPage';
 import Passengers from './components/SavedPassengerList';
+import Footer from './components/Footer';
 
 class App extends React.Component {
 	constructor(props) {
@@ -68,6 +69,9 @@ class App extends React.Component {
 							<Redirect from="/" to="/homepage" />
 						</Switch>
 					</BrowserRouter>
+				</div>
+				<div className='container screenType'>
+					<Footer />
 				</div>
 			</div>
 		);

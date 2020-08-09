@@ -14,6 +14,16 @@ nav {
     color: $backgroundColor;
   }
 }
+.modal-footer {
+  background-color: $navBackgroundColor;
+  div {
+    color: $backgroundColor;
+  }
+  a {
+    color: $backgroundColor;
+  }
+
+}
 h2 {
   margin-bottom: 1rem;
 }
