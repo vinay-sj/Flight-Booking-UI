@@ -8,6 +8,7 @@ import Search from './components/Search';
 import ConfirmationPage from './components/ConfirmationPage';
 import Passengers from './components/SavedPassengerList';
 import Footer from './components/Footer';
+import About from './components/About';
 
 class App extends React.Component {
 	constructor(props) {
@@ -66,6 +67,7 @@ class App extends React.Component {
 							<Route path="/bookingConfirmation" render={() => <ConfirmationPage bookingDetails={this.state.bookingDetails} />} />
 							<Route path="/passengerList" render={() => <Passengers /> } />
 							<Route path="/bookings" component={Bookings} />
+							<Route path="/about" component={About} />
 							<Redirect from="/" to="/homepage" />
 						</Switch>
 					</BrowserRouter>

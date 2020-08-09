@@ -6,9 +6,6 @@ import {
 import {Glyphicon} from 'react-bootstrap';
 
 class Footer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (
@@ -36,7 +33,7 @@ class Footer extends React.Component {
               </Col>
             </Row>
             <Row>
-              <Col lg={4} md={4}><p>BookBar © 2020. All Rights Reserved.</p></Col>
+              <Col lg={4} md={4}><p>Flight Booker © 2020. All Rights Reserved.</p></Col>
             </Row>
           </Container>
         </ModalFooter>
