@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const UI_API_ENDPOINT = process.env.REACT_APP_UI_API_ENDPOINT || 'http://localhost:5000'
+const UI_API_ENDPOINT = process.env.REACT_APP_UI_API_ENDPOINT || 'http://localhost:5000';
 
 export async function getPassengers()  {
 
