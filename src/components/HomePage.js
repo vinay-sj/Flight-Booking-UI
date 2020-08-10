@@ -167,18 +167,6 @@ class HomePage extends React.Component {
 						<Row>
 							<Col md={3}>
 								<Label>Departure</Label>
-							</Col>
-							{this.state.rselected !== 2 &&
-								<Col md={3}>
-									<Label for="exampleState">Return</Label>
-								</Col>
-							}
-							<Col md={1}>
-								<Label>Passengers</Label>
-							</Col>
-						</Row>
-						<Row form>
-							<Col md={3}>
 								<FormGroup>
 									<DatePicker
 										minDate={new Date()}
@@ -189,6 +177,7 @@ class HomePage extends React.Component {
 							</Col>
 							{this.state.rselected !== 2 &&
 								<Col md={3}>
+									<Label for="exampleState">Return</Label>
 									<FormGroup>
 										<DatePicker
 											minDate={this.formatDate(this.state.departureDate)}
@@ -199,6 +188,7 @@ class HomePage extends React.Component {
 								</Col>
 							}
 							<Col md={1}>
+								<Label>Passengers</Label>
 								<FormGroup>
 									<Input
 										type="number"
