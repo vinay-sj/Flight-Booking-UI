@@ -164,7 +164,7 @@ class HomePage extends React.Component {
 								</FormGroup>
 							</Col>
 						</Row>
-						<Row>
+						<Row form>
 							<Col md={3}>
 								<Label>Departure</Label>
 								<FormGroup>
