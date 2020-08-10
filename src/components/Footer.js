@@ -18,7 +18,7 @@ class Footer extends React.Component {
 					<Container className='container-css'>
 						<Row>
 							<Col className='col-css' lg={4} md={5}>
-								<h4>Flight Booker</h4>
+								<h4>Just Dream...</h4>
 								<div>Book the cheapest flight</div>
 							</Col>
 							<Col className='col-css' lg={4} md={3}>
