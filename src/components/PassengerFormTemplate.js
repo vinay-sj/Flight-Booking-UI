@@ -12,16 +12,9 @@ class PassengerFormTemplate extends React.Component {
 			emailId:'',
 			gender:'',
 			passPortNo:'',
-			validate: {
-				emailState: false,
-				passState: false,
-				phoneState: false,
-			}
 		};
 		this.updateBirthDate = this.updateBirthDate.bind(this);
 		this.updateState = this.updateState.bind(this);
-		this.validateEmail = this.validateEmail.bind(this);
-		this.validatePassport = this.validatePassport.bind(this);
 	}
 
 	updateBirthDate(date) {
@@ -35,49 +28,6 @@ class PassengerFormTemplate extends React.Component {
 		this.setState({
 			[name]:event.target.value
 		});
-	}
-
-	validateEmail(e, i){
-		const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		let { validate } = this.state;
-
-		if (emailRex.test(e.target.value)) {
-			validate.emailState = false;
-			this.props.onChange(e, i);
-			this.updateState(e);
-		} else {
-			validate.emailState = true;
-		}
-		this.setState({ validate });
-	}
-
-	validatePhone(e, i) {
-		const phoneRex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
-		let { validate } = this.state;
-
-		if (phoneRex.test(e.target.value)) {
-			validate.phoneState = false;
-			this.props.onChange(e, i);
-			this.updateState(e);
-		}else {
-			validate.phoneState = true;
-		}
-		this.setState({ validate });
-	}
-
-	validatePassport(e, i) {
-		const passRex = /[A-Z]{2}[0-9]{7}/;
-		let { validate } = this.state;
-
-		if (passRex.test(e.target.value)) {
-			validate.passState = false;
-			this.props.onChange(e, i);
-			this.updateState(e);
-		} else {
-			validate.passState = true;
-		}
-
-		this.setState({ validate });
 	}
 
 	render() {
@@ -142,7 +92,7 @@ class PassengerFormTemplate extends React.Component {
 					<Row>
 						<DatePicker
 							maxDate={new Date()}
-							selected={(passengerValue.birthDate)?new Date(passengerValue.birthDate):birthDate}
+							selected={(passengerValue.birthDate) ? new Date(passengerValue.birthDate) : birthDate}
 							onChange={(date) => {
 								this.updateBirthDate(date);
 								onDatePickerChange(date, 'birthDate', i);
@@ -155,15 +105,15 @@ class PassengerFormTemplate extends React.Component {
 					<Row>
 						<Label for="email">Email</Label>
 						<Input
-							invalid={ this.state.validate.emailState }
+							invalid={ this.props.validate.emailState }
 							type="email"
 							name="emailId"
 							defaultValue={passengerValue.emailId||this.state.emailId}
 							id="email"
 							placeholder="Email"
 							onBlur={(event) => {
-								// this.updateState(event);
-								this.validateEmail(event, i);
+								this.updateState(event);
+								this.props.validateEmail(event, i);
 							}}
 						/>
 						<FormFeedback>Please enter email in the proper format: wanda@maximoff.com</FormFeedback>
@@ -175,16 +125,15 @@ class PassengerFormTemplate extends React.Component {
 					</Row>
 					<Row>
 						<Input
-							invalid={ this.state.validate.phoneState }
+							//invalid={ this.state.validate.phoneState }
 							type="text"
 							name="contactNo"
 							defaultValue={passengerValue.contactNo||this.state.contactNo}
 							id="contact"
 							placeholder="Contact No"
-							onBlur={(event) => {
-								this.validatePhone(event, i);
-								// this.updateState(event);
-								// onChange(event, i);
+							onChange={(event) => {
+								this.updateState(event);
+								onChange(event, i);
 							}}
 						/>
 						<FormFeedback>Please enter phone number in the proper format</FormFeedback>
@@ -194,15 +143,15 @@ class PassengerFormTemplate extends React.Component {
 					<Row>
 						<Label for="passport">Passport Number</Label>
 						<Input
-							invalid={ this.state.validate.passState }
+							invalid={ this.props.validate.passState }
 							type="text"
 							name="passPortNo"
 							id="passport"
 							defaultValue={passengerValue.passPortNo||this.state.passPortNo}
 							placeholder="Passport No"
 							onBlur={(event) => {
-								// this.updateState(event);
-								this.validatePassport(event, i);
+								this.updateState(event);
+								this.props.validatePassport(event, i);
 							}}
 						/>
 						<FormFeedback>Please enter passport number in the proper format: AB1234567</FormFeedback>
