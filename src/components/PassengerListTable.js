@@ -16,21 +16,21 @@ const PassengerRows = ({ passengers, actionButtons, index, toggle }) => {
 			birthDate.toLocaleDateString(),
 			passenger.emailId,
 			passenger.contactNo,
-			passenger.passPortNo,
+			passenger.passPortNo, null
 		];
 
 		return window.innerWidth > 620 ? (
 			<tr key={passIndex}>
 				<td>{passIndex + 1}</td>
 				{valuesArray.map((item, index) => {
-					return <td key={index}>{item}</td>;
+					return item && <td key={index}>{item}</td>;
 				})}
 				<td>{actionbutton}</td>
 			</tr>
 		) : (
 			<MobileCardView
 				key={passIndex}
-				keysArray={keysArray.slice(0, 6)}
+				keysArray={keysArray}
 				valuesArray={valuesArray}
 				actionHandler={actionbutton}
 				currentIndex={passIndex}

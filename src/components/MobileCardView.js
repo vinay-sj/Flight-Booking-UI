@@ -26,8 +26,8 @@ const MobileCardView = ({keysArray, valuesArray, actionHandler, currentIndex, pr
 							{keyValueArray.map((item, index) => {
 								return (
 									<FormGroup key={index} style={{'marginBottom': '10px'}}>
-										<Label style={{'marginBottom': 0}} >{item[0]}</Label>
-										<Input bsSize='md' plaintext readOnly defaultValue={item[1]}></Input>
+										{item[0] && <Label style={{'marginBottom': 0}} >{item[0]}</Label>}
+										{item[1] && <Input bsSize='md' plaintext readOnly defaultValue={item[1]}></Input>}
 									</FormGroup>
 								);
 							})}
