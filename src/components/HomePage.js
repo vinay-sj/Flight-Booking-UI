@@ -165,7 +165,7 @@ class HomePage extends React.Component {
 							</Col>
 						</Row>
 						<Row form>
-							<Col md={2}>
+							<Col md={3}>
 								<Label for='departureDate'>Departure</Label>
 								<FormGroup id='departureDate'>
 									<DatePicker
@@ -177,7 +177,7 @@ class HomePage extends React.Component {
 								</FormGroup>
 							</Col>
 							{this.state.rselected !== 2 &&
-								<Col md={2}>
+								<Col md={3}>
 									<Label for='returnDate'>Return</Label>
 									<FormGroup id='returnDate'>
 										<DatePicker
