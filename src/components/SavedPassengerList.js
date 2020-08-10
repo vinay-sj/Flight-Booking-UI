@@ -4,7 +4,7 @@ import PassengerFormTemplate from './PassengerFormTemplate';
 import { getPassengers, addPassenger, deletePassenger, editPassenger } from '../connect_api/passengers';
 import PassengerListTable from './PassengerListTable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faEdit, faUser, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faUser, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 const ActionButtons = (props) => {
 	const { deletePassengers, index, editPassengers } = props;
@@ -14,13 +14,13 @@ const ActionButtons = (props) => {
 	const onEdit = () => {
 		editPassengers(index);
 	};
-	return(
+	return (
 		<ButtonGroup className="btn-group-sm">
-			<Button className='btn btn-light buttonTheme' onClick={onEdit}>
-				<FontAwesomeIcon icon={faEdit}/>
+			<Button className="btn btn-light buttonTheme" onClick={onEdit}>
+				<FontAwesomeIcon icon={faEdit} />
 			</Button>
-			<Button className='btn btn-light buttonTheme' onClick={onDelete}>
-				<FontAwesomeIcon icon={faTrashAlt}/>
+			<Button className="btn btn-light buttonTheme" onClick={onDelete}>
+				<FontAwesomeIcon icon={faTrashAlt} />
 			</Button>
 		</ButtonGroup>
 	);
@@ -29,12 +29,12 @@ const ActionButtons = (props) => {
 class Passengers extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state={
+		this.state = {
 			validate: {
 				emailState: false,
 				passState: false,
 			},
-			modal:false,
+			modal: false,
 			passengerDetails: {
 				name: '',
 				gender: '',
@@ -67,7 +67,7 @@ class Passengers extends React.Component {
 	async savePassenger() {
 		const { passengerDetails } = this.state;
 		await addPassenger(passengerDetails);
-		this.setState({passengerDetails:{}});
+		this.setState({ passengerDetails: {} });
 		await this.loadData();
 		this.toggle();
 	}
@@ -79,16 +79,16 @@ class Passengers extends React.Component {
 		await editPassenger(editPassengerList[editIndex]._id, editPassengerList[editIndex]);
 		await this.loadData();
 		this.editToggle();
-		this.setState({passengerDetails:{}});
+		this.setState({ passengerDetails: {} });
 		this.setState({ editIndex: null });
 	}
 
 	toggle() {
 		const { modal } = this.state;
-		this.setState({ modal:!modal });
+		this.setState({ modal: !modal });
 	}
 
-	validateEmail(e){
+	validateEmail(e) {
 		const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 		if (emailRex.test(e.target.value)) {
@@ -127,7 +127,7 @@ class Passengers extends React.Component {
 	onChange(event) {
 		const { name, value } = event.target;
 		this.setState({
-			passengerDetails: {...this.state.passengerDetails, [name]:value}
+			passengerDetails: { ...this.state.passengerDetails, [name]: value },
 		});
 	}
 
@@ -141,7 +141,7 @@ class Passengers extends React.Component {
 
 	onDatePickerChange(date, name) {
 		this.setState({
-			passengerDetails: {...this.state.passengerDetails, [name]:date}
+			passengerDetails: { ...this.state.passengerDetails, [name]: date },
 		});
 	}
 
@@ -150,15 +150,15 @@ class Passengers extends React.Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if(prevProps.passengers !== this.props.passengers) {
+		if (prevProps.passengers !== this.props.passengers) {
 			this.loadData();
 		}
 	}
 
 	async loadData() {
-		const  passengerList  = await getPassengers();
-		await this.setState({ passengerList:passengerList });
-		await this.setState({ editPassengerList:passengerList });
+		const passengerList = await getPassengers();
+		await this.setState({ passengerList: passengerList });
+		await this.setState({ editPassengerList: passengerList });
 	}
 
 	async deletePassengers(index) {
@@ -172,7 +172,6 @@ class Passengers extends React.Component {
 		this.editToggle();
 	}
 
-
 	render() {
 		const isEnabled = Object.values(this.state.passengerDetails).every(Boolean) && !Object.values(this.state.validate).every(Boolean);
 
@@ -180,10 +179,13 @@ class Passengers extends React.Component {
 
 		return (
 			<>
-				<div className="text-center btn-group-sm">
-            Passenger List{' '}
-					<Button className='btn btn-light buttonTheme' onClick={this.toggle}>{' '}<FontAwesomeIcon icon={faUser}/>{' '}Add</Button>
+				<div style={{'paddingBottom': '10px'}} className="text-center btn-group-sm">
+					Passenger List &nbsp;
+					<Button className='btn btn-light buttonTheme' onClick={this.toggle}>
+						<FontAwesomeIcon icon={faUser} /> Add
+					</Button>
 				</div>
+
 				<Modal isOpen={modal} toggle={this.toggle}>
 					<ModalBody>
 						<PassengerFormTemplate
@@ -192,21 +194,41 @@ class Passengers extends React.Component {
 							validatePassport={this.validatePassport}
 							onChange={this.onChange}
 							onDatePickerChange={this.onDatePickerChange}
-							addPassenger={null}/>
+							addPassenger={null}
+						/>
 					</ModalBody>
 					<ModalFooter>
-						<Button disabled={!isEnabled} className='btn btn-light buttonTheme' color="primary" onClick={this.savePassenger}>Save</Button>{' '}
-						<Button className='btn btn-light buttonTheme' color="secondary" onClick={this.toggle}>Cancel</Button>
+						<Button disabled={!isEnabled} className="btn btn-light buttonTheme" color="primary" onClick={this.savePassenger}>
+              Save
+						</Button>{' '}
+						<Button className="btn btn-light buttonTheme" color="secondary" onClick={this.toggle}>
+              Cancel
+						</Button>
 					</ModalFooter>
 				</Modal>
-				<PassengerListTable passengers={passengerList} actionButtons={(index)=>{return (<ActionButtons index={index} deletePassengers={this.deletePassengers} editPassengers={this.editPassengers} />);}} />
+				<PassengerListTable
+					passengers={passengerList}
+					actionButtons={(index) => {
+						return <ActionButtons index={index} deletePassengers={this.deletePassengers} editPassengers={this.editPassengers} />;
+					}}
+				/>
 				<Modal isOpen={editModal} toggle={this.editToggle}>
 					<ModalBody>
-						<PassengerFormTemplate onChange={this.onUpdateChange} index={editIndex} onDatePickerChange={this.onUpdateDatePickerChange} addPassenger={null} passengerValue={editPassengerList[editIndex]} />
+						<PassengerFormTemplate
+							onChange={this.onUpdateChange}
+							index={editIndex}
+							onDatePickerChange={this.onUpdateDatePickerChange}
+							addPassenger={null}
+							passengerValue={editPassengerList[editIndex]}
+						/>
 					</ModalBody>
 					<ModalFooter>
-						<Button className='btn btn-light buttonTheme' color="primary" onClick={this.updateEditPassenger}>Update</Button>{' '}
-						<Button className='btn btn-light buttonTheme' color="secondary" onClick={this.editToggle}>Cancel</Button>
+						<Button className="btn btn-light buttonTheme" color="primary" onClick={this.updateEditPassenger}>
+              Update
+						</Button>{' '}
+						<Button className="btn btn-light buttonTheme" color="secondary" onClick={this.editToggle}>
+              Cancel
+						</Button>
 					</ModalFooter>
 				</Modal>
 			</>

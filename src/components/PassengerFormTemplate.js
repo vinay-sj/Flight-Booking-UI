@@ -42,7 +42,7 @@ class PassengerFormTemplate extends React.Component {
 		return (
 			<Jumbotron key={index}>
 				<FormGroup row>
-					<div id={index}>Passenger Details: {passNo}</div>
+					<div className='pt-2' id={index}>Passenger Details: {passNo} &nbsp;</div>
 					<div>{addPassenger}</div>
 				</FormGroup>
 				<FormGroup>
