@@ -15,6 +15,7 @@ class PassengerFormTemplate extends React.Component {
 			validate: {
 				emailState: false,
 				passState: false,
+				phoneState: false,
 			}
 		};
 		this.updateBirthDate = this.updateBirthDate.bind(this);
@@ -47,7 +48,20 @@ class PassengerFormTemplate extends React.Component {
 		} else {
 			validate.emailState = true;
 		}
+		this.setState({ validate });
+	}
 
+	validatePhone(e, i) {
+		const phoneRex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+		let { validate } = this.state;
+
+		if (phoneRex.test(e.target.value)) {
+			validate.phoneState = false;
+			this.props.onChange(e, i);
+			this.updateState(e);
+		}else {
+			validate.phoneState = true;
+		}
 		this.setState({ validate });
 	}
 
@@ -147,7 +161,7 @@ class PassengerFormTemplate extends React.Component {
 							id="email"
 							placeholder="Email"
 							onBlur={(event) => {
-								this.updateState(event);
+								// this.updateState(event);
 								this.validateEmail(event, i);
 							}}
 						/>
@@ -160,17 +174,19 @@ class PassengerFormTemplate extends React.Component {
 					</Row>
 					<Row>
 						<Input
-							type="number"
+							invalid={ this.state.validate.phoneState }
+							type="text"
 							name="contactNo"
 							defaultValue={passengerValue.contactNo||this.state.contactNo}
 							id="contact"
 							placeholder="Contact No"
-							onChange={(event) => {
-								this.validatePassport(event, i);
-								this.updateState(event);
-								onChange(event, i);
+							onBlur={(event) => {
+								this.validatePhone(event, i);
+								// this.updateState(event);
+								// onChange(event, i);
 							}}
 						/>
+						<FormFeedback>Please enter phone number in the proper format</FormFeedback>
 					</Row>
 				</FormGroup>
 				<FormGroup>
@@ -184,7 +200,7 @@ class PassengerFormTemplate extends React.Component {
 							defaultValue={passengerValue.passPortNo||this.state.passPortNo}
 							placeholder="Passport No"
 							onBlur={(event) => {
-								this.updateState(event);
+								// this.updateState(event);
 								this.validatePassport(event, i);
 							}}
 						/>
