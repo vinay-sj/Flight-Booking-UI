@@ -33,6 +33,8 @@ nav {
   }
 
 }
+
+
 h2 {
   margin-bottom: 1rem;
 }
@@ -67,6 +69,16 @@ h2 {
   .main {
     background-color: $applicationTheme;
     padding: 0.5rem 1rem;
+  }
+
+  .custom-modal-class {
+    width: fit-content;
+    height: fit-content;
+    min-width: max-content;
+  }
+
+  .custom-modal-outer-class {
+    justify-content: space-evenly;
   }
 }
 

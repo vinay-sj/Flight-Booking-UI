@@ -142,7 +142,7 @@ class PassengerDetails extends React.Component {
           Confirm
 				</Button>
 				{this.state.openModal ? (
-					<Modal size="lg" isOpen={this.state.openModal} toggle={() => this.setState({ openModal: false })}>
+					<Modal isOpen={this.state.openModal} toggle={() => this.setState({ openModal: false })}>
 						<ModalHeader toggle={() => this.setState({ openModal: false })}>Confirm Booking</ModalHeader>
 						<ModalBody>
 							{!this.props.userData ? 'Please Login first to confirm booking' : 'Do you really want to confirm Booking'}

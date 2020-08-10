@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import PassengerListTable from './PassengerListTable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -23,7 +23,8 @@ class AddPassenger extends React.Component {
 		return(
 			<>
 				<Button className='btn btn-light buttonTheme' onClick={this.toggle}>{' '}<FontAwesomeIcon icon={faUser}/>{' '}Add</Button>
-				<Modal isOpen={modal} toggle={this.toggle}>
+				<Modal className='custom-modal-outer-class' contentClassName='custom-modal-class' role={'modal'} centered isOpen={modal} toggle={this.toggle}>
+					<ModalHeader tag='div'>Please select one from the list of your previously saved list of Passengers</ModalHeader>
 					<ModalBody>
 						<PassengerListTable index={index} toggle={this.toggle} passengers={passengers} actionButtons={actionButtons}/>
 					</ModalBody>
