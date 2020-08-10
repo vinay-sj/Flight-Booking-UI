@@ -134,14 +134,36 @@ class Search extends React.Component {
 	}
 
 	async loadData() {
-		const { departureDate, returnDate, deptAirport, arrAirport, numPassengers } = this.props.searchParams;
-		const data_forward = await getitenaries(deptAirport, arrAirport, departureDate, numPassengers);
+
+		if(!("searchParams" in window.localStorage)){
+			window.localStorage.clear();
+			window.localStorage.setItem("searchParams",JSON.stringify(this.props.searchParams));
+		}
+
+		const { departureDate, returnDate, deptAirport, arrAirport, numPassengers } = JSON.parse(localStorage.getItem("searchParams"));
+		window.localStorage.setItem("numPassengers",numPassengers);
+		let data_forward;
+		if(window.localStorage.getItem("forward")===null){
+			data_forward = await getitenaries(deptAirport, arrAirport, departureDate, numPassengers);
+			window.localStorage.setItem("forward",JSON.stringify(data_forward));
+		}
+		else{
+			data_forward = JSON.parse(localStorage.getItem("forward"));					
+
+		}
 		this.setState({
 			flights_forward: data_forward,
 		});
 		if (returnDate) {
 			isReturnValid = true;
-			const data_return = await getitenaries(arrAirport, deptAirport, returnDate, numPassengers);
+			let data_return;
+			if(window.localStorage.getItem("return")===null){
+				data_return = await getitenaries(arrAirport, deptAirport, returnDate, numPassengers);		
+				window.localStorage.setItem("return",JSON.stringify(data_return));		
+			}
+			else{
+				data_return = JSON.parse(localStorage.getItem("return"));
+			}
 			this.setState({
 				flights_return: data_return,
 			});

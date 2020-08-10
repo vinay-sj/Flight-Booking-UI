@@ -104,6 +104,7 @@ class HomePage extends React.Component {
 	}
 
 	async handleSubmit() {
+		window.localStorage.clear();
 		this.props.flightSearchParams(this.state);
 	}
 
