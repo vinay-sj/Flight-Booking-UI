@@ -30,19 +30,7 @@ class Passengers extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			validate: {
-				emailState: false,
-				passState: false,
-			},
 			modal: false,
-			passengerDetails: {
-				name: '',
-				gender: '',
-				birthDate: JSON.parse(JSON.stringify(new Date())),
-				emailId: '',
-				contactNo: '',
-				passPortNo: '',
-			},
 			editModal: false,
 			passengerList: [],
 			editPassengerList: [],
@@ -60,14 +48,12 @@ class Passengers extends React.Component {
 		this.editPassengers = this.editPassengers.bind(this);
 		this.updateEditPassenger = this.updateEditPassenger.bind(this);
 		this.editToggle = this.editToggle.bind(this);
-		this.validateEmail = this.validateEmail.bind(this);
-		this.validatePassport = this.validatePassport.bind(this);
 	}
 
 	async savePassenger() {
 		const { passengerDetails } = this.state;
 		await addPassenger(passengerDetails);
-		this.setState({ passengerDetails: {} });
+		this.setState({ passengerDetails:{} });
 		await this.loadData();
 		this.toggle();
 	}
@@ -79,35 +65,13 @@ class Passengers extends React.Component {
 		await editPassenger(editPassengerList[editIndex]._id, editPassengerList[editIndex]);
 		await this.loadData();
 		this.editToggle();
-		this.setState({ passengerDetails: {} });
+		this.setState({ passengerDetails:{} });
 		this.setState({ editIndex: null });
 	}
 
 	toggle() {
 		const { modal } = this.state;
 		this.setState({ modal: !modal });
-	}
-
-	validateEmail(e) {
-		const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-		if (emailRex.test(e.target.value)) {
-			this.setState({ validate: { emailState: false } });
-			this.onChange(e);
-		} else {
-			this.setState({ validate: { emailState: true } });
-		}
-	}
-
-	validatePassport(e) {
-		const passRex = /[A-Z]{2}[0-9]{7}/;
-
-		if (passRex.test(e.target.value)) {
-			this.setState({ validate: { passState: false } });
-			this.onChange(e);
-		} else {
-			this.setState({ validate: { passState: true } });
-		}
 	}
 
 	editToggle() {
@@ -127,13 +91,13 @@ class Passengers extends React.Component {
 	onChange(event) {
 		const { name, value } = event.target;
 		this.setState({
-			passengerDetails: { ...this.state.passengerDetails, [name]: value },
+			passengerDetails: { ...this.state.passengerDetails, [name]:value }
 		});
 	}
 
-	onUpdateDatePickerChange(date, name) {
-		let newState = JSON.parse(JSON.stringify(this.state.passengerDetails));
-		newState = { ...newState, [name]: date };
+	onUpdateDatePickerChange(date, name, index) {
+		let newState = JSON.parse(JSON.stringify(this.state.editPassengerList));
+		newState[index] = { ...newState[index], [name]: date };
 		this.setState({
 			editPassengerList: newState,
 		});
@@ -141,7 +105,7 @@ class Passengers extends React.Component {
 
 	onDatePickerChange(date, name) {
 		this.setState({
-			passengerDetails: { ...this.state.passengerDetails, [name]: date },
+			passengerDetails: {...this.state.passengerDetails, [name]:date}
 		});
 	}
 
@@ -156,7 +120,7 @@ class Passengers extends React.Component {
 	}
 
 	async loadData() {
-		const passengerList = await getPassengers();
+		const  passengerList = await getPassengers();
 		await this.setState({ passengerList: passengerList });
 		await this.setState({ editPassengerList: passengerList });
 	}
@@ -173,8 +137,6 @@ class Passengers extends React.Component {
 	}
 
 	render() {
-		const isEnabled = Object.values(this.state.passengerDetails).every(Boolean) && !Object.values(this.state.validate).every(Boolean);
-
 		const { modal, editModal, passengerList, editIndex, editPassengerList } = this.state;
 
 		return (
@@ -189,20 +151,17 @@ class Passengers extends React.Component {
 				<Modal isOpen={modal} toggle={this.toggle}>
 					<ModalBody>
 						<PassengerFormTemplate
-							validate={this.state.validate}
-							validateEmail={this.validateEmail}
-							validatePassport={this.validatePassport}
 							onChange={this.onChange}
 							onDatePickerChange={this.onDatePickerChange}
 							addPassenger={null}
 						/>
 					</ModalBody>
 					<ModalFooter>
-						<Button disabled={!isEnabled} className="btn btn-light buttonTheme" color="primary" onClick={this.savePassenger}>
-              Save
+						<Button className="btn btn-light buttonTheme" color="primary" onClick={this.savePassenger}>
+							Save
 						</Button>{' '}
 						<Button className="btn btn-light buttonTheme" color="secondary" onClick={this.toggle}>
-              Cancel
+							Cancel
 						</Button>
 					</ModalFooter>
 				</Modal>
@@ -224,10 +183,10 @@ class Passengers extends React.Component {
 					</ModalBody>
 					<ModalFooter>
 						<Button className="btn btn-light buttonTheme" color="primary" onClick={this.updateEditPassenger}>
-              Update
+							Update
 						</Button>{' '}
 						<Button className="btn btn-light buttonTheme" color="secondary" onClick={this.editToggle}>
-              Cancel
+							Cancel
 						</Button>
 					</ModalFooter>
 				</Modal>
