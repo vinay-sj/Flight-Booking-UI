@@ -36,6 +36,13 @@ h2 {
   background-color: black;
 }
 
+.zoom {
+  transition: transform 0.3s;
+}
+.zoom:hover {
+  transform: scale(2);
+}
+
 @media only screen and (min-width: 620px) {
   .screenType {
     padding: 0;
