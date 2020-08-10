@@ -48,10 +48,10 @@ class ConfirmationPage extends React.Component {
 					<Table striped bordered>
 						<thead>
 							<tr>
-								<th>Traveller Name</th>
-								{/* <th>Meal Prefenece</th>
-                <th>Special Request</th>
-                <th>Seat Number</th> */}
+								 <th className='font-weight-normal' >Traveller Name</th>
+								{/*  <th className='font-weight-normal' >Meal Prefenece</th>
+                 <th className='font-weight-normal' >Special Request</th>
+                 <th className='font-weight-normal' >Seat Number</th> */}
 							</tr>
 						</thead>
 						<tbody>{passengerRow}</tbody>
@@ -66,10 +66,10 @@ class ConfirmationPage extends React.Component {
 					<Table bordered>
 						<thead>
 							<tr>
-								<th>Flight Name</th>
-								<th>Flight Number</th>
-								<th>Journey Details</th>
-								{/* <th>Travel Summary</th>  */}
+								 <th className='font-weight-normal' >Flight Name</th>
+								 <th className='font-weight-normal' >Flight Number</th>
+								 <th className='font-weight-normal' >Journey Details</th>
+								{/*  <th className='font-weight-normal' >Travel Summary</th>  */}
 							</tr>
 						</thead>
 						<tbody>

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Table, Button, Collapse } from 'reactstrap';
+import { Table, Button } from 'reactstrap';
+import { Tabs, Tab } from 'react-bootstrap';
 import { getOneWayBookings, getRoundTripBookings, deleteBooking } from '../connect_api/bookings_list';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -55,7 +56,7 @@ const keysArrayRound = [
 	'Return Airline Name',
 	'Return Journey Date',
 	'Passengers Name',
-	'Cancel Booking'
+	'Cancel Booking',
 ];
 
 const BookingRowReturn = (props) => {
@@ -76,7 +77,8 @@ const BookingRowReturn = (props) => {
 		booking.returnFlightNo,
 		booking.returnAirlineName,
 		returnJourneyDate.toDateString(),
-		passengerNames, null
+		passengerNames,
+		null,
 	];
 
 	return window.innerWidth > 620 ? (
@@ -109,19 +111,21 @@ const BookingRowReturn = (props) => {
 
 const BookingTableOne = ({ bookingsRows, deleteBookings }) => {
 	return window.innerWidth > 620 ? (
-		<Table responsive hover striped>
-			<thead>
-				<tr className="text-center">
-					<th>#</th>
-					{keysArrayOne.map((item, index) => {
-						return <th key={index}>{item}</th>;
-					})}
-				</tr>
-			</thead>
-			<tbody>
-				<BookingRowsOne bookings={bookingsRows} deleteBookings={deleteBookings} />
-			</tbody>
-		</Table>
+		(
+			<Table responsive hover striped>
+				<thead>
+					<tr className="text-center">
+						 <th className='font-weight-normal' >#</th>
+						{keysArrayOne.map((item, index) => {
+							return  <th className='font-weight-normal'  key={index}>{item}</th>;
+						})}
+					</tr>
+				</thead>
+				<tbody>
+					<BookingRowsOne bookings={bookingsRows} deleteBookings={deleteBookings} />
+				</tbody>
+			</Table>
+		) || <div>No data to display</div>
 	) : (
 		<BookingRowsOne bookings={bookingsRows} deleteBookings={deleteBookings} />
 	);
@@ -132,9 +136,9 @@ const BookingTableReturn = ({ bookingsRows, deleteBookings }) => {
 		<Table responsive hover striped>
 			<thead>
 				<tr className="text-center">
-					<th>#</th>
+					 <th className='font-weight-normal' >#</th>
 					{keysArrayRound.map((item, index) => {
-						return <th key={index}>{item}</th>;
+						return  <th className='font-weight-normal'  key={index}>{item}</th>;
 					})}
 				</tr>
 			</thead>
@@ -165,25 +169,12 @@ class Bookings extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isToggleOne: true,
-			isToggleRound: true,
 			bookingsOne: [],
 			bookingsRound: [],
 		};
-		this.toggleOne = this.toggleOne.bind(this);
-		this.toggleRound = this.toggleRound.bind(this);
 		this.deleteBookings = this.deleteBookings.bind(this);
 	}
 
-	toggleOne() {
-		const { isToggleOne } = this.state;
-		this.setState({ isToggleOne: !isToggleOne });
-	}
-
-	toggleRound() {
-		const { isToggleRound } = this.state;
-		this.setState({ isToggleRound: !isToggleRound });
-	}
 	componentDidUpdate(prevProps) {
 		if (prevProps.bookingsOne !== this.props.bookingsOne) {
 			this.loadBookingsOne();
@@ -223,21 +214,31 @@ class Bookings extends React.Component {
 	}
 
 	render() {
-		const { isToggleOne, isToggleRound, bookingsOne, bookingsRound } = this.state;
+		const { bookingsOne, bookingsRound } = this.state;
 		return (
 			<>
-				<Button className="btn btn-light buttonTheme" color="secondary" size="lg" onClick={this.toggleOne} block>
+				<Tabs className="text-center" defaultActiveKey="oneWayBookings" id="previous-booking-details">
+					<Tab tabClassName="col-6" eventKey="oneWayBookings" title="Forward Flights">
+						{bookingsOne.length ? (
+							<BookingTableOne bookingsRows={bookingsOne} deleteBookings={this.deleteBookings} />
+						) : (
+							<div>No data to display</div>
+						)}
+					</Tab>
+					<Tab tabClassName="col-6" eventKey="roundTripBookings" title="Return Flights">
+						{bookingsRound.length ? (
+							<BookingTableReturn bookingsRows={bookingsRound} deleteBookings={this.deleteBookings} />
+						) : (
+							<div>No data to display</div>
+						)}
+					</Tab>
+				</Tabs>
+				{/* <Button className="btn btn-light buttonTheme" color="secondary" size="lg" onClick={this.toggleOne} block>
           One Way Bookings
 				</Button>
-				<Collapse isOpen={isToggleOne}>
-					<BookingTableOne bookingsRows={bookingsOne} deleteBookings={this.deleteBookings} />
-				</Collapse>
 				<Button className="btn btn-light buttonTheme" color="secondary" size="lg" onClick={this.toggleRound} block>
           Round Trip Bookings
-				</Button>
-				<Collapse isOpen={isToggleRound}>
-					<BookingTableReturn bookingsRows={bookingsRound} deleteBookings={this.deleteBookings} />
-				</Collapse>
+				</Button> */}
 				{/*<Button className='btn btn-light buttonTheme' color='secondary' size='lg' onClick={toggleCancel} block>*/}
 				{/*	Cancelled Bookings*/}
 				{/*</Button>*/}
