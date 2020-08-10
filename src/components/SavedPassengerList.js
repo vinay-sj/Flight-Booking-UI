@@ -30,6 +30,10 @@ class Passengers extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			validate: {
+				emailState: false,
+				passState: false,
+			},
 			modal: false,
 			editModal: false,
 			passengerList: [],
@@ -48,6 +52,36 @@ class Passengers extends React.Component {
 		this.editPassengers = this.editPassengers.bind(this);
 		this.updateEditPassenger = this.updateEditPassenger.bind(this);
 		this.editToggle = this.editToggle.bind(this);
+		this.validateEmail = this.validateEmail.bind(this);
+		this.validatePassport = this.validatePassport.bind(this);
+	}
+
+	validateEmail(e, i){
+		const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		let { validate } = this.state;
+
+		if (emailRex.test(e.target.value)) {
+			validate.emailState = false;
+			this.onChange(e);
+		} else {
+			validate.emailState = true;
+		}
+
+		this.setState({ validate });
+	}
+
+	validatePassport(e, i) {
+		const passRex = /[A-Z]{2}[0-9]{7}/;
+		let { validate } = this.state;
+
+		if (passRex.test(e.target.value)) {
+			validate.passState = false;
+			this.onChange(e);
+		} else {
+			validate.passState = true;
+		}
+
+		this.setState({ validate });
 	}
 
 	async savePassenger() {
@@ -137,6 +171,11 @@ class Passengers extends React.Component {
 	}
 
 	render() {
+		let isEnabled = false;
+		if (this.state.passengerDetails) {
+			isEnabled = Object.keys(this.state.passengerDetails).length >= 6 && !Object.values(this.state.validate).every(Boolean);
+		}
+
 		const { modal, editModal, passengerList, editIndex, editPassengerList } = this.state;
 
 		return (
@@ -154,10 +193,13 @@ class Passengers extends React.Component {
 							onChange={this.onChange}
 							onDatePickerChange={this.onDatePickerChange}
 							addPassenger={null}
+							validateEmail={this.validateEmail}
+							validatePassport={this.validatePassport}
+							validate={this.state.validate}
 						/>
 					</ModalBody>
 					<ModalFooter>
-						<Button className="btn btn-light buttonTheme" color="primary" onClick={this.savePassenger}>
+						<Button disabled={!isEnabled} className="btn btn-light buttonTheme" color="primary" onClick={this.savePassenger}>
 							Save
 						</Button>{' '}
 						<Button className="btn btn-light buttonTheme" color="secondary" onClick={this.toggle}>
