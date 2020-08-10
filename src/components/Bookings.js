@@ -1,6 +1,11 @@
 import React from 'react';
 import { Table, Button, Collapse } from 'reactstrap';
 import { getOneWayBookings, getRoundTripBookings, deleteBooking } from '../connect_api/bookings_list';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import MobileCardView from '../components/MobileCardView';
+
+const keysArrayOne = ['Flight No.', 'Airline Name', 'Journey Date', 'Passengers Name', 'Cancel Booking'];
 
 const BookingRowOne = (props) => {
 	const { booking, index, deleteBookings } = props;
@@ -12,19 +17,46 @@ const BookingRowOne = (props) => {
 		deleteBookings(false, index);
 	};
 
-	return (
-		<tr className='text-center'>
+	const valuesArrayOne = [booking.onwardFlightNo, booking.onwardAirlineName, journeyDate.toDateString(), passengerNames, null];
+
+	return window.innerWidth > 620 ? (
+		<tr className="text-center">
 			<td>{index + 1}</td>
-			<td>{booking.onwardFlightNo}</td>
-			<td>{booking.onwardAirlineName}</td>
-			<td>{journeyDate.toDateString()}</td>
-			<td>{passengerNames}</td>
+			{valuesArrayOne.map((item, index) => {
+				return item && <td key={index}>{item}</td>;
+			})}
 			<td>
-				<Button className='btn btn-light buttonTheme' onClick={onDelete}>Cancel</Button>
+				<Button key={index} className="btn btn-light buttonTheme" onClick={onDelete}>
+					<FontAwesomeIcon icon={faTimes} />
+				</Button>
 			</td>
 		</tr>
+	) : (
+		<MobileCardView
+			key={index}
+			keysArray={keysArrayOne}
+			valuesArray={valuesArrayOne}
+			currentIndex={index}
+			actionHandler={
+				<Button key={index} className="btn btn-light buttonTheme" onClick={onDelete}>
+					<FontAwesomeIcon icon={faTimes} />
+				</Button>
+			}
+			primaryField={'Passengers Name'}
+		/>
 	);
 };
+
+const keysArrayRound = [
+	'Onward Flight No.',
+	'Onward Airline Name',
+	'Onward Journey Date',
+	'Return Flight No.',
+	'Return Airline Name',
+	'Return Journey Date',
+	'Passengers Name',
+	'Cancel Booking'
+];
 
 const BookingRowReturn = (props) => {
 	const { booking, index, deleteBookings } = props;
@@ -37,74 +69,95 @@ const BookingRowReturn = (props) => {
 		deleteBookings(true, index);
 	};
 
-	return (
-		<tr className='text-center'>
+	const valuesArrayRound = [
+		booking.onwardFlightNo,
+		booking.onwardAirlineName,
+		onwardJourneyDate.toDateString(),
+		booking.returnFlightNo,
+		booking.returnAirlineName,
+		returnJourneyDate.toDateString(),
+		passengerNames, null
+	];
+
+	return window.innerWidth > 620 ? (
+		<tr className="text-center">
 			<td>{index + 1}</td>
-			<td>{booking.onwardFlightNo}</td>
-			<td>{booking.onwardAirlineName}</td>
-			<td>{onwardJourneyDate.toDateString()}</td>
-			<td>{booking.returnFlightNo}</td>
-			<td>{booking.returnAirlineName}</td>
-			<td>{returnJourneyDate.toDateString()}</td>
-			<td>{passengerNames}</td>
+			{valuesArrayRound.map((item, index) => {
+				return item && <td key={index}>{item}</td>;
+			})}
 			<td>
-				<Button className='btn btn-light buttonTheme' onClick={onDelete}>Cancel</Button>
+				<Button key={index} className="btn btn-light buttonTheme" onClick={onDelete}>
+					<FontAwesomeIcon icon={faTimes} />
+				</Button>
 			</td>
 		</tr>
+	) : (
+		<MobileCardView
+			key={index}
+			keysArray={keysArrayRound}
+			valuesArray={valuesArrayRound}
+			currentIndex={index}
+			actionHandler={
+				<Button key={index} className="btn btn-light buttonTheme" onClick={onDelete}>
+					<FontAwesomeIcon icon={faTimes} />
+				</Button>
+			}
+			primaryField={'Passengers Name'}
+		/>
 	);
 };
 
 const BookingTableOne = ({ bookingsRows, deleteBookings }) => {
-	return (
+	return window.innerWidth > 620 ? (
 		<Table responsive hover striped>
 			<thead>
-				<tr className='text-center'>
+				<tr className="text-center">
 					<th>#</th>
-					<th>Flight No.</th>
-					<th>Airline Name</th>
-					<th>Journey Date</th>
-					<th>Passengers Name</th>
-					<th>Actions</th>
+					{keysArrayOne.map((item, index) => {
+						return <th key={index}>{item}</th>;
+					})}
 				</tr>
 			</thead>
 			<tbody>
 				<BookingRowsOne bookings={bookingsRows} deleteBookings={deleteBookings} />
 			</tbody>
 		</Table>
+	) : (
+		<BookingRowsOne bookings={bookingsRows} deleteBookings={deleteBookings} />
 	);
 };
 
 const BookingTableReturn = ({ bookingsRows, deleteBookings }) => {
-	return (
+	return window.innerWidth > 620 ? (
 		<Table responsive hover striped>
 			<thead>
-				<tr className='text-center'>
+				<tr className="text-center">
 					<th>#</th>
-					<th>Onward Flight No.</th>
-					<th>Onward Airline Name</th>
-					<th>Onward Journey Date</th>
-					<th>Return Flight No.</th>
-					<th>Return Airline Name</th>
-					<th>Return Journey Date</th>
-					<th>Passengers Name</th>
-					<th>Actions</th>
+					{keysArrayRound.map((item, index) => {
+						return <th key={index}>{item}</th>;
+					})}
 				</tr>
 			</thead>
 			<tbody>
 				<BookingRowsReturn bookings={bookingsRows} deleteBookings={deleteBookings} />
 			</tbody>
 		</Table>
+	) : (
+		<BookingRowsReturn bookings={bookingsRows} deleteBookings={deleteBookings} />
 	);
 };
 
-
 const BookingRowsOne = ({ bookings, deleteBookings }) => {
-	const bookingRows = (bookings || []).map((booking, index) => <BookingRowOne key={booking._id} booking={booking} index={index} deleteBookings={deleteBookings} />);
+	const bookingRows = (bookings || []).map((booking, index) => (
+		<BookingRowOne key={booking._id} booking={booking} index={index} deleteBookings={deleteBookings} />
+	));
 	return <>{bookingRows}</>;
 };
 
 const BookingRowsReturn = ({ bookings, deleteBookings }) => {
-	const bookingRows = (bookings || []).map((booking, index) => <BookingRowReturn key={booking._id} booking={booking} index={index} deleteBookings={deleteBookings} />);
+	const bookingRows = (bookings || []).map((booking, index) => (
+		<BookingRowReturn key={booking._id} booking={booking} index={index} deleteBookings={deleteBookings} />
+	));
 	return <>{bookingRows}</>;
 };
 
@@ -112,30 +165,30 @@ class Bookings extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isToggleOne:true,
-			isToggleRound:true,
+			isToggleOne: true,
+			isToggleRound: true,
 			bookingsOne: [],
-			bookingsRound:[],
+			bookingsRound: [],
 		};
 		this.toggleOne = this.toggleOne.bind(this);
 		this.toggleRound = this.toggleRound.bind(this);
 		this.deleteBookings = this.deleteBookings.bind(this);
 	}
 
-	toggleOne(){
+	toggleOne() {
 		const { isToggleOne } = this.state;
-		this.setState({ isToggleOne:!isToggleOne });
+		this.setState({ isToggleOne: !isToggleOne });
 	}
 
-	toggleRound(){
+	toggleRound() {
 		const { isToggleRound } = this.state;
-		this.setState({isToggleRound:!isToggleRound});
+		this.setState({ isToggleRound: !isToggleRound });
 	}
 	componentDidUpdate(prevProps) {
-		if(prevProps.bookingsOne !== this.props.bookingsOne) {
+		if (prevProps.bookingsOne !== this.props.bookingsOne) {
 			this.loadBookingsOne();
 		}
-		if(prevProps.bookingsRound !== this.props.bookingsRound) {
+		if (prevProps.bookingsRound !== this.props.bookingsRound) {
 			this.loadBookingsRound();
 		}
 	}
@@ -147,13 +200,13 @@ class Bookings extends React.Component {
 	async loadBookingsOne() {
 		const bookingsOne = await getOneWayBookings();
 		console.log(bookingsOne);
-		this.setState({ bookingsOne:bookingsOne });
+		this.setState({ bookingsOne: bookingsOne });
 	}
 
 	async loadBookingsRound() {
 		const bookingsRound = await getRoundTripBookings();
 		console.log(bookingsRound);
-		this.setState({ bookingsRound:bookingsRound });
+		this.setState({ bookingsRound: bookingsRound });
 	}
 
 	async deleteBookings(isRoundTrip, index) {
@@ -173,14 +226,14 @@ class Bookings extends React.Component {
 		const { isToggleOne, isToggleRound, bookingsOne, bookingsRound } = this.state;
 		return (
 			<>
-				<Button className='btn btn-light buttonTheme' color="secondary" size="lg" onClick={this.toggleOne} block>
-					One Way Bookings
+				<Button className="btn btn-light buttonTheme" color="secondary" size="lg" onClick={this.toggleOne} block>
+          One Way Bookings
 				</Button>
 				<Collapse isOpen={isToggleOne}>
 					<BookingTableOne bookingsRows={bookingsOne} deleteBookings={this.deleteBookings} />
 				</Collapse>
-				<Button className='btn btn-light buttonTheme' color="secondary" size="lg" onClick={this.toggleRound} block>
-					Round Trip Bookings
+				<Button className="btn btn-light buttonTheme" color="secondary" size="lg" onClick={this.toggleRound} block>
+          Round Trip Bookings
 				</Button>
 				<Collapse isOpen={isToggleRound}>
 					<BookingTableReturn bookingsRows={bookingsRound} deleteBookings={this.deleteBookings} />

@@ -2,7 +2,9 @@ import React from 'react';
 import { Form, FormGroup, Label, Input, Row, Col, Button, Jumbotron, Table, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import getitenaries from '../connect_api/amadeus';
 import { LinkContainer } from 'react-router-bootstrap';
+import MobileCardView from '../components/MobileCardView';
 
+const keysArray = ['Flight Name', 'From', 'Departure', 'To', 'Arrival', 'Stops', 'Travel Duration', 'Price'];
 const bookingDetails = {};
 
 let isValidSelectionHandler,
@@ -23,7 +25,19 @@ const handleBooking = (props) => {
 
 const FlightRow = (props) => {
 	const { flight, index } = props;
-	return (
+
+	const valuesArray = [
+		flight.carrierCode.concat('-').concat(flight.aircraft),
+		flight.departure.iataCode,
+		new Date(flight.departure.at).toLocaleString(),
+		flight.arrival.iataCode,
+		new Date(flight.arrival.at).toLocaleString(),
+		flight.numberOfStops,
+		flight.duration,
+		'$' + flight.price,
+	];
+
+	return window.innerWidth > 620 ? (
 		<tr className="text-center">
 			<td>{index + 1}</td>
 			<td>{flight.carrierCode.concat('-').concat(flight.aircraft)}</td>
@@ -39,9 +53,21 @@ const FlightRow = (props) => {
 			<td>{flight.duration}</td>
 			<td>{'$' + flight.price}</td>
 			<td>
-				<Button className='btn btn-light buttonTheme' onClick={() => handleBooking(props)}>Select</Button>
+				<Button className="btn btn-light buttonTheme" onClick={() => handleBooking(props)}>
+          Select
+				</Button>
 			</td>
 		</tr>
+	) : (
+		<MobileCardView
+			key={index}
+			keysArray={keysArray.slice(0, 9)}
+			valuesArray={valuesArray}
+			actionHandler={<Button className="btn btn-light buttonTheme" onClick={() => handleBooking(props)}>
+			Select</Button>}
+			currentIndex={index}
+			primaryField={'Flight Name'}
+		/>
 	);
 };
 
@@ -56,7 +82,7 @@ const FlightTable = ({ flights, direction = 1 }) => {
 			<Col>
 				<Jumbotron>
 					<h5 className="text-center">{direction === 1 ? 'Onward Journey' : 'Return Jounrey'}</h5>
-					<Table responsive hover striped>
+					{window.innerWidth > 620 ? (<Table responsive hover striped>
 						<thead>
 							<tr className="text-center">
 								<th>#</th>
@@ -70,7 +96,7 @@ const FlightTable = ({ flights, direction = 1 }) => {
 							</tr>
 						</thead>
 						<tbody>{flightRows}</tbody>
-					</Table>
+					</Table>) : flightRows}
 				</Jumbotron>
 			</Col>
 		);
@@ -183,7 +209,9 @@ class Search extends React.Component {
 
 				{this.state.isValidSelection && !this.props.userData ? (
 					<div>
-						<Button className='btn btn-light buttonTheme' onClick={() => this.setState({ openModal: true })}>Proceed</Button>
+						<Button className="btn btn-light buttonTheme" onClick={() => this.setState({ openModal: true })}>
+              Proceed
+						</Button>
 						<Modal
 							isOpen={this.state.openModal}
 							toggle={() => this.setState({ openModal: false })}
@@ -192,16 +220,21 @@ class Search extends React.Component {
 							<ModalHeader toggle={() => this.setState({ openModal: false })}>Login</ModalHeader>
 							<ModalBody>Please Login first to proceed with booking</ModalBody>
 							<ModalFooter>
-								<Button className='btn btn-light buttonTheme' color="primary" onClick={() => this.setState({ openModal: false })}>Ok</Button>{' '}
+								<Button className="btn btn-light buttonTheme" color="primary" onClick={() => this.setState({ openModal: false })}>
+                  Ok
+								</Button>{' '}
 							</ModalFooter>
 						</Modal>
 					</div>
 				) : (
 					<LinkContainer to={'/passengerdetails'}>
-						<Button className='btn btn-light buttonTheme'
+						<Button
+							className="btn btn-light buttonTheme"
 							disabled={!(this.state.isValidSelection && this.props.userData)}
 							onClick={() => this.props.updateBookingDetails(bookingDetails)}
-						>Proceed</Button>
+						>
+              Proceed
+						</Button>
 					</LinkContainer>
 				)}
 			</>

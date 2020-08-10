@@ -32,7 +32,7 @@ class PassengerFormTemplate extends React.Component {
 
 	render() {
 		const { onChange, index, onDatePickerChange,
-			addPassenger, validate, validateEmail, validatePassport } = this.props;
+			addPassenger, validate } = this.props;
 		let { passengerValue } = this.props;
 		passengerValue = passengerValue || [];
 		const { birthDate } = this.state;
@@ -80,8 +80,8 @@ class PassengerFormTemplate extends React.Component {
 								}}
 							>
 								<option>Select Gender</option>
-								<option>Male</option>
-								<option>Female</option>
+								<option value={'M'}>Male</option>
+								<option value={'F'}>Female</option>
 							</Input>
 						</div>
 					</Row>

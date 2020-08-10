@@ -1,9 +1,10 @@
 import React from 'react';
 import { Button, ButtonGroup, Modal, ModalFooter, ModalBody } from 'reactstrap';
-import { Well, Glyphicon } from 'react-bootstrap';
 import PassengerFormTemplate from './PassengerFormTemplate';
 import { getPassengers, addPassenger, deletePassenger, editPassenger } from '../connect_api/passengers';
 import PassengerListTable from './PassengerListTable';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faEdit, faUser, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 
 const ActionButtons = (props) => {
 	const { deletePassengers, index, editPassengers } = props;
@@ -15,8 +16,12 @@ const ActionButtons = (props) => {
 	};
 	return(
 		<ButtonGroup className="btn-group-sm">
-			<Button className='btn btn-light buttonTheme' onClick={onEdit}><Glyphicon glyph="edit"/>Edit</Button>
-			<Button className='btn btn-light buttonTheme' onClick={onDelete}> <Glyphicon glyph="trash"/>Delete</Button>
+			<Button className='btn btn-light buttonTheme' onClick={onEdit}>
+				<FontAwesomeIcon icon={faEdit}/>
+			</Button>
+			<Button className='btn btn-light buttonTheme' onClick={onDelete}>
+				<FontAwesomeIcon icon={faTrashAlt}/>
+			</Button>
 		</ButtonGroup>
 	);
 };
@@ -83,7 +88,7 @@ class Passengers extends React.Component {
 		this.setState({ modal:!modal });
 	}
 
-	validateEmail(e, i){
+	validateEmail(e){
 		const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 		if (emailRex.test(e.target.value)) {
@@ -94,7 +99,7 @@ class Passengers extends React.Component {
 		}
 	}
 
-	validatePassport(e, i) {
+	validatePassport(e) {
 		const passRex = /[A-Z]{2}[0-9]{7}/;
 
 		if (passRex.test(e.target.value)) {
@@ -175,27 +180,25 @@ class Passengers extends React.Component {
 
 		return (
 			<>
-				<Well bsSize="small">
-					<div className="text-center btn-group-sm">
+				<div className="text-center btn-group-sm">
             Passenger List{' '}
-						<Button className='btn btn-light buttonTheme' onClick={this.toggle}><Glyphicon glyph="plus"/>Add</Button>
-					</div>
-					<Modal isOpen={modal} toggle={this.toggle}>
-						<ModalBody>
-							<PassengerFormTemplate
+					<Button className='btn btn-light buttonTheme' onClick={this.toggle}>{' '}<FontAwesomeIcon icon={faUser}/>{' '}Add</Button>
+				</div>
+				<Modal isOpen={modal} toggle={this.toggle}>
+					<ModalBody>
+						<PassengerFormTemplate
 							validate={this.state.validate}
 							validateEmail={this.validateEmail}
 							validatePassport={this.validatePassport}
 							onChange={this.onChange}
 							onDatePickerChange={this.onDatePickerChange}
 							addPassenger={null}/>
-						</ModalBody>
-						<ModalFooter>
-							<Button disabled={!isEnabled} className='btn btn-light buttonTheme' color="primary" onClick={this.savePassenger}>Save</Button>{' '}
-							<Button className='btn btn-light buttonTheme' color="secondary" onClick={this.toggle}>Cancel</Button>
-						</ModalFooter>
-					</Modal>
-				</Well>
+					</ModalBody>
+					<ModalFooter>
+						<Button disabled={!isEnabled} className='btn btn-light buttonTheme' color="primary" onClick={this.savePassenger}>Save</Button>{' '}
+						<Button className='btn btn-light buttonTheme' color="secondary" onClick={this.toggle}>Cancel</Button>
+					</ModalFooter>
+				</Modal>
 				<PassengerListTable passengers={passengerList} actionButtons={(index)=>{return (<ActionButtons index={index} deletePassengers={this.deletePassengers} editPassengers={this.editPassengers} />);}} />
 				<Modal isOpen={editModal} toggle={this.editToggle}>
 					<ModalBody>

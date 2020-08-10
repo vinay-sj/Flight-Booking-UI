@@ -1,26 +1,35 @@
 import React from 'react';
-import { Navbar, NavbarBrand, NavItem, Nav, NavLink } from 'reactstrap';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import {
+	Navbar, NavbarBrand, NavItem, Nav, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button
+} from 'reactstrap';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faBars} from '@fortawesome/free-solid-svg-icons';
+import {GoogleLogin, GoogleLogout} from 'react-google-login';
 
 let userName;
 
 const UI_API_ENDPOINT = process.env.REACT_APP_UI_API_ENDPOINT || 'http://localhost:5000';
 
+/**
+ * This is the class for the header of all the pages. It contains the handling of Google authentication, and the
+ * dropdown for the links of booking and passenger list.
+ */
 class Example extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isUserLoggedIn: false
+			isUserLoggedIn: false,
+			dropDownOpen: false
 		};
 
 		this.loginHandler = this.loginHandler.bind(this);
 		this.logoutHandler = this.logoutHandler.bind(this);
+		this.toggle = this.toggle.bind(this);
 	}
 
 	async loginHandler(loginResponse) {
 		userName = loginResponse && loginResponse.profileObj ? loginResponse.profileObj.name : null;
 		if (loginResponse.tokenId) {
-			// const serverSignInResponse = await fetch('http://localhost:5000/auth/signin', {
 			const serverSignInResponse = await fetch(`${UI_API_ENDPOINT}/auth/signin`, {
 				method: 'POST',
 				credentials: 'include',
@@ -35,11 +44,10 @@ class Example extends React.Component {
 			console.log({ signedIn, givenName });
 		}
 		this.props.updateUserDetails(loginResponse);
-		this.setState({isUserLoggedIn: !this.state.isUserLoggedIn});
+		this.setState({ isUserLoggedIn: !this.state.isUserLoggedIn });
 	}
 
 	async logoutHandler(logoutresponse) {
-		// const serverSignOutResponse = await fetch('http://localhost:5000/auth/signout', {
 		const serverSignOutResponse = await fetch(`${UI_API_ENDPOINT}/auth/signout`, {
 			method: 'POST',
 			credentials: 'include',
@@ -48,21 +56,38 @@ class Example extends React.Component {
 		const result = JSON.parse(body);
 		console.log(result);
 		this.props.updateUserDetails(logoutresponse);
-		this.setState({isUserLoggedIn: !this.state.isUserLoggedIn});
+		this.setState({ isUserLoggedIn: !this.state.isUserLoggedIn });
+	}
+
+	toggle() {
+		const { dropDownOpen } = this.state;
+		this.setState({ dropDownOpen: !dropDownOpen });
 	}
 
 	render() {
+		const { dropDownOpen, isUserLoggedIn } = this.state;
 		return (
 			<div>
 				<Navbar expand="md">
 					<NavbarBrand className="mr-auto" href="/">Home</NavbarBrand>
 					<Nav className="mr-auto" navbar>
-						<NavItem>
-							<NavLink href="/bookings">My Bookings</NavLink>
-						</NavItem>
-						<NavItem>
-							<NavLink href="/passengerlist">My Passengers</NavLink>
-						</NavItem>
+						<Dropdown isOpen={dropDownOpen} toggle={this.toggle} disabled={!isUserLoggedIn}>
+							<DropdownToggle>
+								<FontAwesomeIcon icon={faBars}/>
+							</DropdownToggle>
+							<DropdownMenu>
+								<DropdownItem>
+									<NavItem>
+										<NavLink href="/bookings">My Bookings</NavLink>
+									</NavItem>
+								</DropdownItem>
+								<DropdownItem>
+									<NavItem>
+										<NavLink href="/passengerlist">My Passengers</NavLink>
+									</NavItem>
+								</DropdownItem>
+							</DropdownMenu>
+						</Dropdown>
 					</Nav>
 					{!this.state.isUserLoggedIn ? (
 						<GoogleLogin
