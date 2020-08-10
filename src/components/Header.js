@@ -71,7 +71,7 @@ class Example extends React.Component {
 				<Navbar expand="md">
 					<Nav className='mr-auto' tabs>
 						<Dropdown isOpen={dropDownOpen} toggle={this.toggle} disabled={!isUserLoggedIn}>
-							<DropdownToggle nav caret>
+							<DropdownToggle nav>
 								<FontAwesomeIcon icon={faBars}/>
 							</DropdownToggle>
 							<DropdownMenu style={{'backgroundColor': 'black'}}>
