@@ -101,7 +101,7 @@ class Example extends React.Component {
 					) : (
 						<GoogleLogout
 							clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-							buttonText={`Logout ${userName}`}
+							buttonText={ window.innerWidth > 620 ? `Logout ${userName}` : 'Logout'}
 							onLogoutSuccess={(res) => this.logoutHandler(res)}
 						/>
 					)}

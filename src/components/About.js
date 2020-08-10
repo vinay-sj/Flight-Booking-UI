@@ -42,8 +42,7 @@ class About extends React.Component {
 		return (
 			<>
 				<h3 className='text-center'>About Us</h3>
-				<p>We are a team of 4 ....</p>
-				<h4 className='text-center'>****Meet the Team****</h4>
+				<h4 className='text-center'>This is our Team of 4</h4>
 				<Row>
 					{teamInfo}
 				</Row>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, FormGroup, Label, Input, Row, Col, Button, Jumbotron, Table, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import {Tabs, Tab} from 'react-bootstrap';
 import getitenaries from '../connect_api/amadeus';
 import { LinkContainer } from 'react-router-bootstrap';
 import MobileCardView from '../components/MobileCardView';
@@ -79,26 +80,27 @@ const FlightTable = ({ flights, direction = 1 }) => {
 		return null;
 	} else {
 		return (
-			<Col>
-				<Jumbotron>
-					<h5 className="text-center">{direction === 1 ? 'Onward Journey' : 'Return Jounrey'}</h5>
-					{window.innerWidth > 620 ? (<Table responsive hover striped>
-						<thead>
-							<tr className="text-center">
-								<th>#</th>
-								<th>Flight Name</th>
-								<th>Departure</th>
-								<th>Arrival</th>
-								<th>Stops</th>
-								<th>Travel duration</th>
-								<th>Price</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>{flightRows}</tbody>
-					</Table>) : flightRows}
-				</Jumbotron>
-			</Col>
+			<Row>
+				<Col>
+					<Jumbotron>
+						{window.innerWidth > 620 ? (<Table responsive hover striped>
+							<thead>
+								<tr className="text-center">
+									 <th className='font-weight-normal' >#</th>
+									 <th className='font-weight-normal' >Flight Name</th>
+									 <th className='font-weight-normal' >Departure</th>
+									 <th className='font-weight-normal' >Arrival</th>
+									 <th className='font-weight-normal' >Stops</th>
+									 <th className='font-weight-normal' >Travel duration</th>
+									 <th className='font-weight-normal' >Price</th>
+									 <th className='font-weight-normal' ></th>
+								</tr>
+							</thead>
+							<tbody>{flightRows}</tbody>
+						</Table>) : flightRows}
+					</Jumbotron>
+				</Col>
+			</Row>
 		);
 	}
 };
@@ -134,14 +136,36 @@ class Search extends React.Component {
 	}
 
 	async loadData() {
-		const { departureDate, returnDate, deptAirport, arrAirport, numPassengers } = this.props.searchParams;
-		const data_forward = await getitenaries(deptAirport, arrAirport, departureDate, numPassengers);
+
+		if(!("searchParams" in window.localStorage)){
+			window.localStorage.clear();
+			window.localStorage.setItem("searchParams",JSON.stringify(this.props.searchParams));
+		}
+
+		const { departureDate, returnDate, deptAirport, arrAirport, numPassengers } = JSON.parse(localStorage.getItem("searchParams"));
+		window.localStorage.setItem("numPassengers",numPassengers);
+		let data_forward;
+		if(window.localStorage.getItem("forward")===null){
+			data_forward = await getitenaries(deptAirport, arrAirport, departureDate, numPassengers);
+			window.localStorage.setItem("forward",JSON.stringify(data_forward));
+		}
+		else{
+			data_forward = JSON.parse(localStorage.getItem("forward"));					
+
+		}
 		this.setState({
 			flights_forward: data_forward,
 		});
 		if (returnDate) {
 			isReturnValid = true;
-			const data_return = await getitenaries(arrAirport, deptAirport, returnDate, numPassengers);
+			let data_return;
+			if(window.localStorage.getItem("return")===null){
+				data_return = await getitenaries(arrAirport, deptAirport, returnDate, numPassengers);		
+				window.localStorage.setItem("return",JSON.stringify(data_return));		
+			}
+			else{
+				data_return = JSON.parse(localStorage.getItem("return"));
+			}
 			this.setState({
 				flights_return: data_return,
 			});
@@ -202,10 +226,14 @@ class Search extends React.Component {
 						</Row>
 					</Form>
 				</Jumbotron>
-				<Row>
-					<FlightTable flights={flights_forward} direction={1} />
-					<FlightTable flights={flights_return} direction={2} />
-				</Row>
+				<Tabs className='text-center' defaultActiveKey="oneway" id="flight-search-details">
+					<Tab tabClassName='col-6' eventKey="oneway" title='Forward Flights'>
+						<FlightTable flights={flights_forward} direction={1} />
+					</Tab>
+					{isReturnValid && <Tab tabClassName='col-6' eventKey="return" title='Return Flights'>
+						<FlightTable flights={flights_return} direction={2} />
+					</Tab>}
+				</Tabs>
 
 				{this.state.isValidSelection && !this.props.userData ? (
 					<div>

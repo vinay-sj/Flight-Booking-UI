@@ -207,6 +207,7 @@ class Passengers extends React.Component {
 						</Button>
 					</ModalFooter>
 				</Modal>
+				<div className='font-weight-normal form-control-lg'>Saved Passenger List</div>
 				<PassengerListTable
 					passengers={passengerList}
 					actionButtons={(index) => {

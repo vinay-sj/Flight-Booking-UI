@@ -49,8 +49,8 @@ class PassengerListTable extends React.Component {
 			<Table responsive hover>
 				<thead>
 					<tr>
-						<th>#</th>
-						{keysArray.map((item, index) => {return <th key={index}>{item}</th>;})}
+						 <th className='font-weight-normal' >#</th>
+						{keysArray.map((item, index) => {return  <th className='font-weight-normal'  key={index}>{item}</th>;})}
 					</tr>
 				</thead>
 				<tbody>

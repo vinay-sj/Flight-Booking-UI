@@ -124,7 +124,8 @@ class PassengerFormTemplate extends React.Component {
 					</Row>
 					<Row>
 						<Input
-							type="number"
+							//invalid={ this.state.validate.phoneState }
+							type="text"
 							name="contactNo"
 							defaultValue={passengerValue.contactNo||this.state.contactNo}
 							id="contact"
@@ -134,6 +135,7 @@ class PassengerFormTemplate extends React.Component {
 								onChange(event, i);
 							}}
 						/>
+						<FormFeedback>Please enter phone number in the proper format</FormFeedback>
 					</Row>
 				</FormGroup>
 				<FormGroup>
