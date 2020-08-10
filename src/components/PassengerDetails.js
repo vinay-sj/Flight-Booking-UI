@@ -27,10 +27,6 @@ class PassengerDetails extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			validate: {
-				emailState: false,
-				passState: false,
-			},
 			bookingDetails: {
 				userEmail: props.userData ? props.userData.profileObj.email : null,
 				onwardFlightDetails: {
@@ -59,8 +55,6 @@ class PassengerDetails extends React.Component {
 		this.onChange = this.onChange.bind(this);
 		this.onDatePickerChange = this.onDatePickerChange.bind(this);
 		this.selectPassengers = this.selectPassengers.bind(this);
-		this.validateEmail = this.validateEmail.bind(this);
-		this.validatePassport = this.validatePassport.bind(this);
 	}
 
 	componentDidUpdate(prevProps) {
@@ -86,28 +80,6 @@ class PassengerDetails extends React.Component {
 		ConfirmBookingCall(this.state.bookingDetails).then((res) => {
 			this.props.updateBookingDetails(res, true);
 		});
-	}
-
-	validateEmail(e, i) {
-		const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-		if (emailRex.test(e.target.value)) {
-			this.setState({ validate: { emailState: false } });
-			this.onChange(e, i);
-		} else {
-			this.setState({ validate: { emailState: true } });
-		}
-	}
-
-	validatePassport(e, i) {
-		const passRex = /[A-Z]{2}[0-9]{7}/;
-
-		if (passRex.test(e.target.value)) {
-			this.setState({ validate: { passState: false } });
-			this.onChange(e, i);
-		} else {
-			this.setState({ validate: { passState: true } });
-		}
 	}
 
 	onChange(event, index) {
@@ -159,9 +131,6 @@ class PassengerDetails extends React.Component {
 		const passengerForm = Array.apply(null, { length: numPassengers }).map((e, index) => {
 			return (
 				<PassengerFormTemplate
-					validateEmail={this.validateEmail}
-					validatePassport={this.validatePassport}
-					validate={this.state.validate}
 					key={index}
 					onChange={this.onChange}
 					onDatePickerChange={this.onDatePickerChange}
@@ -175,7 +144,7 @@ class PassengerDetails extends React.Component {
 		return (
 			<Form>
 				{passengerForm}
-				<Button disabled={!isEnabled} className="btn btn-light buttonTheme" onClick={() => this.setState({ openModal: true })}>
+				<Button disabled={isEnabled} className="btn btn-light buttonTheme" onClick={() => this.setState({ openModal: true })}>
           Confirm
 				</Button>
 				{this.state.openModal ? (

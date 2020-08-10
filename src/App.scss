@@ -27,13 +27,20 @@ nav {
 h2 {
   margin-bottom: 1rem;
 }
-.main {
-  background-color: $applicationTheme;
-  padding: 0.5rem 1rem;
-}
+
 .buttonTheme {
   text-shadow: 0 0 1px $baseColor;
   font-weight: 300;
+}
+.menuOptions {
+  background-color: black;
+}
+
+.zoom {
+  transition: transform 0.3s;
+}
+.zoom:hover {
+  transform: scale(2);
 }
 
 @media only screen and (min-width: 620px) {
@@ -45,6 +52,11 @@ h2 {
     background-color: $backgroundColor;
     text-shadow: 0 0 1px $baseColor;
   }
+
+  .main {
+    background-color: $applicationTheme;
+    padding: 0.5rem 1rem;
+  }
 }
 
 @media only screen and (max-width: 620px) {
@@ -55,5 +67,10 @@ h2 {
   body {
     background-color: $applicationTheme;
     text-shadow: 0 0 1px $baseColor;
+  }
+
+  .main {
+    background-color: $applicationTheme;
+    padding: 0.5rem 0.8rem;
   }
 }

@@ -42,10 +42,10 @@ class App extends React.Component {
 		}
 		return (
 			<div>
-				<div className='container screenType'>
+				<div className=' screenType'>
 					<Header updateUserDetails={this.updateUserDetails} userData={this.state.userData} />
 				</div>
-				<div className="container main">
+				<div className=" main">
 					<BrowserRouter>
 						<Switch>
 							<Route path="/homepage" render={() => <Homepage flightSearchParams={this.flightSearchParams} />} />
@@ -72,7 +72,7 @@ class App extends React.Component {
 						</Switch>
 					</BrowserRouter>
 				</div>
-				<div className='container screenType'>
+				<div className='  screenType'>
 					<Footer />
 				</div>
 			</div>

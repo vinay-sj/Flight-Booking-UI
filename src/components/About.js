@@ -32,7 +32,7 @@ class About extends React.Component {
 						<CardImg top width="100%" src={member.avatar} alt={member.name}></CardImg>
 						<CardBody className='text-center'>
 							<CardTitle>{member.name}</CardTitle>
-							<NavLink href={member.linkedin} target='_blank'><FontAwesomeIcon icon={faLinkedinIn}/></NavLink>
+							<NavLink className='zoom' href={member.linkedin} target='_blank'><FontAwesomeIcon icon={faLinkedinIn}/></NavLink>
 						</CardBody>
 					</Card>
 				</Col>

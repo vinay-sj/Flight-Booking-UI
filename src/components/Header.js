@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-	Navbar, NavbarBrand, NavItem, Nav, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button
+	Navbar, NavbarBrand, NavItem, Nav, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem
 } from 'reactstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faBars} from '@fortawesome/free-solid-svg-icons';
@@ -69,13 +69,12 @@ class Example extends React.Component {
 		return (
 			<div>
 				<Navbar expand="md">
-					<NavbarBrand className="mr-auto" href="/">Home</NavbarBrand>
-					<Nav className="mr-auto" navbar>
+					<Nav className='mr-auto' tabs>
 						<Dropdown isOpen={dropDownOpen} toggle={this.toggle} disabled={!isUserLoggedIn}>
-							<DropdownToggle>
+							<DropdownToggle nav>
 								<FontAwesomeIcon icon={faBars}/>
 							</DropdownToggle>
-							<DropdownMenu>
+							<DropdownMenu style={{'backgroundColor': 'black'}}>
 								<DropdownItem>
 									<NavItem>
 										<NavLink href="/bookings">My Bookings</NavLink>
@@ -89,6 +88,7 @@ class Example extends React.Component {
 							</DropdownMenu>
 						</Dropdown>
 					</Nav>
+					<NavbarBrand className="mr-auto" href="/">Home</NavbarBrand>
 					{!this.state.isUserLoggedIn ? (
 						<GoogleLogin
 							clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
