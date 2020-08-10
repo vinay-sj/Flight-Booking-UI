@@ -142,7 +142,7 @@ class PassengerDetails extends React.Component {
 		let isEnabled = false;
 		if (this.state.bookingDetails.passengerDetails.length) {
 			isEnabled =
-        Object.keys(this.state.bookingDetails.passengerDetails[0]).length === 6 && !Object.values(this.state.validate).every(Boolean);
+        Object.keys(this.state.bookingDetails.passengerDetails[0]).length >= 6 && !Object.values(this.state.validate).every(Boolean);
 		}
 
 		const { numPassengers, passengerDetails } = this.state.bookingDetails;

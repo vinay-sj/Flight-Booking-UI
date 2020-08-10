@@ -72,7 +72,7 @@ class PassengerFormTemplate extends React.Component {
 							<Input
 								type="select"
 								id="gender"
-								defaultValue={passengerValue.gender||this.state.gender}
+								value={{ label: passengerValue.gender||this.state.gender, value: passengerValue.gender||this.state.gender} }
 								name="gender"
 								onChange={(event) => {
 									this.updateState(event);
@@ -93,7 +93,7 @@ class PassengerFormTemplate extends React.Component {
 					<Row>
 						<DatePicker
 							maxDate={new Date()}
-							selected={(passengerValue.birthDate)?new Date(passengerValue.birthDate):birthDate}
+							selected={(passengerValue.birthDate) ? new Date(passengerValue.birthDate) : birthDate}
 							onChange={(date) => {
 								this.updateBirthDate(date);
 								onDatePickerChange(date, 'birthDate', i);
