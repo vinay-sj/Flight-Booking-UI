@@ -69,9 +69,9 @@ class Example extends React.Component {
 		return (
 			<div>
 				<Navbar expand="md">
-					<Nav className='mr-auto' navbar>
+					<Nav className='mr-auto' tabs>
 						<Dropdown isOpen={dropDownOpen} toggle={this.toggle} disabled={!isUserLoggedIn}>
-							<DropdownToggle>
+							<DropdownToggle nav caret>
 								<FontAwesomeIcon icon={faBars}/>
 							</DropdownToggle>
 							<DropdownMenu style={{'backgroundColor': 'black'}}>
