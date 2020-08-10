@@ -32,7 +32,7 @@ class PassengerFormTemplate extends React.Component {
 
 	render() {
 		const { onChange, index, onDatePickerChange,
-			addPassenger, validate, validateEmail, validatePassport } = this.props;
+			addPassenger, validate } = this.props;
 		let { passengerValue } = this.props;
 		passengerValue = passengerValue || [];
 		const { birthDate } = this.state;
