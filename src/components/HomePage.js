@@ -172,6 +172,7 @@ class HomePage extends React.Component {
 										minDate={new Date()}
 										selected={this.formatDate(this.state.departureDate)}
 										onChange={this.handleDepartureDateChange}
+										className='custom-date-picker-css'
 									/>
 								</FormGroup>
 							</Col>
@@ -183,6 +184,7 @@ class HomePage extends React.Component {
 											minDate={this.formatDate(this.state.departureDate)}
 											selected={this.formatDate(this.state.returnDate)}
 											onChange={this.handleReturnDateChange}
+											className='custom-date-picker-css'
 										/>
 									</FormGroup>
 								</Col>

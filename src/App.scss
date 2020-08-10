@@ -31,9 +31,18 @@ nav {
       }
     }
   }
-
 }
 
+.custom-date-picker-css {
+  color: rgb(128, 128, 128);
+  box-sizing: border-box;
+  font-size: larger;
+  border-radius: 5px;
+  border: 1px solid #ced4da;;
+  padding: px;
+  font-size: medium;
+  transition: border-color .15s
+}
 
 h2 {
   margin-bottom: 1rem;
@@ -53,8 +62,6 @@ h2 {
 .zoom:hover {
   transform: scale(2);
 }
-
-
 
 @media only screen and (min-width: 620px) {
   .screenType {

@@ -147,6 +147,7 @@ class PassengerFormTemplate extends React.Component {
 								this.updateBirthDate(date);
 								onDatePickerChange(date, 'birthDate', i);
 							}}
+							className='custom-date-picker-css'
 						/>
 					</Row>
 				</FormGroup>

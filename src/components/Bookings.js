@@ -115,9 +115,13 @@ const BookingTableOne = ({ bookingsRows, deleteBookings }) => {
 			<Table responsive hover striped>
 				<thead>
 					<tr className="text-center">
-						 <th className='font-weight-normal' >#</th>
+						<th className="font-weight-normal">#</th>
 						{keysArrayOne.map((item, index) => {
-							return  <th className='font-weight-normal'  key={index}>{item}</th>;
+							return (
+								<th className="font-weight-normal" key={index}>
+									{item}
+								</th>
+							);
 						})}
 					</tr>
 				</thead>
@@ -136,9 +140,13 @@ const BookingTableReturn = ({ bookingsRows, deleteBookings }) => {
 		<Table responsive hover striped>
 			<thead>
 				<tr className="text-center">
-					 <th className='font-weight-normal' >#</th>
+					<th className="font-weight-normal">#</th>
 					{keysArrayRound.map((item, index) => {
-						return  <th className='font-weight-normal'  key={index}>{item}</th>;
+						return (
+							<th className="font-weight-normal" key={index}>
+								{item}
+							</th>
+						);
 					})}
 				</tr>
 			</thead>

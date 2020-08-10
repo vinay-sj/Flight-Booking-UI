@@ -6,8 +6,8 @@ class ConfirmationPage extends React.Component {
 		super(props);
 		this.goToHomepage = () => window.location.replace('/');
 		this.goToBookings = () => window.location.replace('/bookings');
-		this.state={
-			id:this.props.bookingDetails._id,
+		this.state = {
+			id: this.props.bookingDetails._id,
 		};
 	}
 
@@ -36,19 +36,19 @@ class ConfirmationPage extends React.Component {
 		return (
 			<Container>
 				<Row>
-					<h1 className='text-center'>Confirmation</h1>
+					<h1 className="text-center">Confirmation</h1>
 				</Row>
 				<Row>
-					<pre className='text-center'>Your booking went through Succesfully!</pre>
+					<pre className="text-center">Your booking went through Succesfully!</pre>
 				</Row>
 				<Row>
-					<pre className='text-center'>Your confirmation number is {this.props.bookingDetails._id}.</pre>
+					<pre className="text-center">Your confirmation number is {this.props.bookingDetails._id}.</pre>
 				</Row>
 				<Row>
 					<Table striped bordered>
 						<thead>
 							<tr>
-								 <th className='font-weight-normal' >Traveller Name</th>
+								<th className="font-weight-normal">Traveller Name</th>
 								{/*  <th className='font-weight-normal' >Meal Prefenece</th>
                  <th className='font-weight-normal' >Special Request</th>
                  <th className='font-weight-normal' >Seat Number</th> */}
@@ -66,9 +66,9 @@ class ConfirmationPage extends React.Component {
 					<Table bordered>
 						<thead>
 							<tr>
-								 <th className='font-weight-normal' >Flight Name</th>
-								 <th className='font-weight-normal' >Flight Number</th>
-								 <th className='font-weight-normal' >Journey Details</th>
+								<th className="font-weight-normal">Flight Name</th>
+								<th className="font-weight-normal">Flight Number</th>
+								<th className="font-weight-normal">Journey Details</th>
 								{/*  <th className='font-weight-normal' >Travel Summary</th>  */}
 							</tr>
 						</thead>
@@ -83,14 +83,14 @@ class ConfirmationPage extends React.Component {
 						</tbody>
 					</Table>
 				</Row>
-				<Row className='text-center'>
-					<Col className='col-6'>
-						<Button className='btn btn-light buttonTheme' onClick={this.goToHomepage} color="primary">
+				<Row className="text-center">
+					<Col className="col-6">
+						<Button className="btn btn-light buttonTheme" onClick={this.goToHomepage} color="primary">
               Go To Homepage
 						</Button>{' '}
 					</Col>
-					<Col className='col-6'>
-						<Button className='btn btn-light buttonTheme' onClick={this.goToBookings} color="primary">
+					<Col className="col-6">
+						<Button className="btn btn-light buttonTheme" onClick={this.goToBookings} color="primary">
               Previous Bookings
 						</Button>{' '}
 					</Col>

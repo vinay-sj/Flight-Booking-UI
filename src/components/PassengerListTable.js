@@ -16,7 +16,8 @@ const PassengerRows = ({ passengers, actionButtons, index, toggle }) => {
 			birthDate.toLocaleDateString(),
 			passenger.emailId,
 			passenger.contactNo,
-			passenger.passPortNo, null
+			passenger.passPortNo,
+			null,
 		];
 
 		return window.innerWidth > 620 ? (
@@ -49,8 +50,14 @@ class PassengerListTable extends React.Component {
 			<Table responsive hover>
 				<thead>
 					<tr>
-						 <th className='font-weight-normal' >#</th>
-						{keysArray.map((item, index) => {return  <th className='font-weight-normal'  key={index}>{item}</th>;})}
+						<th className="font-weight-normal">#</th>
+						{keysArray.map((item, index) => {
+							return (
+								<th className="font-weight-normal" key={index}>
+									{item}
+								</th>
+							);
+						})}
 					</tr>
 				</thead>
 				<tbody>
