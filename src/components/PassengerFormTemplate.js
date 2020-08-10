@@ -52,7 +52,7 @@ class PassengerFormTemplate extends React.Component {
 	}
 
 	validatePhone(e, i) {
-		const phoneRex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+		const phoneRex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
 		let { validate } = this.state;
 
 		if (phoneRex.test(e.target.value)) {
