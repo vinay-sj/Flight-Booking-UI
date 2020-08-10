@@ -33,11 +33,11 @@ class Footer extends React.Component {
 								<h4>Location</h4>
 								<div><FontAwesomeIcon icon={faMapMarkerAlt}/>{' '}Snell Library, Northeastern University</div>
 								<div><FontAwesomeIcon icon={faPhoneAlt}/>{' '}(617) 373-8778</div>
-								<div><FontAwesomeIcon icon={faEnvelope}/>{' '}@flightbooker.com</div>
+								<div><FontAwesomeIcon icon={faEnvelope}/>{' '}@justdream.com</div>
 							</Col>
 						</Row>
 						<Row>
-							<Col className='col-css' lg={12} md={12}><p>Flight Booker <FontAwesomeIcon icon={faCopyright}/> 2020. All Rights Reserved.</p></Col>
+							<Col className='col-css' lg={12} md={12}><p>Just Dream <FontAwesomeIcon icon={faCopyright}/> 2020. All Rights Reserved.</p></Col>
 						</Row>
 					</Container>
 				</ModalFooter>
