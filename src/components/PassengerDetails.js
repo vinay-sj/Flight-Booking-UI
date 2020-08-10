@@ -1,22 +1,24 @@
 import React from 'react';
 // import { useHistory } from 'react-router-dom';
 
-import {Button, Form, Modal, ModalHeader, ModalFooter, ModalBody, ButtonGroup} from 'reactstrap';
+import { Button, Form, Modal, ModalHeader, ModalFooter, ModalBody, ButtonGroup } from 'reactstrap';
 // import { Select } from 'react-select'
 import ConfirmBookingCall from '../connect_api/confirm_booking';
 import { LinkContainer } from 'react-router-bootstrap';
 import PassengerFormTemplate from './PassengerFormTemplate';
 import AddPassenger from './AddPassenger';
-import {getPassengers} from '../connect_api/passengers';
+import { getPassengers } from '../connect_api/passengers';
 
 const ActionButtons = (props) => {
 	const { selectPassengers, passIndex, index, toggle } = props;
 	const onSelect = () => {
 		selectPassengers(passIndex, index, toggle);
 	};
-	return(
+	return (
 		<ButtonGroup className="btn-group-sm">
-			<Button className='btn btn-light buttonTheme' onClick={onSelect}>Select</Button>
+			<Button className="btn btn-light buttonTheme" onClick={onSelect}>
+        Select
+			</Button>
 		</ButtonGroup>
 	);
 };
@@ -42,7 +44,7 @@ class PassengerDetails extends React.Component {
 				numPassengers: props.numPassengers,
 				passengerDetails: [],
 			},
-			openModal: false
+			openModal: false,
 		};
 		if (this.state.bookingDetails.isRoundTrip) {
 			this.state.bookingDetails.returnFlightDetails = {
@@ -65,7 +67,7 @@ class PassengerDetails extends React.Component {
 		if (prevProps.userData !== this.props.userData) {
 			this.setState({ userEmail: this.props.userData ? this.props.userData.profileObj.email : null });
 		}
-		if(prevProps.passengerList !== this.props.passengerList) {
+		if (prevProps.passengerList !== this.props.passengerList) {
 			this.loadData();
 		}
 	}
@@ -76,7 +78,7 @@ class PassengerDetails extends React.Component {
 	}
 
 	async loadData() {
-		const  passengerList  = await getPassengers();
+		const passengerList = await getPassengers();
 		await this.setState({ passengerList: passengerList });
 	}
 
@@ -86,7 +88,7 @@ class PassengerDetails extends React.Component {
 		});
 	}
 
-	validateEmail(e, i){
+	validateEmail(e, i) {
 		const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 		if (emailRex.test(e.target.value)) {
@@ -113,7 +115,7 @@ class PassengerDetails extends React.Component {
 		let newState = JSON.parse(JSON.stringify(this.state.bookingDetails.passengerDetails));
 		newState[index] = { ...newState[index], [name]: event.target.value };
 		this.setState({
-			bookingDetails: {...this.state.bookingDetails, passengerDetails: newState},
+			bookingDetails: { ...this.state.bookingDetails, passengerDetails: newState },
 		});
 	}
 
@@ -121,7 +123,7 @@ class PassengerDetails extends React.Component {
 		let newState = JSON.parse(JSON.stringify(this.state.bookingDetails.passengerDetails));
 		newState[index] = { ...newState[index], [name]: date };
 		this.setState({
-			bookingDetails: {...this.state.bookingDetails, passengerDetails: newState},
+			bookingDetails: { ...this.state.bookingDetails, passengerDetails: newState },
 		});
 	}
 
@@ -131,7 +133,7 @@ class PassengerDetails extends React.Component {
 		const passenger = passengerList[passIndex];
 		newState[index] = { ...newState[index], ...passenger };
 		this.setState({
-			bookingDetails: {...this.state.bookingDetails, passengerDetails: newState},
+			bookingDetails: { ...this.state.bookingDetails, passengerDetails: newState },
 		});
 		toggle();
 	}
@@ -139,61 +141,71 @@ class PassengerDetails extends React.Component {
 	render() {
 		let isEnabled = false;
 		if (this.state.bookingDetails.passengerDetails.length) {
-			isEnabled = Object.keys(this.state.bookingDetails.passengerDetails[0]).length === 6 && !Object.values(this.state.validate).every(Boolean);
+			isEnabled =
+        Object.keys(this.state.bookingDetails.passengerDetails[0]).length === 6 && !Object.values(this.state.validate).every(Boolean);
 		}
 
 		const { numPassengers, passengerDetails } = this.state.bookingDetails;
 		const { passengerList } = this.state;
-		const addPassengers = (index) => <AddPassenger
-			index={index}
-			passengers={passengerList}
-			actionButtons={(passIndex, index, toggle) => {
-				return (
-					<ActionButtons
-						index={index}
-						passIndex={passIndex}
-						toggle={toggle}
-						selectPassengers={this.selectPassengers}
-					/>
-				);
-			}}
-		/>;
-		const passengerForm = Array.apply(null, { length: numPassengers }).map((e, index) => {
-			return <PassengerFormTemplate
-				validateEmail={this.validateEmail}
-				validatePassport={this.validatePassport}
-				validate={this.state.validate}
-				key={index}
-				onChange={this.onChange}
-				onDatePickerChange={this.onDatePickerChange}
+		const addPassengers = (index) => (
+			<AddPassenger
 				index={index}
-				addPassenger={addPassengers(index)}
-				passengerValue={passengerDetails[index]}
-			/>;
+				passengers={passengerList}
+				actionButtons={(passIndex, index, toggle) => {
+					return <ActionButtons index={index} passIndex={passIndex} toggle={toggle} selectPassengers={this.selectPassengers} />;
+				}}
+			/>
+		);
+		const passengerForm = Array.apply(null, { length: numPassengers }).map((e, index) => {
+			return (
+				<PassengerFormTemplate
+					validateEmail={this.validateEmail}
+					validatePassport={this.validatePassport}
+					validate={this.state.validate}
+					key={index}
+					onChange={this.onChange}
+					onDatePickerChange={this.onDatePickerChange}
+					index={index}
+					addPassenger={addPassengers(index)}
+					passengerValue={passengerDetails[index]}
+				/>
+			);
 		});
 
 		return (
 			<Form>
 				{passengerForm}
-				<Button disabled={!isEnabled} className='btn btn-light buttonTheme' onClick={() => this.setState({openModal: true})}>Confirm</Button>
+				<Button disabled={!isEnabled} className="btn btn-light buttonTheme" onClick={() => this.setState({ openModal: true })}>
+          Confirm
+				</Button>
 				{this.state.openModal ? (
-					<Modal size='lg' isOpen={this.state.openModal} toggle={() => this.setState({openModal: false})}>
-						<ModalHeader toggle={() => this.setState({openModal: false})}>Confirm Booking</ModalHeader>
-						<ModalBody>{!this.props.userData ? 'Please Login first to confirm booking' : 'Do you really want to confirm Booking'}</ModalBody>
+					<Modal size="lg" isOpen={this.state.openModal} toggle={() => this.setState({ openModal: false })}>
+						<ModalHeader toggle={() => this.setState({ openModal: false })}>Confirm Booking</ModalHeader>
+						<ModalBody>
+							{!this.props.userData ? 'Please Login first to confirm booking' : 'Do you really want to confirm Booking'}
+						</ModalBody>
 						<ModalFooter>
 							{!this.props.userData ? (
-								<Button className='btn btn-light buttonTheme' color='primary' onClick={() => this.setState({openModal: false})}>Ok</Button>
+								<Button className="btn btn-light buttonTheme" color="primary" onClick={() => this.setState({ openModal: false })}>
+                  Ok
+								</Button>
 							) : (
 								<div>
-									<LinkContainer to='/bookingConfirmation'>
-										<Button className='btn btn-light buttonTheme' color='primary' onClick={this.confirmBooking}>Confirm</Button>
+									<LinkContainer to="/bookingConfirmation">
+										<Button className="btn btn-light buttonTheme" color="primary" onClick={this.confirmBooking}>
+                      Confirm
+										</Button>
 									</LinkContainer>{' '}
-									<Button className='btn btn-light buttonTheme' color='secondary' onClick={() => this.setState({openModal: false})}>Cancel</Button>
+									<Button className="btn btn-light buttonTheme" color="secondary" onClick={() => this.setState({ openModal: false })}>
+                    Cancel
+									</Button>
 								</div>
 							)}
 						</ModalFooter>
 					</Modal>
-				) : <div></div>}
+				) : (
+					<div></div>
+				)}
 			</Form>
 		);
 	}
