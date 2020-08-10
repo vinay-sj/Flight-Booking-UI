@@ -59,7 +59,8 @@ class App extends React.Component {
 									<PassengerDetails
 										bookingDetails={this.state.bookingDetails}
 										updateBookingDetails={this.updateBookingDetails}
-										numPassengers={this.state.searchParams.numPassengers}
+										//numPassengers={this.state.searchParams.numPassengers}
+										numPassengers={window.localStorage.getItem("numPassengers")}
 										userData = {this.state.userData}
 									/>
 								)}
