@@ -20,7 +20,7 @@ class App extends React.Component {
 		};
 
 		this.updateBookingDetails = (response, confirmBookingFlag = false) => {
-			
+
 			const updatedData = response.data || {};
 
 			this.setState({
@@ -62,7 +62,7 @@ class App extends React.Component {
 										bookingDetails={this.state.bookingDetails}
 										updateBookingDetails={this.updateBookingDetails}
 										//numPassengers={this.state.searchParams.numPassengers}
-										numPassengers={window.localStorage.getItem("numPassengers")}
+										numPassengers={window.localStorage.getItem('numPassengers')}
 										userData = {this.state.userData}
 									/>
 								)}
