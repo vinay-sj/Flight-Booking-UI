@@ -311,7 +311,7 @@ class Search extends React.Component {
 								size={window.innerWidth > 620 ? 'md' : 'sm'}
 								totalItems={flights_return.length}
 								pageSize={numberofPages}
-								onSelect={(selected) => this.setState({ selectedPageOneWay: selected })}/>
+								onSelect={(selected) => this.setState({ selectedPageRound: selected })}/>
 						</Tab>
 					)}
 				</Tabs>
