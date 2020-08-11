@@ -246,7 +246,12 @@ class Search extends React.Component {
 
 				{this.state.isValidSelection && !this.props.userData ? (
 					<div>
-						<Button className="btn btn-light buttonTheme" onClick={() => this.setState({ openModal: true })}>
+						<Button className="btn btn-light buttonTheme" onClick={() => {
+							if("propsPassengerDetails" in window.localStorage){
+								
+							}
+							this.setState({ openModal: true })
+					}}>
               Proceed
 						</Button>
 						<Modal
@@ -268,7 +273,11 @@ class Search extends React.Component {
 						<Button
 							className="btn btn-light buttonTheme"
 							disabled={!(this.state.isValidSelection && this.props.userData)}
-							onClick={() => this.props.updateBookingDetails(bookingDetails)}
+							onClick={() => {
+								window.localStorage.removeItem("propsPassengerDetails")
+								this.props.updateBookingDetails(bookingDetails)
+							}
+						}
 						>
               Proceed
 						</Button>
