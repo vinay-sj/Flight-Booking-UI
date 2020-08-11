@@ -131,6 +131,8 @@ class Search extends React.Component {
 		};
 
 		this.isValidSelectionFn = this.isValidSelectionFn.bind(this);
+		this.onFilter = this.onFilter.bind(this);
+		this.loadData = this.loadData.bind(this);
 	}
 
 	componentDidMount() {
@@ -141,6 +143,41 @@ class Search extends React.Component {
 		if (prevProps.searchParams !== this.props.searchParams) {
 			this.loadData();
 		}
+	}
+
+	async onFilter() {
+		await this.loadData();
+		const { price, departure, arrival } = this.state;
+		let { flights_forward, flights_return } = this.state;
+
+		const dateFilter =(flights, filterTime, port) => {
+			if(port === 'departure') {
+				return 	(flights || []).filter((flight) => {
+					const tempReturn = new Date(flight[port].at);
+					return new Date(flight[port].at) >= new Date(tempReturn.getFullYear(), tempReturn.getMonth(), tempReturn.getDate(), filterTime.split(':')[0], filterTime.split(':')[1], 0, 0);
+				});}
+			else {
+				return 	(flights || []).filter((flight) => {
+					const tempReturn = new Date(flight[port].at);
+					return new Date(flight[port].at) <= new Date(tempReturn.getFullYear(), tempReturn.getMonth(), tempReturn.getDate(), filterTime.split(':')[0], filterTime.split(':')[1], 0, 0);
+				});
+			}
+		};
+
+		if (price) {
+			flights_forward = (flights_forward || []).filter((flight) => flight.price<=price);
+			flights_return = (flights_return || []).filter((flight) => flight.price<=price);
+		}
+
+		if (departure) {flights_forward = dateFilter(flights_forward, departure,  'departure');
+			flights_return = dateFilter(flights_forward, departure, 'departure');
+		}
+		if (arrival) {
+			flights_forward = dateFilter(flights_forward, arrival,  'arrival');
+			flights_return = dateFilter(flights_forward, arrival, 'arrival');
+		}
+		this.setState({ flights_forward: flights_forward });
+		this.setState({ flights_return: flights_return });
 	}
 
 	isValidSelectionFn(value) {
@@ -231,13 +268,20 @@ class Search extends React.Component {
 										name="arrival"
 										id="arrival"
 										placeholder="Arrival"
-										onChange={(event) => this.setState({ arrival: event.target.value })}
+										onChange={(event) => {
+											this.setState({ arrival: event.target.value });
+										}
+										}
 									/>
 								</FormGroup>
 							</Col>
 							<Col className="text-center">
 								<br />
-								<Button>Filter</Button>
+								<Button onClick={this.onFilter}>Filter</Button>
+							</Col>
+							<Col className="text-center">
+								<br />
+								<Button onClick={this.loadData}>Reset</Button>
 							</Col>
 						</Row>
 					</Form>
@@ -275,9 +319,6 @@ class Search extends React.Component {
 				{this.state.isValidSelection && !this.props.userData ? (
 					<div>
 						<Button className="btn btn-light buttonTheme" onClick={() => {
-							// if("propsPassengerDetails" in window.localStorage){
-
-							// }
 							this.setState({ openModal: true });
 						}}>
               Proceed
