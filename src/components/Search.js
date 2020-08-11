@@ -185,10 +185,11 @@ class Search extends React.Component {
 	}
 
 	async loadData() {
-		if (!('searchParams' in window.localStorage)) {
-			window.localStorage.clear();
+		
+;		if (!('searchParams' in window.localStorage)) {
 			window.localStorage.setItem('searchParams', JSON.stringify(this.props.searchParams));
 		}
+
 
 		const { departureDate, returnDate, deptAirport, arrAirport, numPassengers } = JSON.parse(localStorage.getItem('searchParams'));
 		window.localStorage.setItem('numPassengers', numPassengers);
