@@ -41,7 +41,10 @@ nav {
   border: 1px solid #ced4da;;
   padding: 5px;
   font-size: medium;
-  transition: border-color .15s
+  transition: border-color .15s;
+  &.small-screen-css {
+    font-size: small;
+  }
 }
 
 .custom-spinner-css {

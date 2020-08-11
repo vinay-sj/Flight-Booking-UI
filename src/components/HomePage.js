@@ -165,26 +165,26 @@ class HomePage extends React.Component {
 							</Col>
 						</Row>
 						<Row form>
-							<Col md={3}>
+							<Col md={3} className='col-6'>
 								<Label for='departureDate'>Departure</Label>
 								<FormGroup id='departureDate'>
 									<DatePicker
 										minDate={new Date()}
 										selected={this.formatDate(this.state.departureDate)}
 										onChange={this.handleDepartureDateChange}
-										className='custom-date-picker-css'
+										className={`custom-date-picker-css ${window.innerWidth < 620 && 'small-screen-css'}`}
 									/>
 								</FormGroup>
 							</Col>
 							{this.state.rselected !== 2 &&
-								<Col md={3}>
+								<Col md={3} className='col-6'>
 									<Label for='returnDate'>Return</Label>
 									<FormGroup id='returnDate'>
 										<DatePicker
 											minDate={this.formatDate(this.state.departureDate)}
 											selected={this.formatDate(this.state.returnDate)}
 											onChange={this.handleReturnDateChange}
-											className='custom-date-picker-css'
+											className={`custom-date-picker-css ${window.innerWidth < 620 && 'small-screen-css'}`}
 										/>
 									</FormGroup>
 								</Col>
