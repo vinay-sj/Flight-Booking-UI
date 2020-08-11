@@ -81,6 +81,7 @@ h2 {
   .main {
     background-color: $applicationTheme;
     padding: 0.5rem 1rem;
+    min-height: calc(100vh - 191px);
   }
 
   .custom-modal-class {
