@@ -165,8 +165,8 @@ class Search extends React.Component {
 		};
 
 		if (price) {
-			flights_forward = (flights_forward || []).filter((flight) => flight.price<=price);
-			flights_return = (flights_return || []).filter((flight) => flight.price<=price);
+			flights_forward = (flights_forward || []).filter((flight) => parseFloat(flight.price)<=parseFloat(price));
+			flights_return = (flights_return || []).filter((flight) => parseFloat(flight.price)<=parseFloat(price));
 		}
 
 		if (departure) {flights_forward = dateFilter(flights_forward, departure,  'departure');
