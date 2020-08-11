@@ -3,7 +3,7 @@ import { Form, FormGroup, Label, Input, Row, Col, Button, Jumbotron, Table, Moda
 import { Tabs, Tab } from 'react-bootstrap';
 import getitenaries from '../connect_api/amadeus';
 import { LinkContainer } from 'react-router-bootstrap';
-import MobileCardView from '../components/MobileCardView';
+import {MobileCardView, CustomLoaderSpinner} from '../components/MobileCardView';
 
 const keysArray = ['Flight Name', 'From', 'Departure', 'To', 'Arrival', 'Stops', 'Travel Duration', 'Price'];
 const bookingDetails = {};
@@ -231,11 +231,15 @@ class Search extends React.Component {
 				</Jumbotron>
 				<Tabs className="text-center" defaultActiveKey="oneway" id="flight-search-details">
 					<Tab tabClassName="col-6" eventKey="oneway" title="Forward Flights">
-						<FlightTable flights={flights_forward} direction={1} />
+						{flights_forward ? (
+							<FlightTable flights={flights_forward} direction={1} />
+						) : <CustomLoaderSpinner/>}
 					</Tab>
 					{isReturnValid && (
 						<Tab tabClassName="col-6" eventKey="return" title="Return Flights">
-							<FlightTable flights={flights_return} direction={2} />
+							{flights_return ? (
+								<FlightTable flights={flights_return} direction={2} />
+							) : <CustomLoaderSpinner/>}
 						</Tab>
 					)}
 				</Tabs>

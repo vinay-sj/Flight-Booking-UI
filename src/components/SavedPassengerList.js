@@ -5,6 +5,7 @@ import { getPassengers, addPassenger, deletePassenger, editPassenger } from '../
 import PassengerListTable from './PassengerListTable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faUser, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import {CustomLoaderSpinner} from './MobileCardView';
 
 const ActionButtons = (props) => {
 	const { deletePassengers, index, editPassengers } = props;
@@ -56,7 +57,7 @@ class Passengers extends React.Component {
 		this.validatePassport = this.validatePassport.bind(this);
 	}
 
-	validateEmail(e, i){
+	validateEmail(e){
 		const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		let { validate } = this.state;
 
@@ -70,7 +71,7 @@ class Passengers extends React.Component {
 		this.setState({ validate });
 	}
 
-	validatePassport(e, i) {
+	validatePassport(e) {
 		const passRex = /[A-Z]{2}[0-9]{7}/;
 		let { validate } = this.state;
 
@@ -208,12 +209,17 @@ class Passengers extends React.Component {
 					</ModalFooter>
 				</Modal>
 				<div className='font-weight-normal form-control-lg'>Saved Passenger List</div>
-				<PassengerListTable
+				{passengerList.length ? <PassengerListTable
 					passengers={passengerList}
 					actionButtons={(index) => {
 						return <ActionButtons index={index} deletePassengers={this.deletePassengers} editPassengers={this.editPassengers} />;
 					}}
-				/>
+				/> : (
+					<div>
+						<div>No data to display</div>
+						<CustomLoaderSpinner/>
+					</div>
+				)}
 				<Modal isOpen={editModal} toggle={this.editToggle}>
 					<ModalBody>
 						<PassengerFormTemplate

@@ -1,6 +1,7 @@
 import React from 'react';
 import {  Form, FormGroup, Label, Input } from 'reactstrap';
 import {Accordion, Card} from 'react-bootstrap';
+import Loader from 'react-loader-spinner';
 
 const MobileCardView = ({keysArray, valuesArray, actionHandler, currentIndex, primaryField}) => {
 	let primaryIndex;
@@ -41,4 +42,18 @@ const MobileCardView = ({keysArray, valuesArray, actionHandler, currentIndex, pr
 	);
 };
 
-export default MobileCardView;
+const CustomLoaderSpinner = () => {
+	return (
+		<div className='custom-spinner-css text-center'>
+			<Loader
+				type="ThreeDots"
+				color="#00BFFF"
+				height={100}
+				width={100} //3 secs
+			/>
+		</div>
+	);
+};
+
+export {CustomLoaderSpinner,
+	MobileCardView};

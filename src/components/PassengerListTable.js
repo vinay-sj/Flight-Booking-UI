@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from 'reactstrap';
-import MobileCardView from '../components/MobileCardView';
+import {MobileCardView} from '../components/MobileCardView';
 
 const keysArray = ['Name', 'Gender', 'Birth Date', 'Email', 'Contact No.', 'Passport No.', 'Actions'];
 

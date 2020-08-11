@@ -4,7 +4,7 @@ import { Tabs, Tab } from 'react-bootstrap';
 import { getOneWayBookings, getRoundTripBookings, deleteBooking } from '../connect_api/bookings_list';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import MobileCardView from '../components/MobileCardView';
+import {MobileCardView, CustomLoaderSpinner} from '../components/MobileCardView';
 
 const keysArrayOne = ['Flight No.', 'Airline Name', 'Journey Date', 'Passengers Name', 'Cancel Booking'];
 
@@ -230,14 +230,20 @@ class Bookings extends React.Component {
 						{bookingsOne.length ? (
 							<BookingTableOne bookingsRows={bookingsOne} deleteBookings={this.deleteBookings} />
 						) : (
-							<div>No data to display</div>
+							<div>
+								<div>No data to display</div>
+								<CustomLoaderSpinner/>
+							</div>
 						)}
 					</Tab>
 					<Tab tabClassName="col-6" eventKey="roundTripBookings" title="Return Flights">
 						{bookingsRound.length ? (
 							<BookingTableReturn bookingsRows={bookingsRound} deleteBookings={this.deleteBookings} />
 						) : (
-							<div>No data to display</div>
+							<div>
+								<div>No data to display</div>
+								<CustomLoaderSpinner/>
+							</div>
 						)}
 					</Tab>
 				</Tabs>
