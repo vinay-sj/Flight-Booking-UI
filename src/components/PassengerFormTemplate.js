@@ -12,9 +12,17 @@ class PassengerFormTemplate extends React.Component {
 			emailId:'',
 			gender:'',
 			passPortNo:'',
+			validate: {
+				emailState: false,
+				passState: false,
+				phoneState: false,
+			}
 		};
 		this.updateBirthDate = this.updateBirthDate.bind(this);
 		this.updateState = this.updateState.bind(this);
+		this.validateEmail = this.validateEmail.bind(this);
+		this.validatePassport = this.validatePassport.bind(this);
+		this.validatePhone = this.validatePhone.bind(this);
 	}
 
 	updateBirthDate(date) {
@@ -28,6 +36,49 @@ class PassengerFormTemplate extends React.Component {
 		this.setState({
 			[name]:event.target.value
 		});
+	}
+
+	validateEmail(e, i){
+		const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		let { validate } = this.state;
+
+		if (emailRex.test(e.target.value)) {
+			validate.emailState = false;
+			this.props.onChange(e, i);
+			this.updateState(e);
+		} else {
+			validate.emailState = true;
+		}
+		this.setState({ validate });
+	}
+
+	validatePhone(e, i) {
+		const phoneRex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+		let { validate } = this.state;
+
+		if (phoneRex.test(e.target.value)) {
+			validate.phoneState = false;
+			this.props.onChange(e, i);
+			this.updateState(e);
+		}else {
+			validate.phoneState = true;
+		}
+		this.setState({ validate });
+	}
+
+	validatePassport(e, i) {
+		const passRex = /[A-Z]{2}[0-9]{7}/;
+		let { validate } = this.state;
+
+		if (passRex.test(e.target.value)) {
+			validate.passState = false;
+			this.props.onChange(e, i);
+			this.updateState(e);
+		} else {
+			validate.passState = true;
+		}
+
+		this.setState({ validate });
 	}
 
 	render() {
@@ -113,15 +164,14 @@ class PassengerFormTemplate extends React.Component {
 								<Label for="email">Email</Label>
 								<div>
 									<Input
-										invalid={ this.props.validate.emailState }
+										invalid={ this.state.validate.emailState }
 										type="email"
 										name="emailId"
 										defaultValue={passengerValue.emailId||this.state.emailId}
 										id="email"
 										placeholder="Email"
 										onBlur={(event) => {
-											this.updateState(event);
-											this.props.validateEmail(event, i);
+											this.validateEmail(event, i);
 										}}
 									/>
 									<FormFeedback>Please enter email in the proper format: wanda@maximoff.com</FormFeedback>
@@ -134,15 +184,14 @@ class PassengerFormTemplate extends React.Component {
 								<Label for="contact">Contact No</Label>
 								<div>
 									<Input
-										//invalid={ this.state.validate.phoneState }
-										type="text"
+										invalid={ this.state.validate.phoneState }
+										type="number"
 										name="contactNo"
 										defaultValue={passengerValue.contactNo||this.state.contactNo}
 										id="contact"
 										placeholder="Contact No"
-										onChange={(event) => {
-											this.updateState(event);
-											onChange(event, i);
+										onBlur={(event) => {
+											this.validatePhone(event, i);
 										}}
 									/>
 									<FormFeedback>Please enter phone number in the proper format</FormFeedback>
@@ -157,15 +206,14 @@ class PassengerFormTemplate extends React.Component {
 						</Col>
 						<Col sm={12}>
 							<Input
-								invalid={ this.props.validate.passState }
+								invalid={ this.state.validate.passState }
 								type="text"
 								name="passPortNo"
 								id="passport"
 								defaultValue={passengerValue.passPortNo||this.state.passPortNo}
 								placeholder="Passport No"
 								onBlur={(event) => {
-									this.updateState(event);
-									this.props.validatePassport(event, i);
+									this.validatePassport(event, i);
 								}}
 							/>
 							<FormFeedback>Please enter passport number in the proper format: AB1234567</FormFeedback>
