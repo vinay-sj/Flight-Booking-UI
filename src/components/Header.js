@@ -56,7 +56,8 @@ class Example extends React.Component {
 		const result = JSON.parse(body);
 		console.log(result);
 		this.props.updateUserDetails(logoutresponse);
-		this.setState({ isUserLoggedIn: !this.state.isUserLoggedIn });
+		await this.setState({ isUserLoggedIn: !this.state.isUserLoggedIn });
+		window.location.replace('/');
 	}
 
 	toggle() {
