@@ -190,6 +190,7 @@ class Search extends React.Component {
 			window.localStorage.setItem('searchParams', JSON.stringify(this.props.searchParams));
 		}
 
+		alert(window.localStorage.getItem('searchParams'));
 
 		const { departureDate, returnDate, deptAirport, arrAirport, numPassengers } = JSON.parse(localStorage.getItem('searchParams'));
 		window.localStorage.setItem('numPassengers', numPassengers);
