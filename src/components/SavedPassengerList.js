@@ -6,6 +6,7 @@ import PassengerListTable from './PassengerListTable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faUser, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import {CustomLoaderSpinner} from './MobileCardView';
+import Paginate from './Pagination';
 
 const ActionButtons = (props) => {
 	const { deletePassengers, index, editPassengers } = props;
@@ -176,12 +177,16 @@ class Passengers extends React.Component {
 					</ModalFooter>
 				</Modal>
 				<div className='font-weight-normal form-control-lg'>Saved Passenger List</div>
-				{passengerList.length ? <PassengerListTable
-					passengers={passengerList}
-					actionButtons={(index) => {
-						return <ActionButtons index={index} deletePassengers={this.deletePassengers} editPassengers={this.editPassengers} />;
-					}}
-				/> : (
+				{passengerList.length ? (
+					<div>
+						<PassengerListTable
+							passengers={passengerList}
+							actionButtons={(index) => {
+								return <ActionButtons index={index} deletePassengers={this.deletePassengers} editPassengers={this.editPassengers} />;
+							}}/>
+						<div><Paginate/></div>
+					</div>
+				) : (
 					<div>
 						<div>No data to display</div>
 						<CustomLoaderSpinner/>

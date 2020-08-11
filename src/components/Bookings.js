@@ -5,6 +5,7 @@ import { getOneWayBookings, getRoundTripBookings, deleteBooking } from '../conne
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import {MobileCardView, CustomLoaderSpinner} from '../components/MobileCardView';
+import Paginate from './Pagination.js';
 
 const keysArrayOne = ['Flight No.', 'Airline Name', 'Journey Date', 'Passengers Name', 'Cancel Booking'];
 
@@ -228,7 +229,10 @@ class Bookings extends React.Component {
 				<Tabs className="text-center" defaultActiveKey="oneWayBookings" id="previous-booking-details">
 					<Tab tabClassName="col-6" eventKey="oneWayBookings" title="Forward Flights">
 						{bookingsOne.length ? (
-							<BookingTableOne bookingsRows={bookingsOne} deleteBookings={this.deleteBookings} />
+							<div>
+								<BookingTableOne bookingsRows={bookingsOne} deleteBookings={this.deleteBookings} />
+								<div><Paginate/></div>
+							</div>
 						) : (
 							<div>
 								<div>No data to display</div>
@@ -238,7 +242,10 @@ class Bookings extends React.Component {
 					</Tab>
 					<Tab tabClassName="col-6" eventKey="roundTripBookings" title="Return Flights">
 						{bookingsRound.length ? (
-							<BookingTableReturn bookingsRows={bookingsRound} deleteBookings={this.deleteBookings} />
+							<div>
+								<BookingTableReturn bookingsRows={bookingsRound} deleteBookings={this.deleteBookings} />
+								<div><Paginate/></div>
+							</div>
 						) : (
 							<div>
 								<div>No data to display</div>

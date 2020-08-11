@@ -4,6 +4,7 @@ import { Tabs, Tab } from 'react-bootstrap';
 import getitenaries from '../connect_api/amadeus';
 import { LinkContainer } from 'react-router-bootstrap';
 import {MobileCardView, CustomLoaderSpinner} from '../components/MobileCardView';
+import Paginate from './Pagination.js';
 
 const keysArray = ['Flight Name', 'From', 'Departure', 'To', 'Arrival', 'Stops', 'Travel Duration', 'Price'];
 const bookingDetails = {};
@@ -105,6 +106,9 @@ const FlightTable = ({ flights, direction = 1 }) => {
 						) : (
 							flightRows
 						)}
+						<div>
+							<Paginate/>
+						</div>
 					</Jumbotron>
 				</Col>
 			</Row>
@@ -248,7 +252,7 @@ class Search extends React.Component {
 					<div>
 						<Button className="btn btn-light buttonTheme" onClick={() => {
 							if("propsPassengerDetails" in window.localStorage){
-								
+
 							}
 							this.setState({ openModal: true })
 					}}>
