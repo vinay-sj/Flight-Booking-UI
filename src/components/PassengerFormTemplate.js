@@ -68,7 +68,7 @@ class PassengerFormTemplate extends React.Component {
 							</Col>
 						</FormGroup>
 						<Row form>
-							<Col sm={6}>
+							<Col className='col-6 col-sm-6'>
 								<FormGroup >
 									<Label for="gender">Gender</Label>
 									<div>
@@ -90,7 +90,7 @@ class PassengerFormTemplate extends React.Component {
 								</FormGroup>
 
 							</Col>
-							<Col sm={6}>
+							<Col className='col-6 col-sm-6'>
 								<FormGroup>
 									<Label for="birthDate">Birth Date</Label>
 									<div sm={12}>
