@@ -4,6 +4,9 @@ import { Tabs, Tab } from 'react-bootstrap';
 import getitenaries from '../connect_api/amadeus';
 import { LinkContainer } from 'react-router-bootstrap';
 import {MobileCardView, CustomLoaderSpinner} from '../components/MobileCardView';
+import PaginationComponent from 'react-reactstrap-pagination';
+
+let displayedRecordsOneWay = {}, displayedRecordsRound = {}, numberofPages = 5;
 
 const keysArray = ['Flight Name', 'From', 'Departure', 'To', 'Arrival', 'Stops', 'Travel Duration', 'Price'];
 const bookingDetails = {};
@@ -119,10 +122,12 @@ class Search extends React.Component {
 			price: '',
 			departure: '',
 			arrival: '',
-			flights_forward: null,
-			flights_return: null,
+			flights_forward: [],
+			flights_return: [],
 			isValidSelection: false,
 			openModal: false,
+			selectedPageOneWay: 1,
+			selectedPageRound: 1,
 		};
 
 		this.isValidSelectionFn = this.isValidSelectionFn.bind(this);
@@ -179,6 +184,14 @@ class Search extends React.Component {
 		isValidSelectionHandler = this.isValidSelectionFn;
 		const { flights_forward, flights_return } = this.state;
 
+		const recPerpageOneWay = numberofPages, recPerpageRound = numberofPages;
+		for(let i = 0; i < numberofPages; i++){
+			displayedRecordsOneWay[i] = flights_forward.slice(i * recPerpageOneWay, recPerpageOneWay * (i+1));
+		}
+		for(let i = 0; i < numberofPages; i++){
+			displayedRecordsRound[i] = flights_return.slice(i * recPerpageRound, recPerpageRound * (i+1));
+		}
+
 		return (
 			<>
 				<h4 className="text-center">Available Flights</h4>
@@ -231,15 +244,30 @@ class Search extends React.Component {
 				</Jumbotron>
 				<Tabs className="text-center" defaultActiveKey="oneway" id="flight-search-details">
 					<Tab tabClassName="col-6" eventKey="oneway" title="Forward Flights">
-						{flights_forward ? (
-							<FlightTable flights={flights_forward} direction={1} />
+						{flights_forward.length ? (
+							<FlightTable flights={displayedRecordsOneWay[this.state.selectedPageOneWay -1]} direction={1} />
 						) : <CustomLoaderSpinner/>}
+
+						<PaginationComponent
+							maxPaginationNumbers={window.innerWidth > 620 ? 5 : 4}
+							size={window.innerWidth > 620 ? 'md' : 'sm'}
+							totalItems={flights_forward.length}
+							pageSize={numberofPages}
+							onSelect={(selected) => this.setState({ selectedPageOneWay: selected })}
+						/>
 					</Tab>
 					{isReturnValid && (
 						<Tab tabClassName="col-6" eventKey="return" title="Return Flights">
-							{flights_return ? (
-								<FlightTable flights={flights_return} direction={2} />
+							{flights_return.length ? (
+								<FlightTable flights={displayedRecordsRound[this.state.selectedPageRound -1]} direction={2} />
 							) : <CustomLoaderSpinner/>}
+
+							<PaginationComponent
+								maxPaginationNumbers={window.innerWidth > 620 ? 5 : 4}
+								size={window.innerWidth > 620 ? 'md' : 'sm'}
+								totalItems={flights_return.length}
+								pageSize={numberofPages}
+								onSelect={(selected) => this.setState({ selectedPageOneWay: selected })}/>
 						</Tab>
 					)}
 				</Tabs>
@@ -247,11 +275,11 @@ class Search extends React.Component {
 				{this.state.isValidSelection && !this.props.userData ? (
 					<div>
 						<Button className="btn btn-light buttonTheme" onClick={() => {
-							if("propsPassengerDetails" in window.localStorage){
-								
-							}
-							this.setState({ openModal: true })
-					}}>
+							// if("propsPassengerDetails" in window.localStorage){
+
+							// }
+							this.setState({ openModal: true });
+						}}>
               Proceed
 						</Button>
 						<Modal
@@ -274,10 +302,10 @@ class Search extends React.Component {
 							className="btn btn-light buttonTheme"
 							disabled={!(this.state.isValidSelection && this.props.userData)}
 							onClick={() => {
-								window.localStorage.removeItem("propsPassengerDetails")
-								this.props.updateBookingDetails(bookingDetails)
+								window.localStorage.removeItem('propsPassengerDetails');
+								this.props.updateBookingDetails(bookingDetails);
 							}
-						}
+							}
 						>
               Proceed
 						</Button>

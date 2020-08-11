@@ -5,7 +5,9 @@ import { getOneWayBookings, getRoundTripBookings, deleteBooking } from '../conne
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import {MobileCardView, CustomLoaderSpinner} from '../components/MobileCardView';
+import PaginationComponent from 'react-reactstrap-pagination';
 
+let displayedRecordsOneWay = {}, displayedRecordsRound = {}, numberofPages = 5;
 const keysArrayOne = ['Flight No.', 'Airline Name', 'Journey Date', 'Passengers Name', 'Cancel Booking'];
 
 const BookingRowOne = (props) => {
@@ -179,6 +181,8 @@ class Bookings extends React.Component {
 		this.state = {
 			bookingsOne: [],
 			bookingsRound: [],
+			selectedPageOneWay: 1,
+			selectedPageRound: 1,
 		};
 		this.deleteBookings = this.deleteBookings.bind(this);
 	}
@@ -223,28 +227,51 @@ class Bookings extends React.Component {
 
 	render() {
 		const { bookingsOne, bookingsRound } = this.state;
+		const recPerpageOneWay = numberofPages, recPerpageRound = numberofPages;
+		for(let i = 0; i < numberofPages; i++){
+			displayedRecordsOneWay[i] = bookingsOne.slice(i * recPerpageOneWay, recPerpageOneWay * (i+1));
+		}
+		for(let i = 0; i < numberofPages; i++){
+			displayedRecordsRound[i] = bookingsRound.slice(i * recPerpageRound, recPerpageRound * (i+1));
+		}
 		return (
 			<>
 				<Tabs className="text-center" defaultActiveKey="oneWayBookings" id="previous-booking-details">
 					<Tab tabClassName="col-6" eventKey="oneWayBookings" title="Forward Flights">
 						{bookingsOne.length ? (
-							<BookingTableOne bookingsRows={bookingsOne} deleteBookings={this.deleteBookings} />
+							<BookingTableOne bookingsRows={displayedRecordsOneWay[this.state.selectedPageOneWay-1]} deleteBookings={this.deleteBookings} />
 						) : (
 							<div>
 								<div>No data to display</div>
 								<CustomLoaderSpinner/>
 							</div>
 						)}
+
+						<PaginationComponent
+							maxPaginationNumbers={window.innerWidth > 620 ? 5 : 4}
+							size={window.innerWidth > 620 ? 'md' : 'sm'}
+							totalItems={bookingsOne.length}
+							pageSize={numberofPages}
+							onSelect={(selected) => this.setState({ selectedPageOneWay: selected })}
+						/>
 					</Tab>
 					<Tab tabClassName="col-6" eventKey="roundTripBookings" title="Return Flights">
 						{bookingsRound.length ? (
-							<BookingTableReturn bookingsRows={bookingsRound} deleteBookings={this.deleteBookings} />
+							<BookingTableReturn bookingsRows={displayedRecordsRound[this.state.selectedPageRound-1]} deleteBookings={this.deleteBookings} />
 						) : (
 							<div>
 								<div>No data to display</div>
 								<CustomLoaderSpinner/>
 							</div>
 						)}
+
+						<PaginationComponent
+							maxPaginationNumbers={window.innerWidth > 620 ? 5 : 4}
+							size={window.innerWidth > 620 ? 'md' : 'sm'}
+							totalItems={bookingsRound.length}
+							pageSize={numberofPages}
+							onSelect={(selected) => this.setState({ selectedPageRound: selected })}
+						/>
 					</Tab>
 				</Tabs>
 				{/* <Button className="btn btn-light buttonTheme" color="secondary" size="lg" onClick={this.toggleOne} block>

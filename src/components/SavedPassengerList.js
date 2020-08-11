@@ -6,6 +6,9 @@ import PassengerListTable from './PassengerListTable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faUser, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import {CustomLoaderSpinner} from './MobileCardView';
+import PaginationComponent from 'react-reactstrap-pagination';
+
+let displayedRecords = {}, numberofPages = 5;
 
 const ActionButtons = (props) => {
 	const { deletePassengers, index, editPassengers } = props;
@@ -36,6 +39,7 @@ class Passengers extends React.Component {
 			passengerList: [],
 			editPassengerList: [],
 			editIndex: null,
+			selectedPage: 1
 		};
 
 		this.savePassenger = this.savePassenger.bind(this);
@@ -145,6 +149,10 @@ class Passengers extends React.Component {
 		// }
 
 		const { modal, editModal, passengerList, editIndex, editPassengerList } = this.state;
+		const recPerpage = numberofPages;
+		for(let i = 0; i < numberofPages; i++){
+			displayedRecords[i] = passengerList.slice(i * recPerpage, recPerpage * (i+1));
+		}
 
 		return (
 			<>
@@ -177,7 +185,7 @@ class Passengers extends React.Component {
 				</Modal>
 				<div className='font-weight-normal form-control-lg'>Saved Passenger List</div>
 				{passengerList.length ? <PassengerListTable
-					passengers={passengerList}
+					passengers={displayedRecords[this.state.selectedPage-1]}
 					actionButtons={(index) => {
 						return <ActionButtons index={index} deletePassengers={this.deletePassengers} editPassengers={this.editPassengers} />;
 					}}
@@ -187,6 +195,14 @@ class Passengers extends React.Component {
 						<CustomLoaderSpinner/>
 					</div>
 				)}
+				<PaginationComponent
+					maxPaginationNumbers={window.innerWidth > 620 ? 5 : 4}
+					size={window.innerWidth > 620 ? 'md' : 'sm'}
+					totalItems={passengerList.length}
+					pageSize={numberofPages}
+					onSelect={(selected) => this.setState({ selectedPage: selected })}
+				/>
+
 				<Modal isOpen={editModal} toggle={this.editToggle}>
 					<ModalBody>
 						<PassengerFormTemplate
