@@ -21,15 +21,7 @@ class App extends React.Component {
 
 		this.updateBookingDetails = (response, confirmBookingFlag = false) => {
 			
-			//let updatedData = response.data || {};
-			let updatedData;
-			if(!("updatedData" in window.localStorage)){
-				updatedData = response.data || {};
-				window.localStorage.setItem(("updatedData"), JSON.stringify(updatedData));
-			}else{
-				updatedData = JSON.parse(window.localStorage.getItem("updatedData"));
-			}
-
+			const updatedData = response.data || {};
 
 			this.setState({
 				bookingDetails: { ...this.state.bookingDetails, ...updatedData },

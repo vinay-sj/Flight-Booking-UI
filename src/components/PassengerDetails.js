@@ -29,7 +29,6 @@ class PassengerDetails extends React.Component {
 		if(!('propsPassengerDetails' in window.localStorage)){
 			window.localStorage.setItem('propsPassengerDetails', JSON.stringify(props));
 		}
-		//window.localStorage.setItem('propsPassengerDetails', JSON.stringify(props));
 		props = JSON.parse(window.localStorage.getItem('propsPassengerDetails'));
 		this.state = {
 			validate: {
