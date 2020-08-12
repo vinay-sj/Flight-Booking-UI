@@ -44,5 +44,4 @@ export default async function getitenaries(origin, destination, onwardDate, adul
 }
 
 //getitenaries('SFO','JFK','2020-08-15',1);
-
 // getitenaries(origin,destination,onwardDate,adults);
