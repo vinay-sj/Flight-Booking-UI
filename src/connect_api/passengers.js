@@ -9,7 +9,6 @@ export async function getPassengers()  {
 		passengers = await axios({
 			method: 'GET',
 			url: `${UI_API_ENDPOINT}/api/passengers/getPassenger`,
-			// url: 'https://group-project-avengers-api.herokuapp.com/api/passengers/getPassenger',
 			withCredentials: true,
 			headers: {
 				'Content-Type': 'application/json',
@@ -25,7 +24,6 @@ export async function getPassengers()  {
 	}catch(err){
 		console.log(err);
 	}
-	//console.log(passengers);
 	return passengers;
 
 }
@@ -34,7 +32,6 @@ export async function addPassenger(reqBody) {
 	return axios({
 		method: 'POST',
 		url: `${UI_API_ENDPOINT}/api/passengers/addPassenger`,
-		// url: 'https://group-project-avengers-api.herokuapp.com/api/passengers/addPassenger',
 		withCredentials: true,
 		headers: {
 			'Content-Type': 'application/json',
@@ -48,7 +45,6 @@ export async function deletePassenger(id) {
 
 	let success;
 	let url = `${UI_API_ENDPOINT}/api/passengers/deletePassenger/`.concat('',id);
-	// let url = 'https://group-project-avengers-api.herokuapp.com/api/passengers/deletePassenger/'.concat('',id);
 	try{
 		success = await axios({
 			method: 'DELETE',
@@ -56,7 +52,7 @@ export async function deletePassenger(id) {
 			withCredentials: true,
 		}).then((response) => {
 			return response;
-		});
+		}, (err) => {return err;});
 	}
 	catch(err){
 		console.log(err);
@@ -69,7 +65,6 @@ export async function editPassenger(id,reqBody) {
 
 	let success;
 	let url_put = `${UI_API_ENDPOINT}/api/passengers/editPassenger/`.concat('',id);
-	// let url_put = 'https://group-project-avengers-api.herokuapp.com/api/passengers/editPassenger/'.concat('',id);
 	try{
 		success = await axios({
 			method: 'PUT',
@@ -83,6 +78,5 @@ export async function editPassenger(id,reqBody) {
 	}catch(err){
 		console.log(err);
 	}
-	//console.log(success);
 	return success;
 }

@@ -44,6 +44,7 @@ nav {
   transition: border-color .15s;
   &.small-screen-css {
     font-size: smaller;
+    max-width: 80%;
   }
 }
 

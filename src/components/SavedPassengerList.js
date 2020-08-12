@@ -5,10 +5,12 @@ import { getPassengers, addPassenger, deletePassenger, editPassenger } from '../
 import PassengerListTable from './PassengerListTable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faUser, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import {CustomLoaderSpinner} from './MobileCardView';
+import { CustomLoaderSpinner } from './MobileCardView';
 import PaginationComponent from 'react-reactstrap-pagination';
 
-let displayedRecords = {}, numberofPages = 5;
+let displayedRecords = {},
+	numberofPages = 5;
+let passegerListLoaded = false;
 
 const ActionButtons = (props) => {
 	const { deletePassengers, index, editPassengers } = props;
@@ -39,7 +41,7 @@ class Passengers extends React.Component {
 			passengerList: [],
 			editPassengerList: [],
 			editIndex: null,
-			selectedPage: 1
+			selectedPage: 1,
 		};
 
 		this.savePassenger = this.savePassenger.bind(this);
@@ -58,7 +60,7 @@ class Passengers extends React.Component {
 	async savePassenger() {
 		const { passengerDetails } = this.state;
 		await addPassenger(passengerDetails);
-		this.setState({ passengerDetails:{} });
+		this.setState({ passengerDetails: {} });
 		await this.loadData();
 		this.toggle();
 	}
@@ -70,7 +72,7 @@ class Passengers extends React.Component {
 		await editPassenger(editPassengerList[editIndex]._id, editPassengerList[editIndex]);
 		await this.loadData();
 		this.editToggle();
-		this.setState({ passengerDetails:{} });
+		this.setState({ passengerDetails: {} });
 		this.setState({ editIndex: null });
 	}
 
@@ -96,7 +98,7 @@ class Passengers extends React.Component {
 	onChange(event) {
 		const { name, value } = event.target;
 		this.setState({
-			passengerDetails: { ...this.state.passengerDetails, [name]:value }
+			passengerDetails: { ...this.state.passengerDetails, [name]: value },
 		});
 	}
 
@@ -110,7 +112,7 @@ class Passengers extends React.Component {
 
 	onDatePickerChange(date, name) {
 		this.setState({
-			passengerDetails: {...this.state.passengerDetails, [name]:date}
+			passengerDetails: { ...this.state.passengerDetails, [name]: date },
 		});
 	}
 
@@ -125,7 +127,8 @@ class Passengers extends React.Component {
 	}
 
 	async loadData() {
-		const  passengerList = await getPassengers();
+		const passengerList = await getPassengers();
+		passegerListLoaded = true;
 		await this.setState({ passengerList: passengerList });
 		await this.setState({ editPassengerList: passengerList });
 	}
@@ -150,15 +153,15 @@ class Passengers extends React.Component {
 
 		const { modal, editModal, passengerList, editIndex, editPassengerList } = this.state;
 		const recPerpage = numberofPages;
-		for(let i = 0; i < numberofPages; i++){
-			displayedRecords[i] = passengerList.slice(i * recPerpage, recPerpage * (i+1));
+		for (let i = 0; i < numberofPages; i++) {
+			displayedRecords[i] = passengerList.slice(i * recPerpage, recPerpage * (i + 1));
 		}
 
 		return (
 			<>
-				<div style={{'paddingBottom': '10px'}} className="text-center btn-group-sm">
-					Passenger List &nbsp;
-					<Button className='btn btn-light buttonTheme' onClick={this.toggle}>
+				<div style={{ paddingBottom: '10px' }} className="text-center btn-group-sm">
+          Passenger List &nbsp;
+					<Button className="btn btn-light buttonTheme" onClick={this.toggle}>
 						<FontAwesomeIcon icon={faUser} /> Add
 					</Button>
 				</div>
@@ -176,23 +179,28 @@ class Passengers extends React.Component {
 					</ModalBody>
 					<ModalFooter>
 						<Button className="btn btn-light buttonTheme" color="primary" onClick={this.savePassenger}>
-							Save
+              Save
 						</Button>{' '}
 						<Button className="btn btn-light buttonTheme" color="secondary" onClick={this.toggle}>
-							Cancel
+              Cancel
 						</Button>
 					</ModalFooter>
 				</Modal>
-				<div className='font-weight-normal form-control-lg'>Saved Passenger List</div>
-				{passengerList.length ? <PassengerListTable
-					passengers={displayedRecords[this.state.selectedPage-1]}
-					actionButtons={(index) => {
-						return <ActionButtons index={index} deletePassengers={this.deletePassengers} editPassengers={this.editPassengers} />;
-					}}
-				/> : (
+				<div className="font-weight-normal form-control-lg">Saved Passenger List</div>
+				{passengerList.length ? (
+					<PassengerListTable
+						passengers={displayedRecords[this.state.selectedPage - 1]}
+						actionButtons={(index) => {
+							return <ActionButtons index={index} deletePassengers={this.deletePassengers} editPassengers={this.editPassengers} />;
+						}}
+					/>
+				) : (
 					<div>
-						<div>No data to display</div>
-						<CustomLoaderSpinner/>
+						{passegerListLoaded && !passengerList.length ? (
+							<div className={window.innerWidth > 620 ? 'form-control-lg' : 'form-control-sm'}>No data to display</div>
+						) : (
+							<CustomLoaderSpinner />
+						)}
 					</div>
 				)}
 				<PaginationComponent
@@ -215,10 +223,10 @@ class Passengers extends React.Component {
 					</ModalBody>
 					<ModalFooter>
 						<Button className="btn btn-light buttonTheme" color="primary" onClick={this.updateEditPassenger}>
-							Update
+              Update
 						</Button>{' '}
 						<Button className="btn btn-light buttonTheme" color="secondary" onClick={this.editToggle}>
-							Cancel
+              Cancel
 						</Button>
 					</ModalFooter>
 				</Modal>

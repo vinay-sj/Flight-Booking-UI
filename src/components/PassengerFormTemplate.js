@@ -92,10 +92,10 @@ class PassengerFormTemplate extends React.Component {
 
 		return (
 			<>
-				<div className='row'>
-					<div className='col-md-2 col-sm-8 col-8 col-form-label form-inline'>Add from Saved Passenger List</div>
+				{addPassenger && <div className='row'>
+					<div className='col-lg-2 col-sm-8 col-8 col-form-label form-inline'>Add from Saved Passenger List</div>
 					<div className='col-form-label form-inline'>{addPassenger}</div>
-				</div>
+				</div>}
 				<Jumbotron key={index}>
 					<FormGroup row>
 						<Col id={index}>Passenger Details: {passNo}</Col>
