@@ -185,8 +185,8 @@ class Search extends React.Component {
 	}
 
 	async loadData() {
-		
-;		if (!('searchParams' in window.localStorage)) {
+
+		if (!('searchParams' in window.localStorage)) {
 			window.localStorage.setItem('searchParams', JSON.stringify(this.props.searchParams));
 		}
 
