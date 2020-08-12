@@ -7,6 +7,7 @@ import {MobileCardView, CustomLoaderSpinner} from '../components/MobileCardView'
 import PaginationComponent from 'react-reactstrap-pagination';
 
 let displayedRecordsOneWay = {}, displayedRecordsRound = {}, numberofPages = 5;
+let onwardFlightsLoaded = false, returnFlightsLoaded = false;
 
 const keysArray = ['Flight Name', 'From', 'Departure', 'To', 'Arrival', 'Stops', 'Travel Duration', 'Price'];
 const bookingDetails = {};
@@ -199,6 +200,7 @@ class Search extends React.Component {
 		} else {
 			data_forward = JSON.parse(localStorage.getItem('forward'));
 		}
+		onwardFlightsLoaded = true;
 		this.setState({
 			flights_forward: data_forward,
 		});
@@ -211,6 +213,7 @@ class Search extends React.Component {
 			} else {
 				data_return = JSON.parse(localStorage.getItem('return'));
 			}
+			returnFlightsLoaded = true;
 			this.setState({
 				flights_return: data_return,
 			});
@@ -290,7 +293,10 @@ class Search extends React.Component {
 					<Tab tabClassName="col-6" eventKey="oneway" title="Forward Flights">
 						{flights_forward.length ? (
 							<FlightTable flights={displayedRecordsOneWay[this.state.selectedPageOneWay -1]} direction={1} />
-						) : <CustomLoaderSpinner/>}
+						) : (<div>
+							{onwardFlightsLoaded && !flights_forward.length ? <div>No data to display</div> :
+								<CustomLoaderSpinner/>}
+						</div>)}
 
 						<PaginationComponent
 							maxPaginationNumbers={window.innerWidth > 620 ? 5 : 4}
@@ -304,7 +310,10 @@ class Search extends React.Component {
 						<Tab tabClassName="col-6" eventKey="return" title="Return Flights">
 							{flights_return.length ? (
 								<FlightTable flights={displayedRecordsRound[this.state.selectedPageRound -1]} direction={2} />
-							) : <CustomLoaderSpinner/>}
+							) : (<div>
+								{returnFlightsLoaded && !flights_return.length ? <div>No data to display</div> :
+									<CustomLoaderSpinner/>}
+							</div>)}
 
 							<PaginationComponent
 								maxPaginationNumbers={window.innerWidth > 620 ? 5 : 4}
