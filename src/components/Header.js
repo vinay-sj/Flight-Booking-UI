@@ -96,7 +96,7 @@ class Example extends React.Component {
 							buttonText="Login"
 							onSuccess={(res) => this.loginHandler(res)}
 							onFailure={(err) => console.log(err)}
-							// cookiePolicy={'single_host_origin'}
+							cookiePolicy={'single_host_origin'}
 							isSignedIn={true}
 						/>
 					) : (
