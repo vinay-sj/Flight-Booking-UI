@@ -28,12 +28,14 @@
     "react-select": "^2.4.4",
     "reactstrap": "^8.5.1"
   },
+  "engines": {
+    "node": "10.x",
+    "npm": "6.x"
+    },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "lint": "eslint --fix src --ext .js",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "lint": "eslint --fix src --ext .js"
   },
   "eslintConfig": {
     "extends": "react-app"
