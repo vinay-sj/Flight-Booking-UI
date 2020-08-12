@@ -112,7 +112,7 @@ class HomePage extends React.Component {
 
 	render() {
 		console.log(process.env.REACT_APP_UI_API_ENDPOINT);
-		console.log(process.env.UI_API_ENDPOINT);
+		//console.log(process.env.UI_API_ENDPOINT);
 		const isEnabled =
       this.state.rselected === 1
       	? this.state.departureDate && this.state.returnDate && this.state.deptAirport && this.state.arrAirport
