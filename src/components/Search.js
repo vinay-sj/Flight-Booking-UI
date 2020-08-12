@@ -133,6 +133,7 @@ class Search extends React.Component {
 		this.isValidSelectionFn = this.isValidSelectionFn.bind(this);
 		this.onFilter = this.onFilter.bind(this);
 		this.loadData = this.loadData.bind(this);
+		this.onReset = this.onReset.bind(this);
 	}
 
 	componentDidMount() {
@@ -143,6 +144,13 @@ class Search extends React.Component {
 		if (prevProps.searchParams !== this.props.searchParams) {
 			this.loadData();
 		}
+	}
+
+	async onReset() {
+		this.setState({price:''});
+		this.setState({departure:''});
+		this.setState({arrival:''});
+		await this.loadData();
 	}
 
 	async onFilter() {
@@ -243,8 +251,9 @@ class Search extends React.Component {
 										min="0"
 										name="price"
 										id="price"
+										defaultValue={this.state.price}
 										placeholder="Price"
-										onChange={(event) => this.setState({ price: event.target.value })}
+										onBlur={(event) => this.setState({ price: event.target.value })}
 									/>
 								</FormGroup>
 							</Col>
@@ -255,6 +264,7 @@ class Search extends React.Component {
 										type="time"
 										name="departure"
 										id="departure"
+										value={this.state.departure}
 										placeholder="Departure"
 										onChange={(event) => this.setState({ departure: event.target.value })}
 									/>
@@ -267,6 +277,7 @@ class Search extends React.Component {
 										type="time"
 										name="arrival"
 										id="arrival"
+										value={this.state.arrival}
 										placeholder="Arrival"
 										onChange={(event) => {
 											this.setState({ arrival: event.target.value });
@@ -281,7 +292,7 @@ class Search extends React.Component {
 							</Col>
 							<Col className="text-center">
 								<br />
-								<Button onClick={this.loadData}>Reset</Button>
+								<Button onClick={this.onReset}>Reset</Button>
 							</Col>
 						</Row>
 					</Form>
