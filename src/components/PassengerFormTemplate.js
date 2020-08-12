@@ -109,9 +109,9 @@ class PassengerFormTemplate extends React.Component {
 								type="text"
 								name="name"
 								id="name"
-								value={passengerValue.name||this.state.name}
+								defaultValue={passengerValue.name||this.state.name}
 								placeholder="Name"
-								onChange={(event) => {
+								onBlur={(event) => {
 									this.updateState(event);
 									onChange(event, i);
 								}}
@@ -126,9 +126,9 @@ class PassengerFormTemplate extends React.Component {
 									<Input
 										type="select"
 										id="gender"
-										value={passengerValue.gender||this.state.gender}
+										defaultValue={passengerValue.gender||this.state.gender}
 										name="gender"
-										onChange={(event) => {
+										onBlur={(event) => {
 											this.updateState(event);
 											onChange(event, i);
 										}}
