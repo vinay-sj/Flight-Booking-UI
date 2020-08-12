@@ -43,8 +43,8 @@ nav {
   font-size: medium;
   transition: border-color .15s;
   &.small-screen-css {
-    font-size: small;
-    max-width: 90%;
+    font-size: smaller;
+    max-width: 80%;
   }
 }
 
