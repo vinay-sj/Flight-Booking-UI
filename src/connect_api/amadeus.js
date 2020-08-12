@@ -5,6 +5,8 @@ let amadeus = new Amadeus({
 	clientSecret: process.env.REACT_APP_AMADEUS_CLIENT_SECRET,
 });
 
+console.log(process.env.REACT_APP_AMADEUS_CLIENT_ID);
+
 export default async function getitenaries(origin, destination, onwardDate, adults) {
 	try {
 		let { data } = await amadeus.shopping.flightOffersSearch.get({
