@@ -39,7 +39,7 @@ export default async function getitenaries(origin, destination, onwardDate, adul
 		flights = flights.filter((flight) => Object.entries(filters).every(([key, val]) => (val !== '' ? flight[key] === val : true)));
 
 		console.log(flights); // remove this later
-		return flights;
+		return flights || [];
 	} catch (err) {
 		console.log(err);
 	}

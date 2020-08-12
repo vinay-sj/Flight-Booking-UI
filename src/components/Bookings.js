@@ -4,10 +4,14 @@ import { Tabs, Tab } from 'react-bootstrap';
 import { getOneWayBookings, getRoundTripBookings, deleteBooking } from '../connect_api/bookings_list';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import {MobileCardView, CustomLoaderSpinner} from '../components/MobileCardView';
+import { MobileCardView, CustomLoaderSpinner } from '../components/MobileCardView';
 import PaginationComponent from 'react-reactstrap-pagination';
 
-let displayedRecordsOneWay = {}, displayedRecordsRound = {}, numberofPages = 5;
+let displayedRecordsOneWay = {},
+	displayedRecordsRound = {},
+	numberofPages = 5;
+let bookingOneWayLoaded = false,
+	bookingRoundLoaded = false;
 const keysArrayOne = ['Flight No.', 'Airline Name', 'Journey Date', 'Passengers Name', 'Cancel Booking'];
 
 const BookingRowOne = (props) => {
@@ -202,12 +206,13 @@ class Bookings extends React.Component {
 
 	async loadBookingsOne() {
 		const bookingsOne = await getOneWayBookings();
-		console.log(bookingsOne);
+		bookingOneWayLoaded = true;
 		this.setState({ bookingsOne: bookingsOne });
 	}
 
 	async loadBookingsRound() {
 		const bookingsRound = await getRoundTripBookings();
+		bookingRoundLoaded = true;
 		console.log(bookingsRound);
 		this.setState({ bookingsRound: bookingsRound });
 	}
@@ -227,24 +232,25 @@ class Bookings extends React.Component {
 
 	render() {
 		const { bookingsOne, bookingsRound } = this.state;
-		const recPerpageOneWay = numberofPages, recPerpageRound = numberofPages;
-		for(let i = 0; i < numberofPages; i++){
-			displayedRecordsOneWay[i] = bookingsOne.slice(i * recPerpageOneWay, recPerpageOneWay * (i+1));
+		const recPerpageOneWay = numberofPages,
+			recPerpageRound = numberofPages;
+		for (let i = 0; i < numberofPages; i++) {
+			displayedRecordsOneWay[i] = bookingsOne.slice(i * recPerpageOneWay, recPerpageOneWay * (i + 1));
 		}
-		for(let i = 0; i < numberofPages; i++){
-			displayedRecordsRound[i] = bookingsRound.slice(i * recPerpageRound, recPerpageRound * (i+1));
+		for (let i = 0; i < numberofPages; i++) {
+			displayedRecordsRound[i] = bookingsRound.slice(i * recPerpageRound, recPerpageRound * (i + 1));
 		}
 		return (
 			<>
 				<Tabs className="text-center" defaultActiveKey="oneWayBookings" id="previous-booking-details">
 					<Tab tabClassName="col-6" eventKey="oneWayBookings" title="Forward Flights">
 						{bookingsOne.length ? (
-							<BookingTableOne bookingsRows={displayedRecordsOneWay[this.state.selectedPageOneWay-1]} deleteBookings={this.deleteBookings} />
+							<BookingTableOne
+								bookingsRows={displayedRecordsOneWay[this.state.selectedPageOneWay - 1]}
+								deleteBookings={this.deleteBookings}
+							/>
 						) : (
-							<div>
-								<div>No data to display</div>
-								<CustomLoaderSpinner/>
-							</div>
+							<div>{bookingOneWayLoaded && !bookingsOne.length ? <div>No data to display</div> : <CustomLoaderSpinner />}</div>
 						)}
 
 						<PaginationComponent
@@ -257,11 +263,17 @@ class Bookings extends React.Component {
 					</Tab>
 					<Tab tabClassName="col-6" eventKey="roundTripBookings" title="Return Flights">
 						{bookingsRound.length ? (
-							<BookingTableReturn bookingsRows={displayedRecordsRound[this.state.selectedPageRound-1]} deleteBookings={this.deleteBookings} />
+							<BookingTableReturn
+								bookingsRows={displayedRecordsRound[this.state.selectedPageRound - 1]}
+								deleteBookings={this.deleteBookings}
+							/>
 						) : (
 							<div>
-								<div>No data to display</div>
-								<CustomLoaderSpinner/>
+								{bookingRoundLoaded && !bookingsRound.length ? (
+									<div className={window.innerWidth > 620 ? 'form-control-lg' : 'form-control-sm'}>No data to display</div>
+								) : (
+									<CustomLoaderSpinner />
+								)}
 							</div>
 						)}
 
