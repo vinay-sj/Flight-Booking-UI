@@ -13,8 +13,8 @@ class HomePage extends React.Component {
 		super(props);
 		this.state = {
 			rselected: 1,
-			departureDate: date.toISOString().slice(0,10),
-			returnDate: date.toISOString().slice(0,10),
+			departureDate: date.toISOString().slice(0, 10),
+			returnDate: date.toISOString().slice(0, 10),
 			deptAirport: '',
 			arrAirport: '',
 			numPassengers: 1,
@@ -34,7 +34,7 @@ class HomePage extends React.Component {
 
 	async handleDepartureDateChange(date) {
 		await this.setState({
-			departureDate: date.toISOString().slice(0,10),
+			departureDate: date.toISOString().slice(0, 10),
 		});
 
 		if (this.state.rselected === 1) {
@@ -43,7 +43,7 @@ class HomePage extends React.Component {
 
 			if (ret < dept) {
 				this.setState({
-					returnDate: date.toISOString().slice(0,10),
+					returnDate: date.toISOString().slice(0, 10),
 				});
 			}
 		}
@@ -51,19 +51,19 @@ class HomePage extends React.Component {
 
 	handleReturnDateChange(date) {
 		this.setState({
-			returnDate: date.toISOString().slice(0,10),
+			returnDate: date.toISOString().slice(0, 10),
 		});
 	}
 
 	handleDeptAirportChange({ value }) {
 		this.setState({
-			deptAirport: value.split('-')[0]
+			deptAirport: value.split('-')[0],
 			// deptAirport: value,
 		});
 	}
 	handleArrAirportChange({ value }) {
 		this.setState({
-			arrAirport: value.split('-')[0]
+			arrAirport: value.split('-')[0],
 			// arrAirport: value,
 		});
 	}
@@ -78,14 +78,14 @@ class HomePage extends React.Component {
 		const { departureDate } = this.state;
 		this.setState({
 			rselected: 1,
-			returnDate: departureDate
+			returnDate: departureDate,
 		});
 	}
 
 	handleReturnTrip() {
 		this.setState({
 			rselected: 2,
-			returnDate: null
+			returnDate: null,
 		});
 	}
 
@@ -108,7 +108,6 @@ class HomePage extends React.Component {
 		this.props.flightSearchParams(this.state);
 	}
 
-
 	render() {
 		console.log(process.env.REACT_APP_UI_API_ENDPOINT);
 		//console.log(process.env.UI_API_ENDPOINT);
@@ -128,10 +127,10 @@ class HomePage extends React.Component {
 							<FormGroup>
 								{/* <TripTypeButton handleSelectedTripType={this.setRselected} rSelected={this.state.rselected} /> */}
 								<ButtonGroup>
-									<Button className='btn btn-primary' color="primary" onClick={this.handleOneWayTrip}>
+									<Button className="btn btn-primary" color="primary" onClick={this.handleOneWayTrip}>
                     Round Trip
 									</Button>
-									<Button className='btn btn-primary' color="primary" onClick={this.handleReturnTrip}>
+									<Button className="btn btn-primary" color="primary" onClick={this.handleReturnTrip}>
                     One Way
 									</Button>
 								</ButtonGroup>
@@ -168,9 +167,9 @@ class HomePage extends React.Component {
 							</Col>
 						</Row>
 						<Row form>
-							<Col md={3} className='col-6'>
-								<Label for='departureDate'>Departure</Label>
-								<FormGroup id='departureDate'>
+							<Col md={3} className="col-6">
+								<Label for="departureDate">Departure</Label>
+								<FormGroup id="departureDate">
 									<DatePicker
 										minDate={new Date()}
 										selected={this.formatDate(this.state.departureDate)}
@@ -179,10 +178,10 @@ class HomePage extends React.Component {
 									/>
 								</FormGroup>
 							</Col>
-							{this.state.rselected !== 2 &&
-								<Col md={3} className='col-6'>
-									<Label for='returnDate'>Return</Label>
-									<FormGroup id='returnDate'>
+							{this.state.rselected !== 2 && (
+								<Col md={3} className="col-6">
+									<Label for="returnDate">Return</Label>
+									<FormGroup id="returnDate">
 										<DatePicker
 											minDate={this.formatDate(this.state.departureDate)}
 											selected={this.formatDate(this.state.returnDate)}
@@ -191,7 +190,7 @@ class HomePage extends React.Component {
 										/>
 									</FormGroup>
 								</Col>
-							}
+							)}
 							<Col md={1}>
 								<Label>Passengers</Label>
 								<FormGroup>
@@ -208,7 +207,7 @@ class HomePage extends React.Component {
 							</Col>
 						</Row>
 						<LinkContainer to={'/search'}>
-							<Button className='btn btn-light buttonTheme' onClick={this.handleSubmit} disabled={!isEnabled}>
+							<Button className="btn btn-light buttonTheme" onClick={this.handleSubmit} disabled={!isEnabled}>
                 Search
 							</Button>
 						</LinkContainer>
