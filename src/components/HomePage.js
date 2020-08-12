@@ -108,7 +108,6 @@ class HomePage extends React.Component {
 		this.props.flightSearchParams(this.state);
 	}
 
-	
 
 	render() {
 		console.log(process.env.REACT_APP_UI_API_ENDPOINT);
