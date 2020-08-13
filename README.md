@@ -127,7 +127,7 @@ Due to limitations caused by using free external APIs for fetching live flights 
 The Heroku Link for our website is:
 https://avengers-flightbooking-ui.herokuapp.com/
 
-### User Interface:
+### Appication Progress Report:
 
 Home Page
 ![](readme_images/Home_3.png)
@@ -157,10 +157,10 @@ Note:
 You will be able to see "My Bookings" and "My Passengers" only when you are logged in:
 ![](readme_images/Bookings_Passengers_3.png)
 
-Similarly, you will be able to book only when you are logged in. However, you can search for flight without logging in as well.
+Similarly, you will be able to book only when you are logged in. However, you can search for flights without logging in as well.
 
 Lastly, if you wish to get in touch with us, you can have a look at our About page:
-
+![](readme_images/About_3.png)
 
 ### Contributions:
 
@@ -188,6 +188,6 @@ Dhaval Mohandas:
 
 
 #### Instructions for testing:
-* We highly recommend to use Chrome as your browser for testing the application.
+* We highly recommend to use Chrome as your browser for testing the application (especially on Heroku).
 * Due to limitations caused by using free external APIs for fetching live flights data, we would recommend using the following locations as to/from destinations:
 "Boston Logan International", "New York J.F. Kennedy", "San Francisco International"
