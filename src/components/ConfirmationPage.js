@@ -66,9 +66,9 @@ class ConfirmationPage extends React.Component {
 					<Table bordered>
 						<thead>
 							<tr>
-								<th className="font-weight-normal">Flight Name</th>
-								<th className="font-weight-normal">Flight Number</th>
-								<th className="font-weight-normal">Journey Details</th>
+								<th className="font-weight-normal">Onward Flight Name</th>
+								<th className="font-weight-normal">Onward Flight Number</th>
+								<th className="font-weight-normal">Onward Journey Details</th>
 								{/*  <th className='font-weight-normal' >Travel Summary</th>  */}
 							</tr>
 						</thead>
@@ -83,6 +83,27 @@ class ConfirmationPage extends React.Component {
 						</tbody>
 					</Table>
 				</Row>
+				{this.props.bookingDetails.returnFlightDetails && <Row>
+					<Table bordered>
+						<thead>
+							<tr>
+								<th className="font-weight-normal">Return Flight Name</th>
+								<th className="font-weight-normal">Return Flight Number</th>
+								<th className="font-weight-normal">Return Journey Details</th>
+								{/*  <th className='font-weight-normal' >Travel Summary</th>  */}
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>{this.props.bookingDetails.returnFlightDetails.airlineName}</td>
+								<td>{this.props.bookingDetails.returnFlightDetails.flightNo}</td>
+								<td>{new Date(this.props.bookingDetails.returnFlightDetails.journeyDate).toLocaleString()}</td>
+								{/* <td>Your flight will arrive at {this.props.bookingDetails.arrivalLocation} at {this.props.bookingDetails.arrivalTime}.</td>
+                <td>Your flight will be {this.props.bookingDetails.flightLength} hours/time long.</td> */}
+							</tr>
+						</tbody>
+					</Table>
+				</Row>}
 				<Row className="text-center">
 					<Col className="col-6">
 						<Button className="btn btn-light buttonTheme" onClick={this.goToHomepage} color="primary">

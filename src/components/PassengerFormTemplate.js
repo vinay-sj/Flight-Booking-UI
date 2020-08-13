@@ -153,6 +153,7 @@ class PassengerFormTemplate extends React.Component {
 											this.updateBirthDate(date);
 											onDatePickerChange(date, 'birthDate', i);
 										}}
+										withPortal={window.innerWidth <= 900 ? true : false}
 										className='custom-date-picker-css col-sm-12'
 									/>
 								</div>
