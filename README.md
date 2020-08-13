@@ -119,3 +119,75 @@ Due to limitations caused by using free external APIs for fetching live flights 
 * Users should be able to see only those passengers which they have saved. Similarly they should be able to see/cancel only their bookings.
 * The edit button for editing the details of a passenger does not work yet.
 * Pagination
+
+---
+
+## Iteration 3
+
+The Heroku Link for our website is:
+https://avengers-flightbooking-ui.herokuapp.com/
+
+### User Interface:
+
+Home Page
+![](readme_images/Home_3.png)
+
+On entering your trip details, you will be directed to the Search Results page:
+![](readme_images/Search_3.png)
+
+You can filter your search results by price:
+![](readme_images/Filter_3.png)
+
+After selecting your flight(s) (forward and return for round trip), you will be directed to the passenger details page:
+![](readme_images/PassengerDetails_3.png)
+
+On filling the passenger details, you will be directed to the Confirmation page.
+![](readme_images/Confirmation_Page_3.png)
+
+You can choose to autofill the form by adding passenger details from your list of saved Passengers. Click on the Add button to see the list.
+![](readme_images/Add_from_saved_3.png)
+
+You can view your bookings and cancel them:
+![](readme_images/My_bookings_3.png)
+
+You can save a list of people, for whom you book frequently. You can add and delete passengers and update their details. This will help to automatically fill their details on the passenger details page when booking a ticket for them.
+![](readme_images/Passengers_List_3.png)
+
+Note:
+You will be able to see "My Bookings" and "My Passengers" only when you are logged in:
+![](readme_images/Bookings_Passengers_3.png)
+
+Similarly, you will be able to book only when you are logged in. However, you can search for flight without logging in as well.
+
+Lastly, if you wish to get in touch with us, you can have a look at our About page:
+
+
+### Contributions:
+
+Ram Tarun Balagam:
+1. Mobile View Handling for all screens
+2. Pagination implementation
+3. Several CSS fixes to enhance UX experience
+4. Developed Custom Card View Component for Mobile view
+
+Vinay Srampickal Joseph:
+1. Created the filter on the flight search results page.
+2. Created form validations to ensure correct data is input.
+3. Created the about page.
+4. Debugging and testing of the application at various points throughout development.
+
+
+Priyank Shelat:
+1. Button selection persistence
+2. Attempted to lift state of validation for button disabling
+
+Dhaval Mohandas:
+1. Created the PUT API for updating passenger details.
+2. Handled refresh on flight's search and passenger details page.
+3. Minor changes in the UI, testing, readme and deployment support.
+
+
+#### Instructions for testing:
+* We highly recommend to use Chrome as your browser for testing the application.
+* Due to limitations caused by using free external APIs for fetching live flights data, we would recommend using the following locations as to/from destinations:
+"Boston Logan International", "New York J.F. Kennedy", "San Francisco International"
