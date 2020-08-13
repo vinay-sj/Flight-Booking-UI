@@ -43,6 +43,7 @@ class PassengerDetails extends React.Component {
 				isRoundTrip: props.bookingDetails.isRoundTrip,
 				numPassengers: props.numPassengers,
 				passengerDetails: [],
+				addformComplete: [],
 			},
 			openModal: false,
 		};
@@ -59,6 +60,7 @@ class PassengerDetails extends React.Component {
 		this.onChange = this.onChange.bind(this);
 		this.onDatePickerChange = this.onDatePickerChange.bind(this);
 		this.selectPassengers = this.selectPassengers.bind(this);
+		this.onFormCompletion = this.onFormCompletion.bind(this);
 	}
 
 	componentDidUpdate(prevProps) {
@@ -114,6 +116,10 @@ class PassengerDetails extends React.Component {
 		toggle();
 	}
 
+	onFormCompletion(formComplete){
+		this.setState({addformComplete:formComplete});
+	}
+
 	render() {
 		// let isEnabled = false;
 		// if (this.state.bookingDetails.passengerDetails.length) {
@@ -140,9 +146,7 @@ class PassengerDetails extends React.Component {
 					index={index}
 					addPassenger={addPassengers(index)}
 					passengerValue={passengerDetails[index]}
-					// validateEmail={this.validateEmail}
-					// validatePassport={this.validatePassport}
-					// validate={this.state.validate}
+					onFormCompletion={this.onFormCompletion}
 				/>
 			);
 		});
