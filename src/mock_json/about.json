@@ -5,11 +5,6 @@
     "avatar": "../img/dhaval.jpg"
   },
   {
-    "name": "Priyank Shelat",
-    "linkedin": "https://www.linkedin.com/in/priyank-s-2a94118a",
-    "avatar": "../img/priyank.jpg"
-  },
-  {
     "name": "Ram Tarun Balagam",
     "linkedin": "https://www.linkedin.com/in/ram-tarun-balagam-a0986a113",
     "avatar": "../img/ram.jpg"
@@ -18,5 +13,10 @@
     "name": "Vinay Srampickal Joseph",
     "linkedin": "https://www.linkedin.com/in/vinaysj",
     "avatar": "../img/vinay.jpg"
+  },
+  {
+    "name": "Priyank Shelat",
+    "linkedin": "https://www.linkedin.com/in/priyank-s-2a94118a",
+    "avatar": "../img/priyank.jpg"
   }
 ]
