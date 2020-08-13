@@ -6,7 +6,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import {MobileCardView, CustomLoaderSpinner} from '../components/MobileCardView';
 import PaginationComponent from 'react-reactstrap-pagination';
 import { FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import { faFilter } from '@fortawesome/free-solid-svg-icons';
+import { faFilter, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
 
 let displayedRecordsOneWay = {}, displayedRecordsRound = {}, numberofPages = 5;
 let onwardFlightsLoaded = false, returnFlightsLoaded = false;
@@ -60,14 +60,12 @@ const FlightRow = (props) => {
 			<td>{flight.duration}</td>
 			<td>{'$' + flight.price}</td>
 			<td>
-				<Button className="btn btn-light buttonTheme"
+				<Button className='btn btn-light buttonTheme'
 					onClick={() => {
 						handleBooking(props);
 						props.set(index);
 					}}
-					active={props.selected === index}>
-          Select
-				</Button>
+					active={props.selected === index}>{props.selected === index ? <FontAwesomeIcon swapOpacity={true} size='lg' icon={faCheckDouble}/> : 'Select'}</Button>
 			</td>
 		</tr>
 	) : (
@@ -76,14 +74,12 @@ const FlightRow = (props) => {
 			keysArray={keysArray.slice(0, 9)}
 			valuesArray={valuesArray}
 			actionHandler={
-				<Button className="btn btn-light buttonTheme"
+				<Button className='btn btn-light buttonTheme'
 					onClick={() => {
 						handleBooking(props);
 						props.set(index);
 					}}
-					active={props.selected === index}>
-          Select
-				</Button>
+					active={props.selected === index}>{props.selected === index ? <FontAwesomeIcon swapOpacity={true} size='lg' icon={faCheckDouble}/> : 'Select'}</Button>
 			}
 			currentIndex={index}
 			primaryField={'Flight Name'}
