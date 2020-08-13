@@ -203,11 +203,11 @@ class Search extends React.Component {
 		}
 
 		if (departure) {flights_forward = dateFilter(flights_forward, departure,  'departure');
-			flights_return = dateFilter(flights_forward, departure, 'departure');
+			flights_return = dateFilter(flights_return, departure, 'departure');
 		}
 		if (arrival) {
 			flights_forward = dateFilter(flights_forward, arrival,  'arrival');
-			flights_return = dateFilter(flights_forward, arrival, 'arrival');
+			flights_return = dateFilter(flights_return, arrival, 'arrival');
 		}
 		this.setState({ flights_forward: flights_forward });
 		this.setState({ flights_return: flights_return });
