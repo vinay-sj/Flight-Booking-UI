@@ -42,6 +42,7 @@ class Passengers extends React.Component {
 			editPassengerList: [],
 			editIndex: null,
 			selectedPage: 1,
+			addformComplete: false,
 		};
 
 		this.savePassenger = this.savePassenger.bind(this);
@@ -78,6 +79,7 @@ class Passengers extends React.Component {
 
 	toggle() {
 		const { modal } = this.state;
+		this.setState({ addformComplete: false })
 		this.setState({ modal: !modal });
 	}
 
@@ -95,8 +97,9 @@ class Passengers extends React.Component {
 		});
 	}
 
-	onChange(event) {
+	onChange(event, formComplete) {
 		const { name, value } = event.target;
+		this.setState( { addformComplete: formComplete })
 		this.setState({
 			passengerDetails: { ...this.state.passengerDetails, [name]: value },
 		});
@@ -110,7 +113,8 @@ class Passengers extends React.Component {
 		});
 	}
 
-	onDatePickerChange(date, name) {
+	onDatePickerChange(date, formComplete, name) {
+		this.setState( { addformComplete: formComplete })
 		this.setState({
 			passengerDetails: { ...this.state.passengerDetails, [name]: date },
 		});
@@ -160,7 +164,7 @@ class Passengers extends React.Component {
 		return (
 			<>
 				<div style={{ paddingBottom: '10px' }} className="text-center btn-group-sm">
-          Passenger List &nbsp;
+					Passenger List &nbsp;
 					<Button className="btn btn-light buttonTheme" onClick={this.toggle}>
 						<FontAwesomeIcon icon={faUser} /> Add
 					</Button>
@@ -178,11 +182,11 @@ class Passengers extends React.Component {
 						/>
 					</ModalBody>
 					<ModalFooter>
-						<Button className="btn btn-light buttonTheme" color="primary" onClick={this.savePassenger}>
-              Save
+						<Button className="btn btn-light buttonTheme" color="primary" onClick={this.savePassenger} disabled={!this.state.addformComplete}>
+							Save
 						</Button>{' '}
 						<Button className="btn btn-light buttonTheme" color="secondary" onClick={this.toggle}>
-              Cancel
+							Cancel
 						</Button>
 					</ModalFooter>
 				</Modal>
@@ -223,10 +227,10 @@ class Passengers extends React.Component {
 					</ModalBody>
 					<ModalFooter>
 						<Button className="btn btn-light buttonTheme" color="primary" onClick={this.updateEditPassenger}>
-              Update
+							Update
 						</Button>{' '}
 						<Button className="btn btn-light buttonTheme" color="secondary" onClick={this.editToggle}>
-              Cancel
+							Cancel
 						</Button>
 					</ModalFooter>
 				</Modal>
