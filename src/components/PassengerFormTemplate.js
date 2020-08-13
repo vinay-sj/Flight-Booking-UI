@@ -16,24 +16,27 @@ class PassengerFormTemplate extends React.Component {
 				emailState: false,
 				passState: false,
 				phoneState: false,
-			}
+			},
+			formComplete: false,
 		};
 		this.updateBirthDate = this.updateBirthDate.bind(this);
 		this.updateState = this.updateState.bind(this);
 		this.validateEmail = this.validateEmail.bind(this);
 		this.validatePassport = this.validatePassport.bind(this);
 		this.validatePhone = this.validatePhone.bind(this);
+		this.onFormChange = this.onFormChange.bind(this);
+		this.onFormDatePickerChange = this.onFormDatePickerChange.bind(this);
 	}
 
-	updateBirthDate(date) {
-		this.setState({
+	async updateBirthDate(date) {
+		await this.setState({
 			birthDate: date,
 		});
 	}
 
-	updateState(event) {
+	async updateState(event) {
 		const { name } = event.target;
-		this.setState({
+		await this.setState({
 			[name]:event.target.value
 		});
 	}
@@ -44,8 +47,9 @@ class PassengerFormTemplate extends React.Component {
 
 		if (emailRex.test(e.target.value)) {
 			validate.emailState = false;
-			this.props.onChange(e, i);
+			// this.onFormChange(e, i);
 			this.updateState(e);
+			this.onFormChange(e, i);
 		} else {
 			validate.emailState = true;
 		}
@@ -59,8 +63,8 @@ class PassengerFormTemplate extends React.Component {
 
 		if (phoneRex.test(e.target.value)) {
 			validate.phoneState = false;
-			this.props.onChange(e, i);
 			this.updateState(e);
+			this.onFormChange(e, i);
 		}else {
 			validate.phoneState = true;
 		}
@@ -68,13 +72,13 @@ class PassengerFormTemplate extends React.Component {
 	}
 
 	validatePassport(e, i) {
-		const passRex = /[A-Z]{2}[0-9]{7}/;
+		const passRex = /[A-Z]{2}[0-9]{7}$/;
 		let { validate } = this.state;
 
 		if (passRex.test(e.target.value)) {
 			validate.passState = false;
-			this.props.onChange(e, i);
 			this.updateState(e);
+			this.onFormChange(e, i);
 		} else {
 			validate.passState = true;
 		}
@@ -82,8 +86,26 @@ class PassengerFormTemplate extends React.Component {
 		this.setState({ validate });
 	}
 
+	onFormChange(event, i) {
+		// this.updateState(event);
+		const { onChange } = this.props;
+		const { birthDate, name, contactNo, emailId, gender, passPortNo } = this.state;
+		const formComplete = (birthDate!=='' && name!=='' && contactNo!=='' && emailId!=='' && gender!=='' && passPortNo!=='');
+		this.setState({ formComplete: formComplete });
+		onChange(event, (birthDate!='' && name!='' && contactNo!='' && emailId!='' && gender!='' && passPortNo!=''),  i);
+	}
+
+	onFormDatePickerChange(event, i) {
+		// this.updateBirthDate(event);
+		const { onDatePickerChange } = this.props;
+		const { birthDate, name, contactNo, emailId, gender, passPortNo } = this.state;
+		// const formComplete = (birthDate && name && contactNo && emailId && gender && passPortNo);
+		// this.setState({ formComplete: formComplete });
+		onDatePickerChange(event, (birthDate!='' && name!='' && contactNo!='' && emailId!='' && gender!='' && passPortNo!=''), 'birthDate', i);
+	}
+
 	render() {
-		const { onChange, index, onDatePickerChange, addPassenger } = this.props;
+		const { index, addPassenger } = this.props;
 		let { passengerValue } = this.props;
 		passengerValue = passengerValue || [];
 		const { birthDate } = this.state;
@@ -113,7 +135,7 @@ class PassengerFormTemplate extends React.Component {
 								placeholder="Name"
 								onBlur={(event) => {
 									this.updateState(event);
-									onChange(event, i);
+									this.onFormChange(event, i);
 								}}
 							/>
 						</Col>
@@ -126,11 +148,11 @@ class PassengerFormTemplate extends React.Component {
 									<Input
 										type="select"
 										id="gender"
-										defaultValue={passengerValue.gender||this.state.gender}
+										value={passengerValue.gender||this.state.gender}
 										name="gender"
-										onBlur={(event) => {
+										onChange={(event) => {
 											this.updateState(event);
-											onChange(event, i);
+											this.onFormChange(event, i);
 										}}
 									>
 										<option>Select Gender</option>
@@ -151,7 +173,7 @@ class PassengerFormTemplate extends React.Component {
 										selected={(passengerValue.birthDate) ? new Date(passengerValue.birthDate) : birthDate}
 										onChange={(date) => {
 											this.updateBirthDate(date);
-											onDatePickerChange(date, 'birthDate', i);
+											this.onFormDatePickerChange(date, i);
 										}}
 										withPortal={window.innerWidth <= 900 ? true : false}
 										className='custom-date-picker-css col-sm-12'
@@ -178,7 +200,6 @@ class PassengerFormTemplate extends React.Component {
 									/>
 									<FormFeedback>Please enter email in the proper format: wanda@maximoff.com</FormFeedback>
 								</div>
-
 							</FormGroup>
 						</Col>
 						<Col md={6}>
@@ -201,7 +222,6 @@ class PassengerFormTemplate extends React.Component {
 							</FormGroup>
 						</Col>
 					</Row>
-
 					<FormGroup row>
 						<Col sm={12}>
 							<Label for="passport">Passport Number</Label>
