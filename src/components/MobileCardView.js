@@ -14,7 +14,7 @@ const MobileCardView = ({keysArray, valuesArray, actionHandler, currentIndex, pr
 	});
 
 	return (
-		<Accordion>
+		<Accordion defaultActiveKey={currentIndex+1}>
 			<Card>
 				<Accordion.Toggle as={Card.Header} eventKey={currentIndex+1}>
 					<Form>
