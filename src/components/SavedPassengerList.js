@@ -56,6 +56,7 @@ class Passengers extends React.Component {
 		this.editPassengers = this.editPassengers.bind(this);
 		this.updateEditPassenger = this.updateEditPassenger.bind(this);
 		this.editToggle = this.editToggle.bind(this);
+		this.onFormCompletion = this.onFormCompletion.bind(this);
 	}
 
 	async savePassenger() {
@@ -97,12 +98,15 @@ class Passengers extends React.Component {
 		});
 	}
 
-	onChange(event, formComplete) {
+	onChange(event) {
 		const { name, value } = event.target;
-		this.setState( { addformComplete: formComplete })
 		this.setState({
 			passengerDetails: { ...this.state.passengerDetails, [name]: value },
 		});
+	}
+
+	onFormCompletion(formComplete){
+		this.setState({addformComplete:formComplete});
 	}
 
 	onUpdateDatePickerChange(date, name, index) {
@@ -113,8 +117,7 @@ class Passengers extends React.Component {
 		});
 	}
 
-	onDatePickerChange(date, formComplete, name) {
-		this.setState( { addformComplete: formComplete })
+	onDatePickerChange(date, name) {
 		this.setState({
 			passengerDetails: { ...this.state.passengerDetails, [name]: date },
 		});
@@ -150,11 +153,6 @@ class Passengers extends React.Component {
 	}
 
 	render() {
-		// let isEnabled = false;
-		// if (this.state.passengerDetails) {
-		// 	isEnabled = Object.keys(this.state.passengerDetails).length >= 6 && !Object.values(this.state.validate).every(Boolean);
-		// }
-
 		const { modal, editModal, passengerList, editIndex, editPassengerList } = this.state;
 		const recPerpage = numberofPages;
 		for (let i = 0; i < numberofPages; i++) {
@@ -176,9 +174,8 @@ class Passengers extends React.Component {
 							onChange={this.onChange}
 							onDatePickerChange={this.onDatePickerChange}
 							addPassenger={null}
-							// validateEmail={this.validateEmail}
-							// validatePassport={this.validatePassport}
-							// validate={this.state.validate}
+							onFormCompletion={this.onFormCompletion}
+							passengerValue={this.state.passengerDetails}
 						/>
 					</ModalBody>
 					<ModalFooter>
@@ -195,7 +192,7 @@ class Passengers extends React.Component {
 					<PassengerListTable
 						passengers={displayedRecords[this.state.selectedPage - 1]}
 						actionButtons={(index) => {
-							return <ActionButtons index={index} deletePassengers={this.deletePassengers} editPassengers={this.editPassengers} />;
+							return <ActionButtons index={((this.state.selectedPage - 1)*numberofPages)+index} deletePassengers={this.deletePassengers} editPassengers={this.editPassengers} />;
 						}}
 					/>
 				) : (
@@ -219,14 +216,15 @@ class Passengers extends React.Component {
 					<ModalBody>
 						<PassengerFormTemplate
 							onChange={this.onUpdateChange}
-							index={editIndex}
+							index={ editIndex }
 							onDatePickerChange={this.onUpdateDatePickerChange}
 							addPassenger={null}
-							passengerValue={editPassengerList[editIndex]}
+							passengerValue={editPassengerList[editIndex] }
+							onFormCompletion={this.onFormCompletion}
 						/>
 					</ModalBody>
 					<ModalFooter>
-						<Button className="btn btn-light buttonTheme" color="primary" onClick={this.updateEditPassenger}>
+						<Button className="btn btn-light buttonTheme" color="primary" onClick={this.updateEditPassenger} >
 							Update
 						</Button>{' '}
 						<Button className="btn btn-light buttonTheme" color="secondary" onClick={this.editToggle}>

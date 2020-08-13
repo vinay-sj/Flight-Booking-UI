@@ -278,9 +278,9 @@ class Search extends React.Component {
 										min="0"
 										name="price"
 										id="price"
-										defaultValue={this.state.price}
+										value={this.state.price}
 										placeholder="Price"
-										onBlur={(event) => this.setState({ price: event.target.value })}
+										onChange={(event) => this.setState({ price: event.target.value })}
 									/>
 								</FormGroup>
 							</Col>
