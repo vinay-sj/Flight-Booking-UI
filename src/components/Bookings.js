@@ -213,18 +213,17 @@ class Bookings extends React.Component {
 	async loadBookingsRound() {
 		const bookingsRound = await getRoundTripBookings();
 		bookingRoundLoaded = true;
-		console.log(bookingsRound);
 		this.setState({ bookingsRound: bookingsRound });
 	}
 
 	async deleteBookings(isRoundTrip, index) {
 		if (!isRoundTrip) {
-			const calcIndex = ((this.state.selectedPageOneWay - 1)*numberofPages)+index
+			const calcIndex = ((this.state.selectedPageOneWay - 1)*numberofPages)+index;
 			const { bookingsOne } = this.state;
 			await deleteBooking(isRoundTrip, bookingsOne[calcIndex]._id);
 			this.loadBookingsOne();
 		} else {
-			const calcIndex = ((this.state.selectedPageRound - 1)*numberofPages)+index
+			const calcIndex = ((this.state.selectedPageRound - 1)*numberofPages)+index;
 			const { bookingsRound } = this.state;
 			await deleteBooking(isRoundTrip, bookingsRound[calcIndex]._id);
 			this.loadBookingsRound();

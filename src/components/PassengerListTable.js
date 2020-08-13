@@ -45,7 +45,6 @@ const PassengerRows = ({ passengers, actionButtons, index, toggle }) => {
 class PassengerListTable extends React.Component {
 	render() {
 		const { passengers, actionButtons, index, toggle } = this.props;
-		console.log(passengers);
 		return window.innerWidth > 620 ? (
 			<Table responsive hover>
 				<thead>

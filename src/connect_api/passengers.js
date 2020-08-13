@@ -22,7 +22,7 @@ export async function getPassengers()  {
 
 
 	}catch(err){
-		console.log(err);
+		return err;
 	}
 	return passengers;
 
@@ -55,9 +55,8 @@ export async function deletePassenger(id) {
 		}, (err) => {return err;});
 	}
 	catch(err){
-		console.log(err);
+		return err;
 	}
-	console.log(success);
 	return success;
 }
 
@@ -76,7 +75,7 @@ export async function editPassenger(id,reqBody) {
 			data: reqBody,
 		});
 	}catch(err){
-		console.log(err);
+		return err;
 	}
 	return success;
 }

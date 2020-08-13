@@ -31,7 +31,7 @@ export async function getPlaces(searchString){
 			return(data);
 		})
 		.catch((error) => {
-			console.log(error);
+			return error;
 		});
 
 	let newArray = data.Places.map(({ PlaceId, PlaceName }) => ({ PlaceId, PlaceName }));
@@ -42,9 +42,7 @@ export async function getPlaces(searchString){
 		delete obj.PlaceId;
 		return obj;
 	});
-	console.log(newArray);
 	return newArray;
-	//return places
 }
 
 //getPlaces(searchString);
@@ -77,9 +75,8 @@ export async function getPlaces(searchString){
 // 			delete obj.detailedName;
 // 			return obj;
 // 		});
-// 		//console.log(airports);
 // 	} catch (err) {
-// 		console.log(err);
+// 		return err;
 // 	}
 // 	return airports;
 

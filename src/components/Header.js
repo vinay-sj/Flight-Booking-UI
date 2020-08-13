@@ -30,7 +30,7 @@ class Example extends React.Component {
 	async loginHandler(loginResponse) {
 		userName = loginResponse && loginResponse.profileObj ? loginResponse.profileObj.name : null;
 		if (loginResponse.tokenId) {
-			const serverSignInResponse = await fetch(`${UI_API_ENDPOINT}/auth/signin`, {
+			await fetch(`${UI_API_ENDPOINT}/auth/signin`, {
 				method: 'POST',
 				credentials: 'include',
 				headers: {
@@ -38,10 +38,6 @@ class Example extends React.Component {
 				},
 				body: JSON.stringify({ google_tokenId: loginResponse.tokenId }),
 			});
-			const body = await serverSignInResponse.text();
-			const result = JSON.parse(body);
-			const { signedIn, givenName } = result;
-			console.log({ signedIn, givenName });
 		}
 		this.props.updateUserDetails(loginResponse);
 		this.setState({ isUserLoggedIn: !this.state.isUserLoggedIn });
@@ -52,9 +48,7 @@ class Example extends React.Component {
 			method: 'POST',
 			credentials: 'include',
 		});
-		const body = await serverSignOutResponse.text();
-		const result = JSON.parse(body);
-		console.log(result);
+		await serverSignOutResponse.text();
 		this.props.updateUserDetails(logoutresponse);
 		await this.setState({ isUserLoggedIn: !this.state.isUserLoggedIn });
 		window.location.replace('/');
@@ -95,7 +89,7 @@ class Example extends React.Component {
 							clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
 							buttonText="Login"
 							onSuccess={(res) => this.loginHandler(res)}
-							onFailure={(err) => console.log(err)}
+							onFailure={(err) => {return err;}}
 							cookiePolicy={'single_host_origin'}
 							isSignedIn={true}
 						/>

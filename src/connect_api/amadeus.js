@@ -5,7 +5,6 @@ let amadeus = new Amadeus({
 	clientSecret: process.env.REACT_APP_AMADEUS_CLIENT_SECRET,
 });
 
-console.log(process.env.REACT_APP_AMADEUS_CLIENT_ID);
 
 export default async function getitenaries(origin, destination, onwardDate, adults) {
 	try {
@@ -38,10 +37,9 @@ export default async function getitenaries(origin, destination, onwardDate, adul
 
 		flights = flights.filter((flight) => Object.entries(filters).every(([key, val]) => (val !== '' ? flight[key] === val : true)));
 
-		console.log(flights); // remove this later
 		return flights || [];
 	} catch (err) {
-		console.log(err);
+		return err;
 	}
 }
 

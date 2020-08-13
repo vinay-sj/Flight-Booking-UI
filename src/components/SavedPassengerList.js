@@ -69,8 +69,6 @@ class Passengers extends React.Component {
 
 	async updateEditPassenger() {
 		const { editPassengerList, editIndex } = this.state;
-		console.log('edit');
-		console.log(editPassengerList[editIndex]);
 		await editPassenger(editPassengerList[editIndex]._id, editPassengerList[editIndex]);
 		await this.loadData();
 		this.editToggle();

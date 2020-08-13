@@ -38,7 +38,7 @@ export async function getRoundTripBookings() {
 
 		roundTripBookings = roundTripBookings.sort((a, b) => (a.onwardJourneyDate > b.onwardJourneyDate ? 1 : -1));
 	} catch (err) {
-		console.log(err);
+		return err;
 	}
 	return roundTripBookings || [];
 }
@@ -78,7 +78,7 @@ export async function getOneWayBookings() {
 
 		oneWayBookings = oneWayBookings.sort((a, b) => (a.onwardJourneyDate > b.onwardJourneyDate ? 1 : -1));
 	} catch (err) {
-		console.log(err);
+		return err;
 	}
 	return oneWayBookings || [];
 }
@@ -101,7 +101,7 @@ export async function deleteBooking(isRoundTrip, id) {
 			return response;
 		}, (err) => {return err;});
 	} catch (err) {
-		console.log(err);
+		return err;
 	}
 	return success;
 }

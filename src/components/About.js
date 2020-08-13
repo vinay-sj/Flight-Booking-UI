@@ -20,7 +20,6 @@ class About extends React.Component {
 		const json = require('../mock_json/about.json');
 		const teamMembers = JSON.parse(JSON.stringify(json));
 		this.setState({ teamMembers: teamMembers });
-		console.log(teamMembers[0].avatar);
 	}
 
 	render() {

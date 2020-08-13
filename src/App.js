@@ -39,9 +39,6 @@ class App extends React.Component {
 	}
 
 	render() {
-		if (this.state.userData){
-			console.log(this.state.userData.profileObj);
-		}
 		return (
 			<div>
 				<div className=' screenType'>
