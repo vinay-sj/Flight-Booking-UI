@@ -6,7 +6,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import {MobileCardView, CustomLoaderSpinner} from '../components/MobileCardView';
 import PaginationComponent from 'react-reactstrap-pagination';
 import { FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import { faFilter, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
+import { faFilter, faCheckDouble, faUndo } from '@fortawesome/free-solid-svg-icons';
 
 let displayedRecordsOneWay = {}, displayedRecordsRound = {}, numberofPages = 5;
 let onwardFlightsLoaded = false, returnFlightsLoaded = false;
@@ -172,9 +172,7 @@ class Search extends React.Component {
 	}
 
 	async onReset() {
-		this.setState({price:''});
-		this.setState({departure:''});
-		this.setState({arrival:''});
+		this.setState({price:'', departure:'', arrival:''});
 		await this.loadData();
 	}
 
@@ -315,10 +313,11 @@ class Search extends React.Component {
 							</Col>
 							<Col  className={window.innerWidth < 900 ? 'text-center' : 'text-center form-inline'}>
 								{window.innerWidth < 900 ? <Button onClick={this.onFilter}>Filter</Button> :
-									<NavLink md={1} onClick={this.onFilter} className='zoom' href='#' target='_blank'><FontAwesomeIcon swapOpacity={true} size='lg' icon={faFilter}/></NavLink>}
+									<NavLink onClick={this.onFilter} tag='Filter' className='zoom' href='#' target='_blank'><FontAwesomeIcon swapOpacity={true} size='lg' icon={faFilter}/></NavLink>}
 							</Col>
-							<Col className="text-center">
-								<Button onClick={this.onReset}>Reset</Button>
+							<Col  className={window.innerWidth < 900 ? 'text-center' : 'text-center form-inline'}>
+								{window.innerWidth < 900 ? <Button onClick={this.onReset}>Reset</Button> :
+									<NavLink onClick={this.onReset} tag='Reset' className='zoom' href='#' target='_blank'><FontAwesomeIcon swapOpacity={true} size='lg' icon={faUndo}/></NavLink>}
 							</Col>
 						</Row>
 					</Form>

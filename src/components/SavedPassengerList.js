@@ -79,7 +79,7 @@ class Passengers extends React.Component {
 
 	toggle() {
 		const { modal } = this.state;
-		this.setState({ addformComplete: false })
+		this.setState({ addformComplete: false });
 		this.setState({ modal: !modal });
 	}
 
@@ -99,7 +99,7 @@ class Passengers extends React.Component {
 
 	onChange(event, formComplete) {
 		const { name, value } = event.target;
-		this.setState( { addformComplete: formComplete })
+		this.setState( { addformComplete: formComplete });
 		this.setState({
 			passengerDetails: { ...this.state.passengerDetails, [name]: value },
 		});
@@ -114,7 +114,7 @@ class Passengers extends React.Component {
 	}
 
 	onDatePickerChange(date, formComplete, name) {
-		this.setState( { addformComplete: formComplete })
+		this.setState( { addformComplete: formComplete });
 		this.setState({
 			passengerDetails: { ...this.state.passengerDetails, [name]: date },
 		});
