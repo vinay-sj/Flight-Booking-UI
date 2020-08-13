@@ -219,13 +219,14 @@ class Bookings extends React.Component {
 
 	async deleteBookings(isRoundTrip, index) {
 		if (!isRoundTrip) {
+			const calcIndex = ((this.state.selectedPageOneWay - 1)*numberofPages)+index
 			const { bookingsOne } = this.state;
-			console.log(bookingsOne[index]);
-			await deleteBooking(isRoundTrip, bookingsOne[index]._id);
+			await deleteBooking(isRoundTrip, bookingsOne[calcIndex]._id);
 			this.loadBookingsOne();
 		} else {
+			const calcIndex = ((this.state.selectedPageRound - 1)*numberofPages)+index
 			const { bookingsRound } = this.state;
-			await deleteBooking(isRoundTrip, bookingsRound[index]._id);
+			await deleteBooking(isRoundTrip, bookingsRound[calcIndex]._id);
 			this.loadBookingsRound();
 		}
 	}
@@ -286,18 +287,6 @@ class Bookings extends React.Component {
 						/>
 					</Tab>
 				</Tabs>
-				{/* <Button className="btn btn-light buttonTheme" color="secondary" size="lg" onClick={this.toggleOne} block>
-          One Way Bookings
-				</Button>
-				<Button className="btn btn-light buttonTheme" color="secondary" size="lg" onClick={this.toggleRound} block>
-          Round Trip Bookings
-				</Button> */}
-				{/*<Button className='btn btn-light buttonTheme' color='secondary' size='lg' onClick={toggleCancel} block>*/}
-				{/*	Cancelled Bookings*/}
-				{/*</Button>*/}
-				{/*<Collapse isOpen={isToggleCancel}>*/}
-				{/*	<BookingTable bookingsRows={bookingsCancel} />*/}
-				{/*</Collapse>*/}
 			</>
 		);
 	}
