@@ -1,10 +1,12 @@
 import React from 'react';
-import { Form, FormGroup, Label, Input, Row, Col, Button, Jumbotron, Table, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Row, Col, Button, Jumbotron, Table, Modal, ModalHeader, ModalBody, ModalFooter, NavLink } from 'reactstrap';
 import { Tabs, Tab } from 'react-bootstrap';
 import getitenaries from '../connect_api/amadeus';
 import { LinkContainer } from 'react-router-bootstrap';
 import {MobileCardView, CustomLoaderSpinner} from '../components/MobileCardView';
 import PaginationComponent from 'react-reactstrap-pagination';
+import { FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { faFilter } from '@fortawesome/free-solid-svg-icons';
 
 let displayedRecordsOneWay = {}, displayedRecordsRound = {}, numberofPages = 5;
 let onwardFlightsLoaded = false, returnFlightsLoaded = false;
@@ -243,7 +245,7 @@ class Search extends React.Component {
 		return (
 			<>
 				<h4 className="text-center">Available Flights</h4>
-				<Jumbotron>
+				<Jumbotron className="custom-jumbotron-css">
 					<Form>
 						<Row form>
 							<Col md={3}>
@@ -260,7 +262,7 @@ class Search extends React.Component {
 									/>
 								</FormGroup>
 							</Col>
-							<Col md={4}>
+							<Col className='col-6 col-md-4'>
 								<FormGroup>
 									<Label for="departure">Departure</Label>
 									<Input
@@ -273,7 +275,7 @@ class Search extends React.Component {
 									/>
 								</FormGroup>
 							</Col>
-							<Col md={4}>
+							<Col className='col-6 col-md-4'>
 								<FormGroup>
 									<Label for="arrival">Arrival</Label>
 									<Input
@@ -289,12 +291,11 @@ class Search extends React.Component {
 									/>
 								</FormGroup>
 							</Col>
-							<Col className="text-center">
-								<br />
-								<Button onClick={this.onFilter}>Filter</Button>
+							<Col  className={window.innerWidth < 900 ? 'text-center' : 'text-center form-inline'}>
+								{window.innerWidth < 900 ? <Button onClick={this.onFilter}>Filter</Button> :
+									<NavLink md={1} onClick={this.onFilter} className='zoom' href='#' target='_blank'><FontAwesomeIcon swapOpacity={true} size='lg' icon={faFilter}/></NavLink>}
 							</Col>
 							<Col className="text-center">
-								<br />
 								<Button onClick={this.onReset}>Reset</Button>
 							</Col>
 						</Row>

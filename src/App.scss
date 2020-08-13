@@ -33,6 +33,12 @@ nav {
   }
 }
 
+.custom-jumbotron-css {
+  &.jumbotron {
+    padding: 0.7rem;
+  }
+}
+
 .custom-date-picker-css {
   color: rgb(128, 128, 128);
   box-sizing: border-box;
