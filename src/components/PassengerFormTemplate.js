@@ -24,9 +24,11 @@ class PassengerFormTemplate extends React.Component {
 		this.validateEmail = this.validateEmail.bind(this);
 		this.validatePassport = this.validatePassport.bind(this);
 		this.validatePhone = this.validatePhone.bind(this);
-		// this.onFormChange = this.onFormChange.bind(this);
-		// this.onFormDatePickerChange = this.onFormDatePickerChange.bind(this);
 	}
+
+	// componentDidMount() {
+	// 	this.props.onDatePickerChange(this.state.birthDate, 'birthDate', this.props.index);
+	// }
 
 	async updateBirthDate(date) {
 		await this.setState({
