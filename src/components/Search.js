@@ -313,11 +313,11 @@ class Search extends React.Component {
 							</Col>
 							<Col  className={window.innerWidth < 900 ? 'text-center' : 'text-center form-inline'}>
 								{window.innerWidth < 900 ? <Button onClick={this.onFilter}>Filter</Button> :
-									<NavLink onClick={this.onFilter} tag='Filter' className='zoom' href='#' target='_blank'><FontAwesomeIcon swapOpacity={true} size='lg' icon={faFilter}/></NavLink>}
+									<NavLink onClick={this.onFilter} className='zoom' href='#' target='_blank'><FontAwesomeIcon swapOpacity={true} size='lg' icon={faFilter}/></NavLink>}
 							</Col>
 							<Col  className={window.innerWidth < 900 ? 'text-center' : 'text-center form-inline'}>
 								{window.innerWidth < 900 ? <Button onClick={this.onReset}>Reset</Button> :
-									<NavLink onClick={this.onReset} tag='Reset' className='zoom' href='#' target='_blank'><FontAwesomeIcon swapOpacity={true} size='lg' icon={faUndo}/></NavLink>}
+									<NavLink onClick={this.onReset} className='zoom' href='#' target='_blank'><FontAwesomeIcon swapOpacity={true} size='lg' icon={faUndo}/></NavLink>}
 							</Col>
 						</Row>
 					</Form>
