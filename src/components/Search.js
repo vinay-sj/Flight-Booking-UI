@@ -58,7 +58,12 @@ const FlightRow = (props) => {
 			<td>{flight.duration}</td>
 			<td>{'$' + flight.price}</td>
 			<td>
-				<Button className="btn btn-light buttonTheme" onClick={() => handleBooking(props)}>
+				<Button className="btn btn-light buttonTheme"
+					onClick={() => {
+						handleBooking(props);
+						props.set(index);
+					}}
+					active={props.selected === index}>
           Select
 				</Button>
 			</td>
@@ -69,7 +74,12 @@ const FlightRow = (props) => {
 			keysArray={keysArray.slice(0, 9)}
 			valuesArray={valuesArray}
 			actionHandler={
-				<Button className="btn btn-light buttonTheme" onClick={() => handleBooking(props)}>
+				<Button className="btn btn-light buttonTheme"
+					onClick={() => {
+						handleBooking(props);
+						props.set(index);
+					}}
+					active={props.selected === index}>
           Select
 				</Button>
 			}
@@ -79,9 +89,9 @@ const FlightRow = (props) => {
 	);
 };
 
-const FlightTable = ({ flights, direction = 1 }) => {
+const FlightTable = ({ flights, direction = 1, set, selected }) => {
 	const flightRows = (flights || []).map((flight, index) => (
-		<FlightRow key={flight.id} flight={flight} index={index} direction={direction} />
+		<FlightRow key={flight.id} flight={flight} index={index} direction={direction} set={set} selected={selected}/>
 	));
 	if (!flights) {
 		return null;
@@ -129,12 +139,28 @@ class Search extends React.Component {
 			openModal: false,
 			selectedPageOneWay: 1,
 			selectedPageRound: 1,
+			selectedF: null,
+			selectedR: null,
 		};
 
+		this.changeSF = this.changeSF.bind(this);
+		this.changeSR = this.changeSR.bind(this);
 		this.isValidSelectionFn = this.isValidSelectionFn.bind(this);
 		this.onFilter = this.onFilter.bind(this);
 		this.loadData = this.loadData.bind(this);
 		this.onReset = this.onReset.bind(this);
+	}
+
+	changeSF(index) {
+		this.setState({
+			selectedF: index,
+		});
+	}
+
+	changeSR(index){
+		this.setState({
+			selectedR: index,
+		});
 	}
 
 	componentDidMount() {
@@ -303,7 +329,7 @@ class Search extends React.Component {
 				<Tabs className="text-center" defaultActiveKey="oneway" id="flight-search-details">
 					<Tab tabClassName="col-6" eventKey="oneway" title="Forward Flights">
 						{flights_forward.length ? (
-							<FlightTable flights={displayedRecordsOneWay[this.state.selectedPageOneWay -1]} direction={1} />
+							<FlightTable flights={displayedRecordsOneWay[this.state.selectedPageOneWay -1]} direction={1} set={this.changeSF} selected={this.state.selectedF}/>
 						) : (<div>
 							{onwardFlightsLoaded && !flights_forward.length ? <div>No data to display</div> :
 								<CustomLoaderSpinner/>}
@@ -320,7 +346,7 @@ class Search extends React.Component {
 					{isReturnValid && (
 						<Tab tabClassName="col-6" eventKey="return" title="Return Flights">
 							{flights_return.length ? (
-								<FlightTable flights={displayedRecordsRound[this.state.selectedPageRound -1]} direction={2} />
+								<FlightTable flights={displayedRecordsRound[this.state.selectedPageRound -1]} direction={2} set={this.changeSR} selected={this.state.selectedR} />
 							) : (<div>
 								{returnFlightsLoaded && !flights_return.length ? <div>No data to display</div> :
 									<CustomLoaderSpinner/>}
